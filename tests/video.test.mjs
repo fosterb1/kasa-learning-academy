@@ -14,7 +14,7 @@ describe('YouTube URL guard', () => {
     '', 'https://youtube.com.evil.test/watch?v=dQw4w9WgXcQ',
     'https://evil.test/redirect?url=https://youtube.com/watch?v=dQw4w9WgXcQ',
     'javascript:alert(1)', 'http://youtube.com/watch?v=dQw4w9WgXcQ',
-    'https://www.youtube.com/playlist?list=dQw4w9WgXcQ', 'https://www.youtube.com/watch?v=not-a-video',
+    'https://www.youtube.com/playlist?list=dQw4w9WgXcQ', 'https://www.youtube.com/watch?v=not-video',
   ]) it('rejects nonvideo or unsafe URLs', () => assert.equal(youtubeVideoId(link), null))
 })
 
