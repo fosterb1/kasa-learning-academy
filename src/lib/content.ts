@@ -48,53 +48,68 @@ async function content() {
   return getPayload({ config })
 }
 
+/**
+ * Keep the bundled free curriculum visible between the initial schema
+ * migration and the very first seed. Never expose fallback material when
+ * any record exists in the corresponding CMS collection, including drafts.
+ */
+async function whileUnseeded<T>(
+  db: Awaited<ReturnType<typeof content>>,
+  collection: 'modules' | 'lessons' | 'challenges' | 'guides',
+  actual: T,
+  seed: T,
+): Promise<T> {
+  const count = await db.count({ collection, overrideAccess: true })
+  return count.totalDocs === 0 ? seed : actual
+}
+
 export async function modules(): Promise<AcademyModule[]> {
   return readOrFallback(async () => {
     const db = await content()
     const res = await db.find({ collection: 'modules', limit: 100, sort: 'order', overrideAccess: false })
-    return res.docs as unknown as AcademyModule[]
+    return res.docs.length ? res.docs as unknown as AcademyModule[] : whileUnseeded(db, 'modules', [] as AcademyModule[], fallbackModules)
   }, () => fallbackModules)
 }
 export async function lessons(): Promise<Lesson[]> {
   return readOrFallback(async () => {
     const db = await content()
     const res = await db.find({ collection: 'lessons', limit: 200, sort: 'order', where: published, depth: 1, overrideAccess: false })
-    return res.docs as unknown as Lesson[]
+    return res.docs.length ? res.docs as unknown as Lesson[] : whileUnseeded(db, 'lessons', [] as Lesson[], fallbackLessons)
   }, () => fallbackLessons)
 }
 export async function lessonBySlug(slug: string): Promise<Lesson | null> {
   return readOrFallback(async () => {
     const db = await content()
     const res = await db.find({ collection: 'lessons', limit: 1, depth: 1, overrideAccess: false, where: { and: [published, { slug: { equals: slug } }] } })
-    return (res.docs[0] as unknown as Lesson | undefined) ?? null
+    return res.docs.length ? res.docs[0] as unknown as Lesson : whileUnseeded(db, 'lessons', null as Lesson | null, fallbackLessons.find(item => item.slug === slug) ?? null)
   }, () => fallbackLessons.find(item => item.slug === slug) ?? null)
 }
 export async function challenges(): Promise<Challenge[]> {
   return readOrFallback(async () => {
     const db = await content()
     const res = await db.find({ collection: 'challenges', limit: 150, sort: 'order', overrideAccess: false, where: published })
-    return res.docs as unknown as Challenge[]
+    return res.docs.length ? res.docs as unknown as Challenge[] : whileUnseeded(db, 'challenges', [] as Challenge[], fallbackChallenges)
   }, () => fallbackChallenges)
 }
 export async function challengeBySlug(slug: string): Promise<Challenge | null> {
   return readOrFallback(async () => {
     const db = await content()
     const res = await db.find({ collection: 'challenges', limit: 1, overrideAccess: false, where: { and: [published, { slug: { equals: slug } }] } })
-    return (res.docs[0] as unknown as Challenge | undefined) ?? null
+    return res.docs.length ? res.docs[0] as unknown as Challenge : whileUnseeded(db, 'challenges', null as Challenge | null, fallbackChallenges.find(item => item.slug === slug) ?? null)
   }, () => fallbackChallenges.find(item => item.slug === slug) ?? null)
 }
 export async function guides(): Promise<Guide[]> {
   return readOrFallback(async () => {
     const db = await content()
     const res = await db.find({ collection: 'guides', limit: 100, sort: 'order', overrideAccess: false, where: published })
-    return res.docs as unknown as Guide[]
+    return res.docs.length ? res.docs as unknown as Guide[] : whileUnseeded(db, 'guides', [] as Guide[], fallbackGuides)
   }, () => fallbackGuides)
 }
 export async function guideBySlug(slug: string): Promise<Guide | null> {
   return readOrFallback(async () => {
     const db = await content()
     const res = await db.find({ collection: 'guides', limit: 1, overrideAccess: false, where: { and: [published, { slug: { equals: slug } }] } })
-    return (res.docs[0] as unknown as Guide | undefined) ?? null
+    return res.docs.length ? res.docs[0] as unknown as Guide : whileUnseeded(db, 'guides', null as Guide | null, fallbackGuides.find(item => item.slug === slug) ?? null)
   }, () => fallbackGuides.find(item => item.slug === slug) ?? null)
 }
 export async function announcements(): Promise<Announcement[]> {
