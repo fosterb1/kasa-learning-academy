@@ -4,10 +4,12 @@
   "private": true,
   "type": "module",
   "description": "Free, CMS-powered Kasa programming education",
-  "engines": { "node": ">=24.22.3" },
+  "engines": {
+    "node": "^24.22.3"
+  },
   "scripts": {
     "dev": "next dev",
-    "build": "payload build",
+    "build": "payload generate:importmap && next build",
     "start": "next start",
     "generate:types": "payload generate:types",
     "db:migrate": "payload migrate",
