@@ -1,0 +1,17 @@
+services:
+  postgres:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_USER: kasa
+      POSTGRES_PASSWORD: kasa_local_only
+      POSTGRES_DB: kasa_academy
+    ports:
+      - '127.0.0.1:5432:5432'
+    volumes:
+      - kasa-postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U kasa -d kasa_academy']
+      interval: 5s
+      retries: 10
+volumes:
+  kasa-postgres-data:
