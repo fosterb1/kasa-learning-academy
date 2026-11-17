@@ -11,6 +11,8 @@ export type Lesson = {
   learningPoints: LearningPoint[]; sourceCode: string; expectedOutput: string;
   starterInput: string; challenge: string; quizQuestion: string;
   quizChoices: QuizChoice[]; correctChoice: number; quizExplanation: string;
+  videoUrl?: string | null; videoTitle?: string | null; videoLanguage?: 'twi'|'english'|'bilingual'|null;
+  transcriptTwi?: string | null; transcriptEnglish?: string | null;
 }
 export type Challenge = { id: string | number; title: string; slug: string; difficulty: string; order: number; task: string; starterCode: string; starterInput: string; expectedOutput: string; hint: string }
 export type Guide = { id: string | number; title: string; slug: string; summary: string; order: number; bodyMarkdown: string }
