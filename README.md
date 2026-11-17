@@ -1,5 +1,83 @@
-# Kasa Learning Academy
+# Kasa Learning Academy — CMS-powered free programming courses
 
-Free, CMS-powered lessons for the Kasa Programming Language.
+A **separate, public learning website** for [Kasa Programming Language](https://github.com/fosterb1/kasa_programming_language). Teachers and students can learn Kasa for free; an authorized administrator can edit modules, lessons, code examples, challenges, setup guides and announcements at `/admin` **without changing GitHub code or redeploying**.
 
-The first implementation is being prepared on a development branch.
+## Features
+
+- Responsive learning site: course catalog, 20 prepared interactive lessons, 8 coding challenges and 3 setup guides
+- Browser-based Twi-first Kasa code editor with local JavaScript worker, Run, Check and input for `bisa()`
+- Lesson quizzes, expected outputs, progress completion stored **only in the browser** (no learner signup)
+- Payload CMS v3 on Next.js with PostgreSQL, secured administrator authentication, drafts, versions and publishing
+- Admin-controlled lessons, module ordering, challenges, guides and news
+- First-admin bootstrap and **idempotent** curriculum seeding scripts
+
+## Requirements
+
+- **Node.js 24.22.3+** (aligned with the current Payload/Next requirements); npm
+- Docker Engine with Compose, or an available PostgreSQL server
+- This is a **dynamic Node + PostgreSQL web application**, **not a static ZIP**. Netlify Drop alone will not host its CMS.
+
+## Local installation
+
+```bash
+git clone https://github.com/fosterb1/kasa-learning-academy.git
+cd kasa-learning-academy
+cp .env.example .env.local
+# Edit .env.local: set unique PAYLOAD_SECRET (at least 32 characters),
+# ADMIN_EMAIL, and a strong ADMIN_PASSWORD of at least 16 characters.
+docker compose up -d
+npm install
+npm run generate:importmap
+npm run generate:types
+npm run bootstrap:admin
+# To import the starter content once, set SEED_CONTENT=yes in .env.local:
+npm run seed
+npm run dev
+```
+
+For Windows PowerShell, use `Copy-Item .env.example .env.local` instead of `cp`. Open **http://localhost:3000** for the public site, and **http://localhost:3000/admin** to log in as the administrator created by the bootstrap script. The seed script adds 20 published lessons, 8 challenges, 3 setup guides and 5 modules; it **never overwrites** existing documents.
+
+### First administrator: important security detail
+
+The public website does **not** allow account creation. You **must** run `npm run bootstrap:admin` once with private environment variables before logging in. Do not commit `.env.local` or run the bootstrap script with a shared/default password. Once a user exists, rerunning it does not change that account's password. Administrators manage any additional users through `/admin`.
+
+### Content workflow
+
+Log into `/admin`, open **Lessons**, and choose Create New. Choose a module, enter text, code and an optional quiz, then save as Draft. Use Publish to make the lesson visible to everyone. The same process applies to Guides, Challenges and Announcements. Visitors only receive published documents.
+
+## Hosting online
+
+Use a host that supports **a persistent Node server and PostgreSQL**. Create a managed Postgres database, deploy this GitHub repository as a Node web service, set `DATABASE_URL`, `PAYLOAD_SECRET` and `NEXT_PUBLIC_SITE_URL=https://your-academy-domain.example`, and configure Node 24+. The build command is `npm install && npm run build`, and the start command is `npm run start`. **Before the first production start**, create and commit a reviewed initial PostgreSQL migration (`npm run db:migrate:create` against a development database), then run `npm run db:migrate` against production. Never rely on development database schema push in production. Use a platform shell or a securely configured local environment to run `npm run bootstrap:admin` and `npm run seed` against the production database **once**. Configure automated database backups and HTTPS.
+
+**Do not host this project as a static Netlify Drop upload:** it would show only static assets and cannot authenticate admins or persist CMS changes. The old Kasa Playground remains on your original Netlify site until you intentionally replace it.
+
+## Development checks
+
+```bash
+npm run test:smoke
+npm run generate:importmap
+npm run generate:types
+npm run build
+```
+
+The smoke tests validate curriculum data and Kasa sample execution locally, without a database. A complete CMS integration test additionally needs the actual dependencies and PostgreSQL service. **No dependency lockfile or database migration has been generated in this initial scaffold** because the build environment could not reach the npm registry. Run `npm install` with internet access, commit `package-lock.json`, generate/review an initial DB migration and verify `npm run build` before production deployment.
+
+## Repository layout
+
+```text
+src/app/(site)/           Free public pages and course views
+src/app/(payload)/        Payload CMS admin/API routes
+src/collections/          CMS content, drafts, permissions and user auth
+src/components/           Kasa editor, quiz and progress components
+src/lib/content.ts        Public published-only server queries
+scripts/bootstrap-admin.ts  One-time first administrator
+scripts/seed.ts             Import prepared curriculum without overwrites
+scripts/content/           Initial 20-lesson curriculum
+public/kasa-runtime.js      Versioned browser-language snapshot
+public/kasa-worker.js       Web Worker execution isolation
+docs/                       Architecture notes
+```
+
+## Maintainer notes
+
+This repository is separate from the compiler repo to avoid coupling CMS deployments to language releases. It is a source prototype until dependencies, migrations, auth and hosting are validated in the target environment. A license has **not yet been selected**; do not assume unrestricted third-party reuse until the repository owner adds one.

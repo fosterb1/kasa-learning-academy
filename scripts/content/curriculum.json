@@ -1,0 +1,852 @@
+{
+  "title": "Kasa Learning Academy",
+  "modules": [
+    {
+      "id": "Getting started",
+      "subtitle": "Start speaking Kasa",
+      "description": "Begin without a local installation."
+    },
+    {
+      "id": "Core foundations",
+      "subtitle": "Build your foundations",
+      "description": "Work with values, logic and decisions."
+    },
+    {
+      "id": "Control flow",
+      "subtitle": "Teach programs to think",
+      "description": "Repetition, functions and recursion."
+    },
+    {
+      "id": "Data and input",
+      "subtitle": "Work with information",
+      "description": "Lists, user input and debugging."
+    },
+    {
+      "id": "Build real projects",
+      "subtitle": "Make useful things",
+      "description": "Savings, school analytics and inventory."
+    }
+  ],
+  "lessons": [
+    {
+      "id": "welcome",
+      "unit": "Getting started",
+      "title": "Welcome to Kasa",
+      "subtitle": "Write your first ideas in a language you know.",
+      "mins": 4,
+      "overview": "Kasa is a Twi-first programming language. It uses short words such as ka (print), ma (assign) and sɛ (if) to teach the same computational ideas used in other languages. The language is experimental: its vocabulary is still being reviewed by Twi speakers and educators.",
+      "points": [
+        [
+          "Programming is a set of instructions",
+          "A program tells a computer what to do. Kasa reads your instructions from top to bottom unless a condition, loop or function changes that order."
+        ],
+        [
+          "Learn here without installing anything",
+          "The editor on this page runs Kasa locally in your browser. It does not send the code you type to a server."
+        ]
+      ],
+      "code": "# First Kasa program\nka \"Maakye, Ghana!\"\nka \"Meda wo ase!\"\n",
+      "expected": "Maakye, Ghana!\nMeda wo ase!\n",
+      "task": "Change the second greeting, run the program again and observe the new output.",
+      "quiz": {
+        "question": "What does ka do?",
+        "choices": [
+          "Creates a list",
+          "Prints a value",
+          "Ends a function"
+        ],
+        "answer": 1,
+        "explanation": "ka displays a value or the result of an expression."
+      },
+      "input": ""
+    },
+    {
+      "id": "install",
+      "unit": "Getting started",
+      "title": "Install Kasa",
+      "subtitle": "Run .kasa programs on your computer.",
+      "mins": 8,
+      "overview": "You can program instantly in the online editor, but local installation is useful for longer projects, offline development and command-line workflows. The current Python CLI needs Python 3.11 or newer. A separate experimental native C++ compiler exists for developers.",
+      "points": [
+        [
+          "No setup? No problem",
+          "You can complete this course entirely in your browser. Select a lesson, edit a program and press Run code."
+        ],
+        [
+          "Local requirements",
+          "Install Python 3.11+, Git, and a terminal. The setup guide has Windows, macOS and Linux commands."
+        ],
+        [
+          "Files end in .kasa",
+          "Save programs in UTF-8 as hello.kasa, not hello.py. Kasa has its own grammar."
+        ]
+      ],
+      "code": "# Save this as hello.kasa\nka \"My Kasa setup works!\"\n",
+      "expected": "My Kasa setup works!\n",
+      "task": "Open the Setup page using the button below the example. Follow your operating system instructions, then run hello.kasa.",
+      "quiz": {
+        "question": "Which source file extension is used by Kasa?",
+        "choices": [
+          ".py",
+          ".kasa",
+          ".js"
+        ],
+        "answer": 1,
+        "explanation": "Kasa programs normally use the .kasa extension."
+      },
+      "input": ""
+    },
+    {
+      "id": "hello",
+      "unit": "Getting started",
+      "title": "Hello, Ghana!",
+      "subtitle": "Print text, numbers and calculations.",
+      "mins": 6,
+      "overview": "The first keyword to learn is ka. It prints text inside double quotes, numeric values, or an expression.",
+      "points": [
+        [
+          "Text versus numbers",
+          "Double quotes mark text. Numbers are written without quotes. Kasa evaluates a calculation before printing its result."
+        ],
+        [
+          "One instruction per line",
+          "Programs contain statements on separate lines. A comment starts with # and explains the code to people."
+        ]
+      ],
+      "code": "# Printing in Kasa\nka \"Akwaaba!\"\nka 4 + 6\nka \"Kasa yɛ dɛ\"\n",
+      "expected": "Akwaaba!\n10\nKasa yɛ dɛ\n",
+      "task": "Change 4 + 6 to 12 * 3 and rerun.",
+      "quiz": {
+        "question": "Which statement prints the number 10?",
+        "choices": [
+          "ma 10",
+          "ka 10",
+          "awiei 10"
+        ],
+        "answer": 1,
+        "explanation": "Use ka before the value you want displayed."
+      },
+      "input": ""
+    },
+    {
+      "id": "variables",
+      "unit": "Core foundations",
+      "title": "Variables with ma",
+      "subtitle": "Remember information by giving it a name.",
+      "mins": 7,
+      "overview": "Variables are named values. ma assigns a name to text, numbers, lists, or other values. The name can contain Twi characters such as ɛ and ɔ.",
+      "points": [
+        [
+          "Assign with ma",
+          "The statement ma din = \"Ama\" creates a variable named din. You can change it later with another ma statement."
+        ],
+        [
+          "Combining text",
+          "Use + to join two text values. To join text and a number, explicitly convert the number with nsɛm()."
+        ]
+      ],
+      "code": "ma edin = \"Akosua\"\nma mfe = 18\nka \"Maakye, \" + edin\nka \"Age: \" + nsɛm(mfe)\nma mfe = mfe + 1\nka mfe\n",
+      "expected": "Maakye, Akosua\nAge: 18\n19\n",
+      "task": "Change edin, then increase mfe by 5 instead of 1.",
+      "quiz": {
+        "question": "Which keyword assigns a value?",
+        "choices": [
+          "ma",
+          "ka",
+          "sɛ"
+        ],
+        "answer": 0,
+        "explanation": "ma gives a variable a value."
+      },
+      "input": ""
+    },
+    {
+      "id": "types",
+      "unit": "Core foundations",
+      "title": "Data types",
+      "subtitle": "Numbers, text, booleans, lists and hwee.",
+      "mins": 7,
+      "overview": "Kasa distinguishes whole numbers, decimals, text, Boolean values, lists and no-value (hwee). These types matter because not every operation makes sense for every value.",
+      "points": [
+        [
+          "Booleans are not numbers",
+          "nokware means true and atoro means false. Kasa does not silently treat them as 1 and 0."
+        ],
+        [
+          "Know your conversions",
+          "Use nɔma(\"12\") to convert numeric text to a number, and nsɛm(12) to convert a number to text."
+        ]
+      ],
+      "code": "ka 42\nka 3.5\nka \"Ghana\"\nka nokware\nka atoro\nka hwee\nka nɔma(\"12\") + 5\n",
+      "expected": "42\n3.5\nGhana\nnokware\natoro\nhwee\n17\n",
+      "task": "Try ka \"12\" + 5. Read the error, then fix it using nɔma().",
+      "quiz": {
+        "question": "Which value represents Boolean true?",
+        "choices": [
+          "hwee",
+          "nokware",
+          "atoro"
+        ],
+        "answer": 1,
+        "explanation": "nokware is Kasa true, atoro is false."
+      },
+      "input": ""
+    },
+    {
+      "id": "arithmetic",
+      "unit": "Core foundations",
+      "title": "Arithmetic and order",
+      "subtitle": "Build reliable calculations.",
+      "mins": 8,
+      "overview": "Kasa supports +, -, *, / and % (whole-number remainder). Parentheses control evaluation order. Division produces a decimal result.",
+      "points": [
+        [
+          "Precedence matters",
+          "Multiplication is evaluated before addition. Use parentheses to change the order."
+        ],
+        [
+          "Types stay strict",
+          "For example, text + number is an error. Use nsɛm() or nɔma() intentionally."
+        ]
+      ],
+      "code": "ma a = 7\nma b = 3\nka a + b\nka a * b\nka 2 + 3 * 4\nka (2 + 3) * 4\nka 7 % 3\n",
+      "expected": "10\n21\n14\n20\n1\n",
+      "task": "Change a and b, and predict the output before running.",
+      "quiz": {
+        "question": "What is the result of 2 + 3 * 4?",
+        "choices": [
+          "20",
+          "14",
+          "24"
+        ],
+        "answer": 1,
+        "explanation": "Multiplication happens first, so 3 * 4 is 12."
+      },
+      "input": ""
+    },
+    {
+      "id": "logic",
+      "unit": "Core foundations",
+      "title": "Comparisons and logic",
+      "subtitle": "Ask true-or-false questions.",
+      "mins": 8,
+      "overview": "Conditions use comparison operators such as ==, !=, <, >, <= and >=. Combine Boolean values with ne (and), anaa (or) and ɛnyɛ (not).",
+      "points": [
+        [
+          "Difference between = and ==",
+          "= assigns inside ma. == checks whether two expressions are equal."
+        ],
+        [
+          "Short-circuit evaluation",
+          "With ne, Kasa skips the right-hand side if the left is false. With anaa, it skips the right side if the left is true."
+        ]
+      ],
+      "code": "ma age = 21\nma has_card = nokware\nka age >= 18\nka age >= 18 ne has_card\nka age < 18 anaa has_card\nka ɛnyɛ has_card\n",
+      "expected": "nokware\nnokware\nnokware\natoro\n",
+      "task": "Change age to 16 and has_card to atoro. Predict which results change.",
+      "quiz": {
+        "question": "What does ne mean?",
+        "choices": [
+          "OR",
+          "NOT",
+          "AND"
+        ],
+        "answer": 2,
+        "explanation": "ne is logical AND. Both sides must be true."
+      },
+      "input": ""
+    },
+    {
+      "id": "conditions",
+      "unit": "Core foundations",
+      "title": "Decisions with sɛ",
+      "subtitle": "Make a program choose between actions.",
+      "mins": 9,
+      "overview": "Use sɛ for if, anyɛ_saa_a for else, and awiei to close the block. The letter a ends the if condition header; omitting it is a syntax error.",
+      "points": [
+        [
+          "Conditions must be Boolean",
+          "A condition such as score >= 50 returns nokware or atoro. Kasa does not allow numbers in place of booleans."
+        ],
+        [
+          "Nested decisions",
+          "You can put another sɛ block inside a branch. Every opened block needs its own awiei."
+        ]
+      ],
+      "code": "ma score = 68\nsɛ score >= 80 a\n    ka \"Grade A\"\nanyɛ_saa_a\n    sɛ score >= 50 a\n        ka \"Passed\"\n    anyɛ_saa_a\n        ka \"Try again\"\n    awiei\nawiei\n",
+      "expected": "Passed\n",
+      "task": "Change score to 92, then to 42.",
+      "quiz": {
+        "question": "Which keyword ends an if block?",
+        "choices": [
+          "gyae",
+          "awiei",
+          "sanma"
+        ],
+        "answer": 1,
+        "explanation": "awiei closes conditional, loop and function blocks."
+      },
+      "input": ""
+    },
+    {
+      "id": "repeat",
+      "unit": "Control flow",
+      "title": "Repeat with mpɛn",
+      "subtitle": "Do something an exact number of times.",
+      "mins": 7,
+      "overview": "mpɛn repeats a block a non-negative whole number of times. It is useful for fixed repetitions and generating simple patterns.",
+      "points": [
+        [
+          "Exact repetition",
+          "mpɛn 3 executes the body three times."
+        ],
+        [
+          "No endless repeats",
+          "The execution engine applies limits to protect your browser from runaway programs."
+        ]
+      ],
+      "code": "ma total = 0\nmpɛn 5\n    ma total = total + 10\n    ka \"Saving 10\"\nawiei\nka \"Total: \" + nsɛm(total)\n",
+      "expected": "Saving 10\nSaving 10\nSaving 10\nSaving 10\nSaving 10\nTotal: 50\n",
+      "task": "Change the repeat count to 8 and the savings to 15.",
+      "quiz": {
+        "question": "How many times does mpɛn 4 execute its block?",
+        "choices": [
+          "Three",
+          "Four",
+          "Until a condition becomes false"
+        ],
+        "answer": 1,
+        "explanation": "mpɛn uses a counted repetition."
+      },
+      "input": ""
+    },
+    {
+      "id": "while",
+      "unit": "Control flow",
+      "title": "While loops",
+      "subtitle": "Repeat while a condition remains true.",
+      "mins": 9,
+      "overview": "bere_a means while. It repeats a block as long as its condition evaluates to nokware. Update the variables in the condition to avoid an accidental infinite loop.",
+      "points": [
+        [
+          "Iteration",
+          "A counter often starts at 1 and increases each time through the loop."
+        ],
+        [
+          "Break and continue",
+          "gyae exits the nearest loop. toa_so skips to the next iteration; be careful to advance counters before continuing."
+        ]
+      ],
+      "code": "ma n = 1\nbere_a n <= 5\n    ka n * n\n    ma n = n + 1\nawiei\n",
+      "expected": "1\n4\n9\n16\n25\n",
+      "task": "Change the stop condition from n <= 5 to n <= 8.",
+      "quiz": {
+        "question": "What happens when bere_a keeps seeing nokware?",
+        "choices": [
+          "It repeats",
+          "It stops immediately",
+          "It declares a function"
+        ],
+        "answer": 0,
+        "explanation": "A while loop continues while the condition is true, subject to safety limits."
+      },
+      "input": ""
+    },
+    {
+      "id": "functions",
+      "unit": "Control flow",
+      "title": "Functions with dwumadie",
+      "subtitle": "Reuse logic and return values.",
+      "mins": 10,
+      "overview": "A function is a reusable block of instructions. Define it with dwumadie, give it parameters, and use sanma to return a value.",
+      "points": [
+        [
+          "Inputs and outputs",
+          "Parameters receive values from a call. sanma exits a function and provides its result."
+        ],
+        [
+          "Local scope",
+          "Function parameters and local variables do not automatically overwrite the same names outside the function."
+        ]
+      ],
+      "code": "dwumadie mfaso(revenue, cost)\n    sanma revenue - cost\nawiei\n\nka mfaso(250, 170)\nka mfaso(900, 400)\n",
+      "expected": "80\n500\n",
+      "task": "Add a third profit calculation and display the result.",
+      "quiz": {
+        "question": "What does sanma do?",
+        "choices": [
+          "Returns a value",
+          "Repeats a loop",
+          "Prints a value"
+        ],
+        "answer": 0,
+        "explanation": "sanma returns a value from a function."
+      },
+      "input": ""
+    },
+    {
+      "id": "recursion",
+      "unit": "Control flow",
+      "title": "Recursion",
+      "subtitle": "A function can call itself.",
+      "mins": 11,
+      "overview": "Recursive functions solve a problem by calling themselves with a smaller version of that problem. A base case prevents recursion from continuing forever.",
+      "points": [
+        [
+          "Base case",
+          "When n <= 1, the factorial function returns 1 immediately."
+        ],
+        [
+          "Recursive step",
+          "Otherwise, multiply n by the factorial of n - 1. Kasa limits recursion depth for safety."
+        ]
+      ],
+      "code": "dwumadie factorial(n)\n    sɛ n <= 1 a\n        sanma 1\n    awiei\n    sanma n * factorial(n - 1)\nawiei\nka factorial(5)\n",
+      "expected": "120\n",
+      "task": "Try factorial(6) and predict the answer.",
+      "quiz": {
+        "question": "Why does a recursive function need a base case?",
+        "choices": [
+          "To stop recursion",
+          "To start an infinite loop",
+          "To display text"
+        ],
+        "answer": 0,
+        "explanation": "Without a terminating condition recursion would not stop."
+      },
+      "input": ""
+    },
+    {
+      "id": "lists",
+      "unit": "Data and input",
+      "title": "Lists and indexes",
+      "subtitle": "Store many values under one name.",
+      "mins": 9,
+      "overview": "A list stores a sequence of values. Access items using zero-based indexes: index 0 means the first element. tentɛn() returns the number of items.",
+      "points": [
+        [
+          "Index positions",
+          "If a list has three items, valid indexes are 0, 1 and 2."
+        ],
+        [
+          "Mixed values",
+          "Lists can contain numbers, strings and nested lists. Invalid indexes produce an error."
+        ]
+      ],
+      "code": "ma prices = [20, 40, 60]\nka prices[0]\nka prices[2]\nka tentɛn(prices)\nka prices[0] + prices[1]\n",
+      "expected": "20\n60\n3\n60\n",
+      "task": "Add another price and print the new list length.",
+      "quiz": {
+        "question": "What index accesses the first list item?",
+        "choices": [
+          "1",
+          "0",
+          "-1"
+        ],
+        "answer": 1,
+        "explanation": "Kasa lists are zero-indexed."
+      },
+      "input": ""
+    },
+    {
+      "id": "list-update",
+      "unit": "Data and input",
+      "title": "Change and analyze lists",
+      "subtitle": "Update list elements inside a loop.",
+      "mins": 10,
+      "overview": "List values are mutable. Use ma list[index] = value to update an element. A while loop can traverse the list and total its values.",
+      "points": [
+        [
+          "Updating by index",
+          "The operation ma prices[1] = 55 changes the second value."
+        ],
+        [
+          "Traversing data",
+          "Keep an index i, loop while it is less than tentɛn(prices), and increment i after processing each item."
+        ]
+      ],
+      "code": "ma amounts = [10, 20, 30]\nma amounts[1] = 25\nma i = 0\nma total = 0\nbere_a i < tentɛn(amounts)\n    ma total = total + amounts[i]\n    ma i = i + 1\nawiei\nka amounts[1]\nka total\n",
+      "expected": "25\n65\n",
+      "task": "Change amounts[0] to 100, then calculate the new total.",
+      "quiz": {
+        "question": "What does ma amounts[1] = 25 change?",
+        "choices": [
+          "First item",
+          "Second item",
+          "Entire list"
+        ],
+        "answer": 1,
+        "explanation": "Index 1 is the second element."
+      },
+      "input": ""
+    },
+    {
+      "id": "input",
+      "unit": "Data and input",
+      "title": "User input with bisa",
+      "subtitle": "Make your programs interactive.",
+      "mins": 9,
+      "overview": "bisa() reads one line of input and returns text. In the browser, type each answer on its own line in the Program input box before pressing Run.",
+      "points": [
+        [
+          "One response per line",
+          "If your program calls bisa() twice, provide two separate lines in the input box."
+        ],
+        [
+          "Convert numeric input",
+          "Use nɔma(bisa()) if you intend to add or multiply the entered value."
+        ]
+      ],
+      "code": "ka \"Wo din de sɛn?\"\nma edin = bisa()\nka \"Akwaaba, \" + edin\n",
+      "expected": "Wo din de sɛn?\nAkwaaba, Ama\n",
+      "task": "Replace the Program input text with your own name. Confirm that the greeting changes.",
+      "quiz": {
+        "question": "What type does bisa() return?",
+        "choices": [
+          "Text",
+          "Boolean",
+          "List"
+        ],
+        "answer": 0,
+        "explanation": "bisa() returns a string, even when you enter digits."
+      },
+      "input": "Ama\n"
+    },
+    {
+      "id": "errors",
+      "unit": "Data and input",
+      "title": "Debug your Kasa code",
+      "subtitle": "Read and fix mistakes.",
+      "mins": 7,
+      "overview": "A syntax error means the grammar is incorrect. A runtime error occurs after valid code starts executing, such as dividing by zero or referring to an unknown variable.",
+      "points": [
+        [
+          "Read the line number",
+          "Kasa errors include the source line and column so you can find a mistake quickly."
+        ],
+        [
+          "Check before running",
+          "Use Check syntax to validate the program without executing it. Then run it to test its behavior."
+        ]
+      ],
+      "code": "ma a = 15\nma b = 3\nka a / b\n",
+      "expected": "5.0\n",
+      "task": "Change b to 0, observe the runtime error, then restore a nonzero value.",
+      "quiz": {
+        "question": "Does Check syntax execute your program?",
+        "choices": [
+          "Yes",
+          "No",
+          "Only functions"
+        ],
+        "answer": 1,
+        "explanation": "Syntax checking parses the source without running it."
+      },
+      "input": ""
+    },
+    {
+      "id": "savings",
+      "unit": "Build real projects",
+      "title": "Savings goal calculator",
+      "subtitle": "Model a simple savings plan.",
+      "mins": 12,
+      "overview": "Use variables, a loop and decisions to calculate how quickly a savings goal can be achieved. This example uses simple whole-number amounts and does not model interest.",
+      "points": [
+        [
+          "Accumulate a total",
+          "The current savings grows by monthly savings on each iteration."
+        ],
+        [
+          "Make a decision",
+          "The condition current >= goal determines whether to stop."
+        ]
+      ],
+      "code": "ma goal = 1000\nma monthly = 250\nma current = 0\nma months = 0\nbere_a current < goal\n    ma current = current + monthly\n    ma months = months + 1\nawiei\nka \"Months needed: \" + nsɛm(months)\nka \"Saved: \" + nsɛm(current)\n",
+      "expected": "Months needed: 4\nSaved: 1000\n",
+      "task": "Change goal to 1500 and monthly to 200. Predict the number of months.",
+      "quiz": {
+        "question": "Which construct keeps accumulating until a goal is reached?",
+        "choices": [
+          "bere_a loop",
+          "ka statement",
+          "hwee literal"
+        ],
+        "answer": 0,
+        "explanation": "A while loop continues until the goal condition changes."
+      },
+      "input": ""
+    },
+    {
+      "id": "grades",
+      "unit": "Build real projects",
+      "title": "Student results analyzer",
+      "subtitle": "Calculate averages and pass counts.",
+      "mins": 13,
+      "overview": "Apply the same programming ideas to a set of student marks. The program counts passes, sums scores and calculates the class average.",
+      "points": [
+        [
+          "Aggregate data",
+          "Loop over every mark and update a running total."
+        ],
+        [
+          "Decision rule",
+          "A mark of 50 or more counts as a pass in this example. Different schools can change that threshold."
+        ]
+      ],
+      "code": "ma marks = [90, 70, 40, 60]\nma total = 0\nma passed = 0\nma i = 0\nbere_a i < tentɛn(marks)\n    ma total = total + marks[i]\n    sɛ marks[i] >= 50 a\n        ma passed = passed + 1\n    awiei\n    ma i = i + 1\nawiei\nka \"Average: \" + nsɛm(total / tentɛn(marks))\nka \"Passed: \" + nsɛm(passed)\n",
+      "expected": "Average: 65.0\nPassed: 3\n",
+      "task": "Add another score to marks and compare the average.",
+      "quiz": {
+        "question": "What does tentɛn(marks) return?",
+        "choices": [
+          "The sum",
+          "The number of marks",
+          "The highest mark"
+        ],
+        "answer": 1,
+        "explanation": "tentɛn() returns the length of a list."
+      },
+      "input": ""
+    },
+    {
+      "id": "inventory",
+      "unit": "Build real projects",
+      "title": "Mini inventory report",
+      "subtitle": "Combine lists, conditions and accounting.",
+      "mins": 15,
+      "overview": "Build a small product-reporting program using sales, costs and quantities. Compute total sales, cost of goods sold (COGS) and gross profit. The result is for learning; real systems also need persistence and controls.",
+      "points": [
+        [
+          "Revenue",
+          "Quantity multiplied by selling price."
+        ],
+        [
+          "Gross profit",
+          "Revenue minus COGS."
+        ],
+        [
+          "Business limits",
+          "The current Kasa browser language has no database/file/network standard library. These amounts are stored in memory only."
+        ]
+      ],
+      "code": "ma products = [\"Battery\", \"Oil\", \"Filter\"]\nma sold = [3, 10, 5]\nma price = [250, 55, 40]\nma cost = [180, 35, 20]\nma revenue = 0\nma cogs = 0\nma i = 0\nbere_a i < tentɛn(products)\n    ka products[i]\n    ma revenue = revenue + sold[i] * price[i]\n    ma cogs = cogs + sold[i] * cost[i]\n    ma i = i + 1\nawiei\nka \"Sales: \" + nsɛm(revenue)\nka \"COGS: \" + nsɛm(cogs)\nka \"Profit: \" + nsɛm(revenue - cogs)\n",
+      "expected": "Battery\nOil\nFilter\nSales: 1500\nCOGS: 990\nProfit: 510\n",
+      "task": "Add a fourth product to all four lists and recalculate profit.",
+      "quiz": {
+        "question": "How is gross profit calculated?",
+        "choices": [
+          "COGS minus revenue",
+          "Revenue minus COGS",
+          "Revenue plus COGS"
+        ],
+        "answer": 1,
+        "explanation": "Gross profit equals revenue minus cost of goods sold."
+      },
+      "input": ""
+    },
+    {
+      "id": "sorting",
+      "unit": "Build real projects",
+      "title": "Sorting algorithm",
+      "subtitle": "Use nested loops to order values.",
+      "mins": 16,
+      "overview": "A sorting algorithm rearranges items into a chosen order. Bubble sort is not the fastest algorithm, but it is an excellent exercise in comparisons, loops and list mutation.",
+      "points": [
+        [
+          "Compare neighbors",
+          "If the left value is larger than the right one, swap them."
+        ],
+        [
+          "Nested loops",
+          "The outer loop makes passes. The inner loop compares neighboring positions."
+        ],
+        [
+          "Complexity",
+          "Bubble sort generally takes quadratic time, so it is mainly educational for larger inputs."
+        ]
+      ],
+      "code": "ma values = [9, 2, 7, 1, 5]\nma i = 0\nbere_a i < tentɛn(values)\n    ma j = 0\n    bere_a j < tentɛn(values) - i - 1\n        sɛ values[j] > values[j + 1] a\n            ma temp = values[j]\n            ma values[j] = values[j + 1]\n            ma values[j + 1] = temp\n        awiei\n        ma j = j + 1\n    awiei\n    ma i = i + 1\nawiei\nka values\n",
+      "expected": "[1, 2, 5, 7, 9]\n",
+      "task": "Change the starting values and confirm the results are in increasing order.",
+      "quiz": {
+        "question": "Which operation swaps two list values safely?",
+        "choices": [
+          "Store one in a temporary variable",
+          "Remove both values",
+          "Use ka"
+        ],
+        "answer": 0,
+        "explanation": "A temporary variable preserves the old value during the swap."
+      },
+      "input": ""
+    }
+  ],
+  "practices": [
+    {
+      "id": "p1",
+      "title": "Say hello",
+      "level": "Easy",
+      "task": "Print exactly: Akwaaba, Kasa!",
+      "start": "# Print a welcome message\n",
+      "expected": "Akwaaba, Kasa!\n",
+      "hint": "Use ka followed by a string in double quotes.",
+      "input": ""
+    },
+    {
+      "id": "p2",
+      "title": "Calculate a total",
+      "level": "Easy",
+      "task": "Use ma to define a = 20 and b = 30, then print their sum.",
+      "start": "ma a = 20\nma b = 30\n# Print the sum\n",
+      "expected": "50\n",
+      "hint": "Print a + b.",
+      "input": ""
+    },
+    {
+      "id": "p3",
+      "title": "Check a mark",
+      "level": "Easy",
+      "task": "Define mark = 75. Print Pass if it is at least 50, otherwise print Fail.",
+      "start": "ma mark = 75\n# Add sɛ and anyɛ_saa_a\n",
+      "expected": "Pass\n",
+      "hint": "Use sɛ mark >= 50 a and remember awiei.",
+      "input": ""
+    },
+    {
+      "id": "p4",
+      "title": "Count to five",
+      "level": "Easy",
+      "task": "Print the numbers 1, 2, 3, 4 and 5 on separate lines using bere_a.",
+      "start": "ma i = 1\n# Make a loop\n",
+      "expected": "1\n2\n3\n4\n5\n",
+      "hint": "While i <= 5, print i, then increment i.",
+      "input": ""
+    },
+    {
+      "id": "p5",
+      "title": "Build an adder",
+      "level": "Medium",
+      "task": "Define a function add(a, b) and print the result of add(7, 8).",
+      "start": "# dwumadie add(a, b)\n",
+      "expected": "15\n",
+      "hint": "Use sanma a + b inside a function, then call ka add(7, 8).",
+      "input": ""
+    },
+    {
+      "id": "p6",
+      "title": "List average",
+      "level": "Medium",
+      "task": "Given scores = [10, 20, 30], print their average as a decimal.",
+      "start": "ma scores = [10, 20, 30]\n# Calculate average\n",
+      "expected": "20.0\n",
+      "hint": "Add the three indexed values and divide by tentɛn(scores).",
+      "input": ""
+    },
+    {
+      "id": "p7",
+      "title": "Count even numbers",
+      "level": "Medium",
+      "task": "Count the even numbers in [2, 5, 8, 11, 14] and print the count.",
+      "start": "ma values = [2, 5, 8, 11, 14]\nma count = 0\n# Complete your loop\n",
+      "expected": "3\n",
+      "hint": "An integer is even when value % 2 == 0.",
+      "input": ""
+    },
+    {
+      "id": "p8",
+      "title": "A profit check",
+      "level": "Advanced",
+      "task": "Use revenue = 1500 and cogs = 990; print Profit: 510 using variables and nsɛm().",
+      "start": "ma revenue = 1500\nma cogs = 990\n# Print profit with a label\n",
+      "expected": "Profit: 510\n",
+      "hint": "Concatenate \"Profit: \" with nsɛm(revenue - cogs).",
+      "input": ""
+    }
+  ],
+  "glossary": [
+    [
+      "ka",
+      "Print / display"
+    ],
+    [
+      "ma",
+      "Assign a value"
+    ],
+    [
+      "sɛ",
+      "If"
+    ],
+    [
+      "anyɛ_saa_a",
+      "Else"
+    ],
+    [
+      "awiei",
+      "End a block"
+    ],
+    [
+      "mpɛn",
+      "Repeat N times"
+    ],
+    [
+      "bere_a",
+      "While"
+    ],
+    [
+      "dwumadie",
+      "Function"
+    ],
+    [
+      "sanma",
+      "Return"
+    ],
+    [
+      "gyae",
+      "Break"
+    ],
+    [
+      "toa_so",
+      "Continue"
+    ],
+    [
+      "nokware",
+      "True"
+    ],
+    [
+      "atoro",
+      "False"
+    ],
+    [
+      "hwee",
+      "No value"
+    ],
+    [
+      "ne",
+      "Logical AND"
+    ],
+    [
+      "anaa",
+      "Logical OR"
+    ],
+    [
+      "ɛnyɛ",
+      "Logical NOT"
+    ],
+    [
+      "bisa()",
+      "Read user input"
+    ],
+    [
+      "tentɛn()",
+      "Length of text or a list"
+    ],
+    [
+      "nɔma()",
+      "Convert to number"
+    ],
+    [
+      "nsɛm()",
+      "Convert to text"
+    ]
+  ]
+}
