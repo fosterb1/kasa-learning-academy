@@ -3,8 +3,29 @@ import { lessons, modules, challenges, announcements } from '@/lib/content'
 
 export const dynamic = 'force-dynamic'
 
+/** Show a temporary setup notice only for missing PostgreSQL tables, never mask other failures. */
+function isMissingDatabaseTable(error: unknown): boolean {
+  let cause: unknown = error
+  for (let level = 0; level < 8; level++) {
+    if (!cause || typeof cause !== 'object') return false
+    const err = cause as { code?: unknown; message?: unknown; cause?: unknown }
+    if (err.code === '42P01') return true
+    cause = err.cause
+  }
+  return false
+}
+
 export default async function Home() {
-  const [allLessons, allModules, allChallenges, updates] = await Promise.all([lessons(), modules(), challenges(), announcements()])
+  let allLessons: Awaited<ReturnType<typeof lessons>>
+  let allModules: Awaited<ReturnType<typeof modules>>
+  let allChallenges: Awaited<ReturnType<typeof challenges>>
+  let updates: Awaited<ReturnType<typeof announcements>>
+  try {
+    ;[allLessons, allModules, allChallenges, updates] = await Promise.all([lessons(), modules(), challenges(), announcements()])
+  } catch (error) {
+    if (!isMissingDatabaseTable(error)) throw error
+    return <section className="hero"><div className="hero-copy"><span className="eyebrow">AKWAABA · KASA LEARNING ACADEMY</span><h1>Our free lessons are <em>being prepared.</em></h1><p>The learning platform is completing its first database setup. You can already explore the open-source Kasa programming language while we prepare courses, quizzes and an interactive editor.</p><div className="hero-actions"><a className="button button-primary" href="https://github.com/fosterb1/kasa_programming_language">Explore Kasa on GitHub →</a></div><p className="mini-stat">The academy is not accepting student registrations or payments. Lessons will be free when the database setup is complete.</p></div></section>
+  }
   return <>
     <section className="hero">
       <div className="hero-copy">
