@@ -86,3 +86,7 @@ docs/                       Architecture notes
 ## Maintainer notes
 
 This repository is separate from the compiler repo to avoid coupling CMS deployments to language releases. It is a source prototype until dependencies, migrations, auth and hosting are validated in the target environment. A license has **not yet been selected**; do not assume unrestricted third-party reuse until the repository owner adds one.
+
+## Transcribe an attached YouTube lesson link
+
+In `/admin → Lessons`, paste a YouTube URL and choose **Transcribe linked video** inside the Twi/Akan or English transcript field. Add `SUPADATA_API_KEY` as a **server-only** Vercel environment variable and redeploy first. Supadata uses available captions or AI as fallback, sometimes returning a job ID; Kasa can resume polling that job. Results are editable drafts and must be reviewed and published by an administrator. Existing audio-upload transcription using `GROQ_API_KEY` remains available. See [Video Classroom documentation](docs/VIDEO_LESSONS.md) for cost and Twi-accuracy limits.

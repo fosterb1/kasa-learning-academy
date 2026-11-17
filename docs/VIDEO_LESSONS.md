@@ -18,7 +18,27 @@
 - Transcript text works even when a visitor does not stream the video, making low-bandwidth access easier.
 - Use the native CC button in YouTube when the video has a caption track.
 
-## Generate captions automatically (optional)
+## One-click transcription of attached YouTube videos
+
+Kasa Academy now supports generating a transcript **directly from the YouTube URL already saved in a lesson**. No separate MP3/MP4 upload is required for this method.
+
+1. Sign up for a Supadata API key at https://dash.supadata.ai. The Free plan currently advertises 100 monthly credits (subject to change).
+2. In Vercel → Kasa Learning Academy → Settings → Environment Variables, set **SUPADATA_API_KEY** as a secret for Production. Never publish it, prefix it with `NEXT_PUBLIC_`, or paste it in GitHub. Redeploy after saving.
+3. In **/admin → Lessons**, open a lesson with a valid YouTube URL in **YouTube lesson URL**. Public or unlisted YouTube links may work; private, blocked, and restricted videos often will not.
+4. Open **Twi / Akan transcript** or **English transcript**. Choose **Option 1 — Transcribe the YouTube video attached to this lesson** and click **Transcribe linked video**.
+5. Confirm you have rights to process this video and accept possible provider credit use. Kasa sends only the validated YouTube video ID to Supadata via its **server-only** API key.
+6. Supadata first retrieves existing captions (`mode=auto`). If none are accessible, it can generate them from the video using AI. Longer videos return an asynchronous job: Kasa checks status while you keep the admin page open. If interrupted, clicking again in the same browser session resumes the last job without submitting another job.
+7. Review the **editable** WebVTT text that appears. Twi, code terminology, and speaker names need careful correction. Finally click **Save / Publish**.
+
+**Billing:** Provider pricing currently advertises 1 credit for an existing transcript and **2 credits per minute** for AI-generated video transcription, with an initial free allowance of 100 monthly credits. One 50-minute video with no captions could use the whole allowance. Keep provider auto-recharge disabled unless you explicitly want to purchase credits.
+
+**Twi quality:** No dedicated Twi accuracy is promised by this provider. Twi/Akan mode uses language autodetection; English mode prefers English. Mixed-language recordings may require manual correction or better language-specific models.
+
+**Limitations:** A valid URL is not a guarantee a transcript can be extracted. Age-restricted/private/region-blocked videos, disabled captions, provider quotas, and policy restrictions may prevent retrieval. The original small-audio upload using Groq remains available as **Option 2**, and reviewed subtitles can be uploaded as **Option 3**. The academy never silently publishes an AI transcript.
+
+Supadata API: https://docs.supadata.ai/get-transcript · Pricing: https://supadata.ai/pricing
+
+## Generate captions automatically from an audio file (optional)
 
 The Kasa Academy admin can convert an original lecture recording to text using the **Groq speech-to-text API**. Audio is sent to Groq from an authenticated server endpoint; learners never receive the API key.
 
@@ -32,7 +52,7 @@ The Kasa Academy admin can convert an original lecture recording to text using t
 
 **Twi/Akan support is experimental.** Whisper's speech recognition has no verified dedicated Twi language model in this integration. The service may misidentify the language or hallucinate words; human review is essential. For English-only lectures the integration supplies an English language hint.
 
-**YouTube URL-only extraction is not implemented.** YouTube's official captions.download method requires authorized permission to edit the video. Teachers can also generate/correct captions in their YouTube Studio account and import the SRT/VTT instead.
+**YouTube video URL transcription is available separately through Supadata (Option 1).** The official YouTube captions.download API still requires OAuth permission to edit the video. Teachers can alternatively correct their own YouTube Studio captions and import SRT/VTT.
 
 The API requires an authenticated Payload administrator, the same-site browser Origin, a validated upload, and a server-only API key. Audio is passed to Groq in-memory and is not saved in Neon; third-party handling follows Groq's policies.
 

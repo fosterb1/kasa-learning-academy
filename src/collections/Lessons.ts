@@ -48,14 +48,14 @@ export const Lessons: CollectionConfig = {
     {
       name: 'transcriptTwi', type: 'textarea', label: 'Twi / Akan transcript', maxLength: 250000,
       admin: {
-        description: 'Upload a timed .vtt or .srt file, or paste its content. Timestamped lines become searchable, clickable video chapters.',
+        description: 'Transcribe the YouTube video attached to this lesson, upload a .vtt/.srt file, or paste captions; review and Publish.',
         components: { Field: '/components/admin/TranscriptUploadField#TranscriptUploadField' },
       },
     },
     {
       name: 'transcriptEnglish', type: 'textarea', label: 'English transcript', maxLength: 250000,
       admin: {
-        description: 'Upload an English timed .vtt or .srt file, or paste the captions. The learner can switch languages.',
+        description: 'Generate English captions directly from the attached YouTube URL, upload .vtt/.srt, or paste corrected text.',
         components: { Field: '/components/admin/TranscriptUploadField#TranscriptUploadField' },
       },
     },
