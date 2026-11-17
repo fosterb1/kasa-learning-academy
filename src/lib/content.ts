@@ -16,50 +16,91 @@ export type Challenge = { id: string | number; title: string; slug: string; diff
 export type Guide = { id: string | number; title: string; slug: string; summary: string; order: number; bodyMarkdown: string }
 export type Announcement = { id: string | number; title: string; slug: string; summary: string; bodyMarkdown: string; createdAt: string }
 
+import { fallbackModules, fallbackLessons, fallbackChallenges, fallbackGuides } from './fallback-content'
+
 const published = { _status: { equals: 'published' } } as const
 
-/** Explicit published filters protect visitors even if local API defaults change. */
+/**
+ * PostgreSQL 42P01 means initial Payload tables have not yet been migrated.
+ * Fall back only for this specific error. Never hide real database failures.
+ */
+function isUninitializedDatabase(error: unknown): boolean {
+  let current: unknown = error
+  for (let depth = 0; depth < 10; depth++) {
+    if (!current || typeof current !== 'object') return false
+    const value = current as { code?: unknown; cause?: unknown }
+    if (value.code === '42P01') return true
+    current = value.cause
+  }
+  return false
+}
+
+async function readOrFallback<T>(read: () => Promise<T>, fallback: () => T): Promise<T> {
+  try {
+    return await read()
+  } catch (error) {
+    if (!isUninitializedDatabase(error)) throw error
+    return fallback()
+  }
+}
+
 async function content() {
   return getPayload({ config })
 }
 
 export async function modules(): Promise<AcademyModule[]> {
-  const db = await content()
-  const res = await db.find({ collection: 'modules', limit: 100, sort: 'order', overrideAccess: false })
-  return res.docs as unknown as AcademyModule[]
+  return readOrFallback(async () => {
+    const db = await content()
+    const res = await db.find({ collection: 'modules', limit: 100, sort: 'order', overrideAccess: false })
+    return res.docs as unknown as AcademyModule[]
+  }, () => fallbackModules)
 }
 export async function lessons(): Promise<Lesson[]> {
-  const db = await content()
-  const res = await db.find({ collection: 'lessons', limit: 200, sort: 'order', where: published, depth: 1, overrideAccess: false })
-  return res.docs as unknown as Lesson[]
+  return readOrFallback(async () => {
+    const db = await content()
+    const res = await db.find({ collection: 'lessons', limit: 200, sort: 'order', where: published, depth: 1, overrideAccess: false })
+    return res.docs as unknown as Lesson[]
+  }, () => fallbackLessons)
 }
 export async function lessonBySlug(slug: string): Promise<Lesson | null> {
-  const db = await content()
-  const res = await db.find({ collection: 'lessons', limit: 1, depth: 1, overrideAccess: false, where: { and: [published, { slug: { equals: slug } }] } })
-  return (res.docs[0] as unknown as Lesson | undefined) ?? null
+  return readOrFallback(async () => {
+    const db = await content()
+    const res = await db.find({ collection: 'lessons', limit: 1, depth: 1, overrideAccess: false, where: { and: [published, { slug: { equals: slug } }] } })
+    return (res.docs[0] as unknown as Lesson | undefined) ?? null
+  }, () => fallbackLessons.find(item => item.slug === slug) ?? null)
 }
 export async function challenges(): Promise<Challenge[]> {
-  const db = await content()
-  const res = await db.find({ collection: 'challenges', limit: 150, sort: 'order', overrideAccess: false, where: published })
-  return res.docs as unknown as Challenge[]
+  return readOrFallback(async () => {
+    const db = await content()
+    const res = await db.find({ collection: 'challenges', limit: 150, sort: 'order', overrideAccess: false, where: published })
+    return res.docs as unknown as Challenge[]
+  }, () => fallbackChallenges)
 }
 export async function challengeBySlug(slug: string): Promise<Challenge | null> {
-  const db = await content()
-  const res = await db.find({ collection: 'challenges', limit: 1, overrideAccess: false, where: { and: [published, { slug: { equals: slug } }] } })
-  return (res.docs[0] as unknown as Challenge | undefined) ?? null
+  return readOrFallback(async () => {
+    const db = await content()
+    const res = await db.find({ collection: 'challenges', limit: 1, overrideAccess: false, where: { and: [published, { slug: { equals: slug } }] } })
+    return (res.docs[0] as unknown as Challenge | undefined) ?? null
+  }, () => fallbackChallenges.find(item => item.slug === slug) ?? null)
 }
 export async function guides(): Promise<Guide[]> {
-  const db = await content()
-  const res = await db.find({ collection: 'guides', limit: 100, sort: 'order', overrideAccess: false, where: published })
-  return res.docs as unknown as Guide[]
+  return readOrFallback(async () => {
+    const db = await content()
+    const res = await db.find({ collection: 'guides', limit: 100, sort: 'order', overrideAccess: false, where: published })
+    return res.docs as unknown as Guide[]
+  }, () => fallbackGuides)
 }
 export async function guideBySlug(slug: string): Promise<Guide | null> {
-  const db = await content()
-  const res = await db.find({ collection: 'guides', limit: 1, overrideAccess: false, where: { and: [published, { slug: { equals: slug } }] } })
-  return (res.docs[0] as unknown as Guide | undefined) ?? null
+  return readOrFallback(async () => {
+    const db = await content()
+    const res = await db.find({ collection: 'guides', limit: 1, overrideAccess: false, where: { and: [published, { slug: { equals: slug } }] } })
+    return (res.docs[0] as unknown as Guide | undefined) ?? null
+  }, () => fallbackGuides.find(item => item.slug === slug) ?? null)
 }
 export async function announcements(): Promise<Announcement[]> {
-  const db = await content()
-  const res = await db.find({ collection: 'announcements', limit: 50, sort: '-createdAt', overrideAccess: false, where: published })
-  return res.docs as unknown as Announcement[]
+  return readOrFallback(async () => {
+    const db = await content()
+    const res = await db.find({ collection: 'announcements', limit: 50, sort: '-createdAt', overrideAccess: false, where: published })
+    return res.docs as unknown as Announcement[]
+  }, () => [])
 }
