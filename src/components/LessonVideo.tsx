@@ -168,7 +168,7 @@ export function LessonVideo({ videoUrl, videoTitle, videoLanguage, transcriptTwi
   if (!videoId) return null
 
   return (
-    <section className="kasa-video-lesson" aria-label="Kasa video lesson">
+    <section id="lesson-video" className="kasa-video-lesson" aria-label="Kasa video lesson">
       <div className="kasa-video-heading">
         <div>
           <span className="eyebrow">TIE · KENKAN · SUA  /  LISTEN · READ · LEARN</span>

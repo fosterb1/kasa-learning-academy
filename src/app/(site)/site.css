@@ -42,3 +42,8 @@
 @media(max-width:920px){.kasa-video-grid{grid-template-columns:1fr}.kasa-transcript-panel{max-height:390px}.kasa-video-lesson{padding:18px}}
 @media(max-width:560px){.kasa-video-heading{align-items:flex-start;flex-direction:column}.kasa-video-frame{min-height:190px}.kasa-video-lesson{margin:24px -6px 32px;padding:14px}.kasa-transcript-panel{max-height:380px}.kasa-video-player-footer{line-height:1.5}}
 @media(prefers-reduced-motion:reduce){.kasa-transcript-list{scroll-behavior:auto}}
+
+/* Make recorded lessons visible on course listings and place video before long lesson text. */
+.lesson-video-badge{display:inline-flex;align-items:center;gap:7px;margin-top:10px;border-radius:100px;padding:6px 12px;background:#e6f2e8;color:#19653b;font-weight:800;font-size:12px;width:max-content;max-width:100%}
+.lesson-row:hover .lesson-video-badge,.lesson-row:focus-visible .lesson-video-badge{background:#d4e9d7}
+.lesson-main > .kasa-video-lesson:first-child{margin-top:0}
