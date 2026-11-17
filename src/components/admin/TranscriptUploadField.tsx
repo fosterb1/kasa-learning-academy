@@ -134,7 +134,11 @@ export const TranscriptUploadField: TextareaFieldClientComponent = (props) => {
       </div>
       {error && <p role="alert" style={{ color: 'var(--theme-error-500)', fontSize: 13, marginBottom: 12 }}>{error}</p>}
       {message && <p role="status" style={{ color: 'var(--theme-success-500)', fontSize: 13, marginBottom: 12 }}>{message}</p>}
-      <TextareaField {...props} />
+      {/* Give instructors room to proofread long bilingual captions without fighting a tiny text box. */}
+      <style>{`.kasa-admin-transcript-editor textarea {min-height:340px!important;resize:vertical!important;line-height:1.7!important;font-family:ui-monospace,SFMono-Regular,Consolas,monospace!important;font-size:14px!important}`}</style>
+      <div className="kasa-admin-transcript-editor">
+        <TextareaField {...props} />
+      </div>
     </div>
   )
 }

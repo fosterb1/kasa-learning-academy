@@ -85,6 +85,7 @@ export function LessonVideo({ videoUrl, videoTitle, videoLanguage, transcriptTwi
   const [playerError, setPlayerError] = useState('')
   const [currentTime, setCurrentTime] = useState(0)
   const [autoScroll, setAutoScroll] = useState(true)
+  const [viewMode, setViewMode] = useState<'split' | 'cinema' | 'reading'>('split')
   const playerSlot = useRef<HTMLDivElement | null>(null)
   const player = useRef<YouTubePlayer | null>(null)
   const jumpTo = useRef<number | null>(null)
@@ -168,14 +169,21 @@ export function LessonVideo({ videoUrl, videoTitle, videoLanguage, transcriptTwi
   if (!videoId) return null
 
   return (
-    <section id="lesson-video" className="kasa-video-lesson" aria-label="Kasa video lesson">
+    <section id="lesson-video" className={'kasa-video-lesson kasa-video-view-' + viewMode} aria-label="Kasa video lesson">
       <div className="kasa-video-heading">
         <div>
           <span className="eyebrow">TIE · KENKAN · SUA  /  LISTEN · READ · LEARN</span>
           <h2>{videoTitle || 'Watch this Kasa lesson'}</h2>
           <p>Learn in Twi and English. Pause, follow along, or tap a sentence to replay that moment.</p>
         </div>
-        <span className="kasa-video-language">{videoLanguage === 'twi' ? 'Twi / Akan' : videoLanguage === 'english' ? 'English' : 'Twi + English'}</span>
+        <div className="kasa-video-heading-controls">
+          <span className="kasa-video-language">{videoLanguage === 'twi' ? 'Twi / Akan' : videoLanguage === 'english' ? 'English' : 'Twi + English'}</span>
+          <div className="kasa-video-modes" role="group" aria-label="Video classroom display size">
+            <button type="button" aria-pressed={viewMode === 'split'} onClick={() => setViewMode('split')}>Side by side</button>
+            <button type="button" aria-pressed={viewMode === 'cinema'} onClick={() => setViewMode('cinema')}>Large video</button>
+            <button type="button" aria-pressed={viewMode === 'reading'} onClick={() => setViewMode('reading')}>Larger transcript</button>
+          </div>
+        </div>
       </div>
 
       <div className="kasa-video-grid">

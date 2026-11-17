@@ -47,3 +47,41 @@
 .lesson-video-badge{display:inline-flex;align-items:center;gap:7px;margin-top:10px;border-radius:100px;padding:6px 12px;background:#e6f2e8;color:#19653b;font-weight:800;font-size:12px;width:max-content;max-width:100%}
 .lesson-row:hover .lesson-video-badge,.lesson-row:focus-visible .lesson-video-badge{background:#d4e9d7}
 .lesson-main > .kasa-video-lesson:first-child{margin-top:0}
+
+
+/* Full-width theater above the narrower lesson notes and practice sidebar. */
+.lesson-page > .kasa-video-lesson{margin:0 0 42px;max-width:100%}
+.kasa-video-heading-controls{display:flex;flex-direction:column;align-items:flex-end;gap:10px}
+.kasa-video-modes{display:flex;gap:4px;flex-wrap:wrap;justify-content:flex-end;padding:4px;border:1px solid #d5e4d8;background:#f1f6f1;border-radius:12px}
+.kasa-video-modes button{font-size:12px;font-weight:700;color:#365d42;border:0;border-radius:8px;background:transparent;padding:10px 12px;min-height:39px}
+.kasa-video-modes button:hover,.kasa-video-modes button:focus-visible{background:#dbe9dc}
+.kasa-video-modes button[aria-pressed="true"]{background:#226e46;color:#fff;box-shadow:0 2px 5px #18352520}
+.lesson-page > .kasa-video-lesson .kasa-video-grid{grid-template-columns:minmax(0,1.38fr) minmax(345px,1fr);gap:22px;align-items:stretch}
+.lesson-page > .kasa-video-lesson .kasa-video-frame{min-height:330px}
+.lesson-page > .kasa-video-lesson .kasa-transcript-panel{min-height:380px;max-height:640px}
+.lesson-page > .kasa-video-view-cinema .kasa-video-grid{grid-template-columns:minmax(0,1fr)}
+.lesson-page > .kasa-video-view-cinema .kasa-video-frame{min-height:380px}
+.lesson-page > .kasa-video-view-cinema .kasa-transcript-panel{min-height:340px;max-height:540px}
+.lesson-page > .kasa-video-view-cinema .kasa-transcript-list{max-height:440px}
+.lesson-page > .kasa-video-view-reading .kasa-video-grid{grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr)}
+.lesson-page > .kasa-video-view-reading .kasa-transcript-panel{min-height:440px;max-height:750px}
+.lesson-page > .kasa-video-view-reading .kasa-transcript-cue{grid-template-columns:65px minmax(0,1fr);gap:16px;padding:15px 18px}
+.lesson-page > .kasa-video-view-reading .kasa-transcript-text{font-size:15px;line-height:1.7}
+@media(max-width:1090px){
+ .lesson-page > .kasa-video-lesson .kasa-video-grid{grid-template-columns:minmax(0,1.15fr) minmax(290px,1fr)}
+ .lesson-page > .kasa-video-view-reading .kasa-video-grid{grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr)}
+}
+@media(max-width:920px){
+ .kasa-video-heading-controls{align-items:flex-start;width:100%}
+ .kasa-video-modes{justify-content:flex-start;width:100%}
+ .lesson-page > .kasa-video-lesson .kasa-video-grid,
+ .lesson-page > .kasa-video-view-reading .kasa-video-grid{grid-template-columns:minmax(0,1fr)}
+ .lesson-page > .kasa-video-lesson .kasa-video-frame{min-height:0}
+ .lesson-page > .kasa-video-lesson .kasa-transcript-panel{min-height:290px;max-height:550px}
+ .lesson-page > .kasa-video-lesson .kasa-transcript-list{max-height:440px}
+}
+@media(max-width:560px){
+ .lesson-page > .kasa-video-lesson{margin:0 -7px 30px;padding:14px}
+ .kasa-video-modes button{font-size:11px;padding:10px 9px;flex:1}
+ .lesson-page > .kasa-video-lesson .kasa-video-frame{min-height:0}
+}
