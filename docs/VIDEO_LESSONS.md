@@ -18,9 +18,27 @@
 - Transcript text works even when a visitor does not stream the video, making low-bandwidth access easier.
 - Use the native CC button in YouTube when the video has a caption track.
 
-## Transcription and limitations
+## Generate captions automatically (optional)
 
-**Automatic transcription is not implemented yet.** A YouTube URL alone cannot provide the academy with captions for arbitrary videos. The official YouTube caption-download API needs OAuth with permission to edit the video. Teachers can correct captions in YouTube Studio and import them into the academy.
+The Kasa Academy admin can convert an original lecture recording to text using the **Groq speech-to-text API**. Audio is sent to Groq from an authenticated server endpoint; learners never receive the API key.
+
+1. Get a Groq API key from https://console.groq.com/keys. Check free-tier limits before processing long courses. Pricing and free limits may change; do not assume unlimited transcription.
+2. In Vercel Dashboard, open the **kasa-learning-academy** project → Settings → Environment Variables. Create **GROQ_API_KEY** for the Production environment (also Preview if you will test there). **Never prefix it with NEXT_PUBLIC_** and never put the key in GitHub.
+3. Redeploy the academy production deployment so the new environment variable is available to the server.
+4. Open /admin → Lessons → select a lesson and find **Twi/Akan transcript** or **English transcript**.
+5. Select your original audio recording (or short MP4 clip) and click **Generate transcript with AI**. Accepted formats: MP3, WAV, M4A, FLAC, OGG, WebM, MPEG, MPGA, and small MP4. Maximum file size: **3.5 MB per request**, due to Vercel's 4.5MB serverless request limit.
+6. The generated result appears in the existing editable transcript field. **Review and correct it** before Save/Publish. Kasa won't automatically publish an AI draft. On success, timestamps appear in WebVTT format if the provider returns segments.
+7. For longer recorded tutorials, export a smaller compressed audio clip or split the original audio into shorter clips. The initial integration processes **one clip at a time**, not the entire YouTube video automatically.
+
+**Twi/Akan support is experimental.** Whisper's speech recognition has no verified dedicated Twi language model in this integration. The service may misidentify the language or hallucinate words; human review is essential. For English-only lectures the integration supplies an English language hint.
+
+**YouTube URL-only extraction is not implemented.** YouTube's official captions.download method requires authorized permission to edit the video. Teachers can also generate/correct captions in their YouTube Studio account and import the SRT/VTT instead.
+
+The API requires an authenticated Payload administrator, the same-site browser Origin, a validated upload, and a server-only API key. Audio is passed to Groq in-memory and is not saved in Neon; third-party handling follows Groq's policies.
+
+The feature has unit and production-build checks, but a real end-to-end transcription request requires a configured API key and an instructor-owned audio sample.
+
+## Transcription and limitations
 
 Use human review for Twi and programming keywords (ka, ma, sɛ, awiei), as speech-to-text can be inaccurate.
 Plain .txt files are accepted for readable transcripts, but only timestamped VTT/SRT files support synchronized navigation.
