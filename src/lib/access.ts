@@ -1,7 +1,7 @@
-import type { Access } from 'payload'
+import type { Access, PayloadRequest } from 'payload'
 
 /** No public registration or content mutation in this academy. */
-export const adminsOnly: Access = ({ req }) => Boolean(req.user && req.user.collection === 'users')
+export const adminsOnly = ({ req }: { req: PayloadRequest }): boolean => Boolean(req.user && req.user.collection === 'users')
 
 /** Public reads must never expose saved drafts or unpublished content. */
 export const publishedOrAdmin: Access = ({ req }) => {
