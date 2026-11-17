@@ -2,7 +2,7 @@
 import { useRef, useState, type ChangeEvent } from 'react'
 import type { TextareaFieldClientComponent } from 'payload'
 import { TextareaField, useField } from '@payloadcms/ui'
-import { parseTranscript } from '@/lib/video'
+import { parseTranscript, youtubeVideoId } from '@/lib/video'
 
 const MAX_CAPTION_SIZE = 250_000
 const MAX_AUDIO_BYTES = 3_500_000
@@ -16,16 +16,108 @@ const AUDIO_TYPES = /\.(mp3|m4a|wav|flac|ogg|webm|mp4|mpeg|mpga)$/i
 export const TranscriptUploadField: TextareaFieldClientComponent = (props) => {
   const { path } = props
   const { value, setValue } = useField<string>({ path })
+  const { value: attachedVideoUrl } = useField<string>({ path: 'videoUrl' })
   const [message, setMessage] = useState('')
   const [error, setError] = useState('')
   const [recording, setRecording] = useState<File | null>(null)
   const recordingInputRef = useRef<HTMLInputElement>(null)
   const [working, setWorking] = useState(false)
+  const [urlWorking, setUrlWorking] = useState(false)
+  const [urlProgress, setUrlProgress] = useState('')
 
   const language = path.toLowerCase().includes('twi') ? 'twi' : 'english'
   const languageName = language === 'twi' ? 'Twi / Akan' : 'English'
+  const linkedVideoId = youtubeVideoId(attachedVideoUrl)
+  const busy = working || urlWorking
 
   const confirmReplacement = () => !value?.trim() || window.confirm('Replace the current ' + languageName + ' transcript? Save a copy first if you want to keep it.')
+
+  /**
+   * Use the YouTube URL already attached to the Payload lesson. Caption-first
+   * mode may fall back to paid AI transcription when subtitles are absent.
+   * Save an unfinished provider job ID in sessionStorage to avoid repeat charges.
+   */
+  const transcribeLinkedVideo = async () => {
+    if (busy) return
+    if (!linkedVideoId) {
+      setError('Paste a valid YouTube URL into the lesson’s YouTube lesson URL field before generating captions.')
+      return
+    }
+    if (!confirmReplacement()) return
+    setError('')
+    setMessage('')
+    setUrlProgress('')
+
+    const key = 'kasa-transcription-job:' + linkedVideoId + ':' + language
+    const existingId = sessionStorage.getItem(key)
+    if (!existingId && !window.confirm(
+      'Transcribe the video attached to this lesson? Existing captions will be used when available; otherwise Supadata may charge AI transcription credits. Confirm that you are authorized to process this video.'
+    )) return
+
+    setUrlWorking(true)
+    const endpoint = '/api/academy-transcribe-url'
+    try {
+      let result: {
+        status?: string
+        jobId?: string
+        transcript?: string
+        timed?: boolean
+        segments?: number
+        detectedLanguage?: string
+        notice?: string
+        error?: string
+      }
+
+      if (existingId) {
+        setUrlProgress('Resuming the previous transcription job…')
+        result = { status: 'processing', jobId: existingId }
+      } else {
+        setUrlProgress('Checking the attached YouTube video for captions…')
+        const response = await fetch(endpoint, {
+          method: 'POST', credentials: 'same-origin', cache: 'no-store',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ videoUrl: attachedVideoUrl, language }),
+        })
+        result = await response.json()
+        if (!response.ok) throw new Error(result.error || 'Could not read the YouTube video.')
+        if (result.jobId) sessionStorage.setItem(key, result.jobId)
+      }
+
+      for (let attempt = 0; result.status === 'processing' && attempt < 100; attempt++) {
+        if (!result.jobId) throw new Error('The transcription service did not return a job ID.')
+        setUrlProgress('Video transcription is running. Keep this lesson editor open; longer recordings can take several minutes…')
+        await new Promise(resolve => setTimeout(resolve, 3000))
+        const response = await fetch(endpoint + '?jobId=' + encodeURIComponent(result.jobId), {
+          credentials: 'same-origin', cache: 'no-store',
+        })
+        const next = await response.json()
+        if (!response.ok) {
+          // An expired job cannot be resumed; allow a new request next time.
+          if (response.status === 404) sessionStorage.removeItem(key)
+          throw new Error(next.error || 'Could not check transcription progress.')
+        }
+        result = next
+      }
+
+      if (result.status === 'processing') {
+        throw new Error('Transcription is still running. Click this button again to resume checking without starting a new job.')
+      }
+      if (!result.transcript) throw new Error(result.error || 'No transcript was returned.')
+      sessionStorage.removeItem(key)
+      setValue(result.transcript)
+      setUrlProgress('')
+      setMessage(
+        'YouTube transcript imported (' + (result.timed ? (result.segments || 0) + ' timed captions' : 'plain text') +
+        (result.detectedLanguage ? ', source language: ' + result.detectedLanguage : '') +
+        '). Review the draft, especially Twi and Kasa keywords, then Save/Publish the lesson.'
+      )
+    } catch (err) {
+      setUrlProgress('')
+      setError(err instanceof Error ? err.message : 'Could not transcribe this video.')
+    } finally {
+      setUrlWorking(false)
+    }
+  }
 
   const uploadCaptions = async (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0]
@@ -72,7 +164,7 @@ export const TranscriptUploadField: TextareaFieldClientComponent = (props) => {
   const generate = async () => {
     if (working) return
     if (!recording) {
-      setError('Select a recording from your computer first. The button will open the file picker for you. A YouTube URL cannot be transcribed directly.')
+      setError('To use this audio-upload option, choose a recording. Alternatively select Option 1 to transcribe the attached YouTube URL.')
       recordingInputRef.current?.click()
       return
     }
@@ -112,8 +204,25 @@ export const TranscriptUploadField: TextareaFieldClientComponent = (props) => {
 
   return (
     <div style={{ marginBottom: 24 }}>
+      <div style={{ padding: '16px', background: 'var(--theme-elevation-50)', border: '1px solid var(--theme-success-500)', borderRadius: 9, marginBottom: 14 }}>
+        <strong style={{ display: 'block', fontSize: 16, marginBottom: 8 }}>Option 1 — Transcribe the YouTube video attached to this lesson</strong>
+        <p style={{ fontSize: 12, lineHeight: 1.6, marginBottom: 10 }}>
+          No separate audio upload needed. The system first checks the linked video’s captions and uses AI if necessary.
+          Generated captions may consume Supadata credits. Twi/Akan accuracy is not guaranteed.
+        </p>
+        <p style={{ fontSize: 12, marginBottom: 10, overflowWrap: 'anywhere' }}>
+          <strong>Attached video: </strong>
+          {linkedVideoId ? <a href={'https://www.youtube.com/watch?v=' + linkedVideoId} target="_blank" rel="noreferrer">https://www.youtube.com/watch?v={linkedVideoId}</a>
+            : <span>No valid YouTube URL attached yet. Fill in the “YouTube lesson URL” field above.</span>}
+        </p>
+        <button type="button" onClick={transcribeLinkedVideo} disabled={busy}
+          style={{ width: '100%', maxWidth: 420, background: 'var(--theme-success-500)', color: '#fff', border: 0, borderRadius: 6, fontWeight: 800, fontSize: 13, padding: 14, cursor: busy ? 'wait' : 'pointer' }}>
+          {urlWorking ? 'Transcribing linked video…' : 'Transcribe linked video — ' + languageName}
+        </button>
+        {urlProgress && <p role="status" style={{ fontSize: 12, marginTop: 10 }}>{urlProgress}</p>}
+      </div>
       <div style={{ padding: '12px 14px', background: 'var(--theme-elevation-50)', border: '1px solid var(--theme-elevation-150)', borderRadius: 7, marginBottom: 10 }}>
-        <strong style={{ display: 'block', marginBottom: 8 }}>Automatic {languageName} transcription — experimental</strong>
+        <strong style={{ display: 'block', marginBottom: 8 }}>Option 2 — Upload a short recording for AI transcription</strong>
         <p style={{ fontSize: 12, marginBottom: 10, lineHeight: 1.5 }}>
           <strong>Step 1:</strong> Select a short recording from your computer (under 3.5 MB). <strong>Step 2:</strong> Click Generate. If no recording is selected, clicking Generate will open the file picker.
           The audio is processed by Groq&apos;s speech service; it is not stored in the Kasa database.
@@ -124,20 +233,20 @@ export const TranscriptUploadField: TextareaFieldClientComponent = (props) => {
         </label>
         <input ref={recordingInputRef} id={'audio-' + path} type="file"
           accept=".mp3,.m4a,.wav,.flac,.ogg,.webm,.mp4,.mpeg,.mpga,audio/*,video/mp4"
-          onChange={pickRecording} disabled={working}
+          onChange={pickRecording} disabled={busy}
           aria-label={'Choose a ' + languageName + ' recording to transcribe'} />
         <p style={{ fontSize: 12, margin: '8px 0', fontWeight: 600 }} role="status">{recording ? '✓ Ready to transcribe: ' + recording.name + ' (' + (recording.size / 1_000_000).toFixed(2) + ' MB)' : 'No recording selected yet — select a file here or use the button below.'}</p>
-        <button type="button" disabled={working} onClick={generate}
+        <button type="button" disabled={busy} onClick={generate}
           style={{ display: 'block', marginTop: 10, padding: '10px 15px', borderRadius: 6, cursor: working ? 'wait' : 'pointer', background: 'var(--theme-success-500)', color: '#fff', border: 0, fontWeight: 700 }}>
           {working ? 'Generating captions…' : recording ? 'Generate ' + languageName + ' transcript with AI' : 'Select recording to generate ' + languageName + ' transcript'}
         </button>
-        <p style={{ fontSize: 11, marginTop: 8 }}>A YouTube URL is used for video playback only. AI transcription requires your original audio file. If the recording exceeds 3.5 MB, export a shorter compressed audio clip or split it into parts.</p>
+        <p style={{ fontSize: 11, marginTop: 8 }}>This is the alternative manual-upload method, for videos that cannot be retrieved from YouTube. If the recording exceeds 3.5 MB, export a compressed clip.</p>
       </div>
       <div style={{ padding: '12px 14px', background: 'var(--theme-elevation-50)', border: '1px solid var(--theme-elevation-150)', borderRadius: 7, marginBottom: 10 }}>
         <label htmlFor={'upload-' + path} style={{ display: 'block', fontWeight: 600, marginBottom: 6 }}>
-          Or import a corrected transcript file (VTT, SRT, TXT)
+          Option 3 — Import a corrected transcript file (VTT, SRT, TXT)
         </label>
-        <input id={'upload-' + path} type="file" accept=".vtt,.srt,.txt,text/vtt,text/plain" onChange={uploadCaptions} disabled={working}
+        <input id={'upload-' + path} type="file" accept=".vtt,.srt,.txt,text/vtt,text/plain" onChange={uploadCaptions} disabled={busy}
           aria-label={'Upload corrected captions for ' + path} />
       </div>
       {error && <p role="alert" style={{ color: 'var(--theme-error-500)', fontSize: 13, marginBottom: 12 }}>{error}</p>}
