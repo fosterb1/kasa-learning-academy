@@ -9,6 +9,7 @@ A **separate, public learning website** for [Kasa Programming Language](https://
 - Lesson quizzes, expected outputs, progress completion stored **only in the browser** (no learner signup)
 - Payload CMS v3 on Next.js with PostgreSQL, secured administrator authentication, drafts, versions and publishing
 - Admin-controlled lessons, module ordering, challenges, guides and news
+- Optional **AI-generated timed captions** from instructor-owned audio clips (server-side Groq integration with admin-only access); editable Twi/English transcripts alongside YouTube videos
 - First-admin bootstrap and **idempotent** curriculum seeding scripts
 
 ## Requirements
@@ -40,6 +41,10 @@ For Windows PowerShell, use `Copy-Item .env.example .env.local` instead of `cp`.
 ### First administrator: important security detail
 
 The public website does **not** allow account creation. You **must** run `npm run bootstrap:admin` once with private environment variables before logging in. Do not commit `.env.local` or run the bootstrap script with a shared/default password. Once a user exists, rerunning it does not change that account's password. Administrators manage any additional users through `/admin`.
+
+### Automatic lesson transcription
+
+Add a private `GROQ_API_KEY` to the Vercel project's Production environment and redeploy. In `/admin → Lessons`, attach your YouTube recording, then use **Generate transcript with AI** inside the Twi or English transcript field. Upload an original recording under 3.5 MB; the server calls Groq without exposing your key to browsers. Inspect every generated caption and **Save/Publish** explicitly. Twi support is experimental and requires human correction. Uploading a YouTube URL alone does not obtain or transcribe its audio. Full instructions: [Video Classroom](docs/VIDEO_LESSONS.md).
 
 ### Content workflow
 
