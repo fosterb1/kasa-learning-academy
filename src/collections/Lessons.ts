@@ -1,5 +1,6 @@
 import type { CollectionConfig } from 'payload'
 import { adminsOnly, publishedOrAdmin } from '@/lib/access'
+import { youtubeVideoId } from '@/lib/video'
 
 export const Lessons: CollectionConfig = {
   slug: 'lessons',
@@ -29,5 +30,34 @@ export const Lessons: CollectionConfig = {
     ] },
     { name: 'correctChoice', type: 'number', min: 0 },
     { name: 'quizExplanation', type: 'textarea' },
+    {
+      name: 'videoUrl', type: 'text', label: 'YouTube lesson URL',
+      admin: { description: 'Upload the recording to YouTube (Public or Unlisted), then paste a YouTube watch, share, Shorts, or embed URL.' },
+      validate: (value: unknown) => !value || (typeof value === 'string' && youtubeVideoId(value)) ? true : 'Enter a valid HTTPS YouTube video URL or leave the field empty.',
+    },
+    { name: 'videoTitle', type: 'text', label: 'Video title', admin: { description: 'Optional title shown above the video player.' } },
+    {
+      name: 'videoLanguage', type: 'select', label: 'Language spoken in the video',
+      defaultValue: 'bilingual',
+      options: [
+        { label: 'Twi / Akan', value: 'twi' },
+        { label: 'English', value: 'english' },
+        { label: 'Twi and English', value: 'bilingual' },
+      ],
+    },
+    {
+      name: 'transcriptTwi', type: 'textarea', label: 'Twi / Akan transcript', maxLength: 250000,
+      admin: {
+        description: 'Upload a timed .vtt or .srt file, or paste its content. Timestamped lines become searchable, clickable video chapters.',
+        components: { Field: '/components/admin/TranscriptUploadField#TranscriptUploadField' },
+      },
+    },
+    {
+      name: 'transcriptEnglish', type: 'textarea', label: 'English transcript', maxLength: 250000,
+      admin: {
+        description: 'Upload an English timed .vtt or .srt file, or paste the captions. The learner can switch languages.',
+        components: { Field: '/components/admin/TranscriptUploadField#TranscriptUploadField' },
+      },
+    },
   ],
 }
