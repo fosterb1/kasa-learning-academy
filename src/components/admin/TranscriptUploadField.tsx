@@ -4,57 +4,136 @@ import type { TextareaFieldClientComponent } from 'payload'
 import { TextareaField, useField } from '@payloadcms/ui'
 import { parseTranscript } from '@/lib/video'
 
-const MAX_FILE_SIZE = 250_000
+const MAX_CAPTION_SIZE = 250_000
+const MAX_AUDIO_BYTES = 3_500_000
+const AUDIO_TYPES = /\.(mp3|m4a|wav|flac|ogg|webm|mp4|mpeg|mpga)$/i
 
 /**
- * Import subtitles in the browser, not as files on Vercel's ephemeral filesystem.
- * Saves text inside the existing protected Payload lesson document.
+ * Admin-only editor. Upload a transcript OR generate one from a short
+ * instructor-owned recording. All AI output is an editable draft until
+ * the administrator explicitly saves/publishes the Payload lesson.
  */
 export const TranscriptUploadField: TextareaFieldClientComponent = (props) => {
   const { path } = props
-  const { setValue } = useField<string>({ path })
+  const { value, setValue } = useField<string>({ path })
   const [message, setMessage] = useState('')
+  const [error, setError] = useState('')
+  const [recording, setRecording] = useState<File | null>(null)
+  const [working, setWorking] = useState(false)
 
-  const upload = async (event: ChangeEvent<HTMLInputElement>) => {
+  const language = path.toLowerCase().includes('twi') ? 'twi' : 'english'
+  const languageName = language === 'twi' ? 'Twi / Akan' : 'English'
+
+  const confirmReplacement = () => !value?.trim() || window.confirm('Replace the current ' + languageName + ' transcript? Save a copy first if you want to keep it.')
+
+  const uploadCaptions = async (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0]
     event.target.value = ''
     if (!file) return
-
+    setError('')
     if (!/\.(vtt|srt|txt)$/i.test(file.name)) {
-      setMessage('Choose a .vtt, .srt, or .txt file.')
+      setError('Choose a .vtt, .srt, or .txt subtitle file.')
       return
     }
-    if (file.size > MAX_FILE_SIZE) {
-      setMessage('The transcript is too large. Maximum: 250 KB.')
+    if (file.size > MAX_CAPTION_SIZE) {
+      setError('Subtitle file is too large. Maximum: 250 KB.')
       return
     }
+    if (!confirmReplacement()) return
     try {
       const text = (await file.text()).replace(/^\uFEFF/, '')
-      if (!text.trim()) {
-        setMessage('The selected file is empty.')
-        return
-      }
-      if (/\.(vtt|srt)$/i.test(file.name) && parseTranscript(text).length === 0) {
-        setMessage('No valid timed captions found. Use WebVTT or SRT timestamps.')
+      if (!text.trim()) { setError('The selected subtitle file is empty.'); return }
+      const cues = parseTranscript(text)
+      if (/\.(vtt|srt)$/i.test(file.name) && cues.length === 0) {
+        setError('No valid timed captions found. Check the SRT/VTT timestamps.')
         return
       }
       setValue(text)
-      const cues = parseTranscript(text)
-      setMessage('Imported ' + file.name + (cues.length ? ' (' + cues.length + ' timestamped captions).' : ' as a reading transcript.') + ' Save or Publish the lesson to keep it.')
+      setMessage('Imported ' + file.name + (cues.length ? ' (' + cues.length + ' timed captions)' : ' (reading transcript)') + '. Review and save or publish the lesson.')
     } catch {
-      setMessage('Could not read this subtitle file. Try exporting it as UTF-8.')
+      setError('Could not read the subtitle file. Export it as UTF-8 and try again.')
+    }
+  }
+
+  const pickRecording = (event: ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0] || null
+    event.target.value = ''
+    setError('')
+    if (file && (!AUDIO_TYPES.test(file.name) || file.size > MAX_AUDIO_BYTES || file.size === 0)) {
+      setRecording(null)
+      setError('Choose a short MP3, M4A, WAV, FLAC, OGG, WebM or MP4 file under 3.5 MB.')
+      return
+    }
+    setRecording(file)
+  }
+
+  const generate = async () => {
+    if (!recording || working || !confirmReplacement()) return
+    setWorking(true)
+    setMessage('')
+    setError('')
+    const body = new FormData()
+    body.set('audio', recording, recording.name)
+    body.set('language', language)
+    try {
+      const response = await fetch('/api/academy-transcribe', {
+        method: 'POST',
+        body,
+        credentials: 'same-origin',
+        cache: 'no-store',
+      })
+      const result = await response.json() as {
+        error?: string
+        transcript?: string
+        segments?: number
+        timed?: boolean
+        notice?: string
+      }
+      if (!response.ok || !result.transcript) {
+        throw new Error(result.error || 'Speech transcription failed. Try a shorter recording.')
+      }
+      setValue(result.transcript)
+      setMessage('AI draft generated (' + (result.timed ? (result.segments || 0) + ' timed cues' : 'text without timestamps') + '). ' + (result.notice || 'Check carefully before publishing.') + ' Remember to Save/Publish this lesson.')
+      setRecording(null)
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Unable to generate subtitles.')
+    } finally {
+      setWorking(false)
     }
   }
 
   return (
-    <div style={{ marginBottom: 20 }}>
-      <div style={{ padding: '12px 14px', background: 'var(--theme-elevation-50)', border: '1px solid var(--theme-elevation-150)', borderRadius: 6, marginBottom: 10 }}>
-        <label htmlFor={'upload-' + path} style={{ display: 'block', fontWeight: 600, marginBottom: 6 }}>
-          Import a transcript file (VTT, SRT, or TXT)
+    <div style={{ marginBottom: 24 }}>
+      <div style={{ padding: '12px 14px', background: 'var(--theme-elevation-50)', border: '1px solid var(--theme-elevation-150)', borderRadius: 7, marginBottom: 10 }}>
+        <strong style={{ display: 'block', marginBottom: 8 }}>Automatic {languageName} transcription — experimental</strong>
+        <p style={{ fontSize: 12, marginBottom: 10, lineHeight: 1.5 }}>
+          Upload a short recording from your own lesson (up to 3.5 MB), then click Generate.
+          The audio is processed by Groq&apos;s speech service; it is not stored in the Kasa database.
+          {language === 'twi' ? ' Twi/Akan is not verified for this model: inaccurate or invented words are possible. Correct the draft manually.' : ' Review Kasa keywords and timing before publishing.'}
+        </p>
+        <label htmlFor={'audio-' + path} style={{ display: 'block', fontWeight: 600, marginBottom: 7 }}>
+          Audio or small video clip
         </label>
-        <input id={'upload-' + path} type="file" accept=".vtt,.srt,.txt,text/vtt,text/plain" onChange={upload} aria-label={'Upload subtitle file for ' + path} />
-        <p role="status" style={{ fontSize: 12, margin: '6px 0 0' }}>{message || 'The file is read locally; it is only saved when you save or publish the lesson.'}</p>
+        <input id={'audio-' + path} type="file"
+          accept=".mp3,.m4a,.wav,.flac,.ogg,.webm,.mp4,.mpeg,.mpga,audio/*,video/mp4"
+          onChange={pickRecording} disabled={working}
+          aria-label={'Choose a ' + languageName + ' recording to transcribe'} />
+        {recording && <p style={{ fontSize: 12, margin: '8px 0' }}>Selected: {recording.name} ({(recording.size / 1_000_000).toFixed(2)} MB)</p>}
+        <button type="button" disabled={!recording || working} onClick={generate}
+          style={{ display: 'block', marginTop: 10, padding: '10px 15px', borderRadius: 6, cursor: recording && !working ? 'pointer' : 'not-allowed', background: 'var(--theme-success-500)', color: '#fff', border: 0, fontWeight: 700 }}>
+          {working ? 'Generating captions…' : 'Generate ' + languageName + ' transcript with AI'}
+        </button>
+        <p style={{ fontSize: 11, marginTop: 8 }}>For a full-length YouTube lesson, export or split its original audio into smaller clips. The YouTube URL alone is not transcribed.</p>
       </div>
+      <div style={{ padding: '12px 14px', background: 'var(--theme-elevation-50)', border: '1px solid var(--theme-elevation-150)', borderRadius: 7, marginBottom: 10 }}>
+        <label htmlFor={'upload-' + path} style={{ display: 'block', fontWeight: 600, marginBottom: 6 }}>
+          Or import a corrected transcript file (VTT, SRT, TXT)
+        </label>
+        <input id={'upload-' + path} type="file" accept=".vtt,.srt,.txt,text/vtt,text/plain" onChange={uploadCaptions} disabled={working}
+          aria-label={'Upload corrected captions for ' + path} />
+      </div>
+      {error && <p role="alert" style={{ color: 'var(--theme-error-500)', fontSize: 13, marginBottom: 12 }}>{error}</p>}
+      {message && <p role="status" style={{ color: 'var(--theme-success-500)', fontSize: 13, marginBottom: 12 }}>{message}</p>}
       <TextareaField {...props} />
     </div>
   )
