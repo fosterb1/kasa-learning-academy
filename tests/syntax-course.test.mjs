@@ -8,7 +8,7 @@ test('syntax course covers Kasa 0.4 with 16 independent lessons',()=>{
  assert.equal(course.units.length,16)
  assert.equal(new Set(course.units.map(x=>x.slug)).size,16)
  for(const unit of course.units){
-  for(const k of ['syntax','rule','walkthrough','practice','experiment','caution','example','secondExample'])
+  for(const k of ['syntax','rule','walkthrough','practice','experiment','caution','example','secondExample','invalid','fix','bridge','challenge'])
    assert.ok(unit[k]?.length>=10,unit.slug+' lacks '+k)
  }
 })
