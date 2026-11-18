@@ -1,9 +1,11 @@
 import Link from 'next/link'
 import { studyGuides } from '@/lib/study-guides'
+import { lessonChapters } from '@/lib/lesson-chapters'
 
 /** Additional public, offline-readable teaching material; no CMS writes. */
 export function StudyCompanion({ slug, title }: { slug: string; title: string }) {
   const guide = studyGuides[slug]
+  const chapter = lessonChapters[slug]
   if (!guide) return null
   return <section className="study-companion" aria-label={title + ' study companion'}>
     <div className="study-companion-heading">
@@ -11,6 +13,18 @@ export function StudyCompanion({ slug, title }: { slug: string; title: string })
       <h2>Study deeply, then build something</h2>
       <p>Work through these steps before marking the lesson complete. Every activity can be done using the free browser editor or with a notebook and pencil.</p>
     </div>
+    {chapter && <div className="study-chapter" aria-label="Detailed study notes">
+      <h3>Study notes · Understand the idea</h3>
+      <p className="study-context"><strong>In Ghanaian life:</strong> {chapter.context}</p>
+      {chapter.concepts.map(([heading, explanation]) => <section key={heading} className="study-chapter-section">
+        <h4>{heading}</h4><p>{explanation}</p>
+      </section>)}
+      <h4>Language and computing vocabulary</h4>
+      <dl className="study-glossary">{chapter.terms.map(([term, meaning]) => <div key={term}><dt>{term}</dt><dd>{meaning}</dd></div>)}</dl>
+      <h4>Explain it back</h4>
+      <ol>{chapter.checks.map(question => <li key={question}>{question}</li>)}</ol>
+      <p className="study-language-note">Twi programming keywords are Kasa language syntax. Their everyday-language meanings and preferred spellings require review with fluent Akan educators; English technical definitions above explain how the code behaves.</p>
+    </div>}
     <div className="study-companion-grid">
       <section className="study-block">
         <h3>1. Learning objectives</h3>
