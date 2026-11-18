@@ -202,6 +202,106 @@
       ]
     },
     {
+      "id": "meet-your-editor",
+      "title": "Meet your coding workspace",
+      "age": "Typing your first code",
+      "minutes": 23,
+      "story": "At a community ICT club in Koforidua, learners share a laptop. Before writing a long program, they need to recognize the editor, Run button and output panel.",
+      "goals": [
+        "Identify the code editor, Run button, and output area",
+        "Describe how to safely change, reset and retry a program"
+      ],
+      "explain": [
+        [
+          "The editor holds the instructions",
+          "The code editor is where you type Kasa statements. It is not a chat box, and it does not execute instructions as you type. Write one clear command per line, then deliberately choose Run code."
+        ],
+        [
+          "The output panel shows results",
+          "After executing your program, the output panel displays printed values and errors. If nothing appears, consider whether you used ka or whether the program only stored information without displaying it."
+        ],
+        [
+          "Learn to edit carefully",
+          "Keys such as Backspace, Enter, Shift and quotation marks are important for source code. An accidental missing quotation mark can change the program's meaning. The editor can be used with keyboard navigation, but its usability should be checked on low-cost mobile devices as well."
+        ],
+        [
+          "Differentiate reset and retry",
+          "Run code executes the current text. Reset example restores the original example and discards unsaved changes to that editor. Restart engine reloads the interpreter when it is stuck; it is not a substitute for fixing an error in your code."
+        ]
+      ],
+      "unplugged": "Draw a rectangle labeled 'Editor' and a smaller one labeled 'Output'. Draw an arrow for the Run action. Write a greeting inside the editor and show the expected output separately.",
+      "trace": "Suppose the editor contains ka \"Hello\". Pressing Run produces Hello. Changing the editor text to ka \"Bye\" does not alter the earlier output until the program runs again.",
+      "code": "ka \"I can use the editor!\"\n",
+      "expected": "I can use the editor!\n",
+      "modify": "Change the quoted message, press Run, then use Reset example to restore the original code. Describe the difference.",
+      "make": "Write a two-line message for a new learner about how to open the lesson and how to run code.",
+      "mistake": "Anything you type into the editor instantly becomes an output. The interpreter only runs the code when you execute it.",
+      "questions": [
+        [
+          "What is the editor for?",
+          "Writing and editing Kasa source code."
+        ],
+        [
+          "Where do printed values appear?",
+          "The output area."
+        ],
+        [
+          "Is Restart engine the correct fix for every typo?",
+          "No. Correct the source code first; restart only for engine problems."
+        ]
+      ]
+    },
+    {
+      "id": "calculator-in-kasa",
+      "title": "Turn Kasa into a calculator",
+      "age": "Maths in code",
+      "minutes": 25,
+      "story": "A school club buys chalk, books and pencils. A small program can calculate totals, compare costs and check arithmetic.",
+      "goals": [
+        "Use basic numeric operations with the correct order",
+        "Calculate a total and verify it independently"
+      ],
+      "explain": [
+        [
+          "Arithmetic is an expression",
+          "Kasa can evaluate a numeric expression, just like a calculator. ka 6 + 4 prints 10. You can combine +, -, * and / where the values are numeric."
+        ],
+        [
+          "Order matters",
+          "Multiplication happens before addition unless parentheses change the order. In 2 + 3 * 4, the result is 14; in (2 + 3) * 4, it is 20."
+        ],
+        [
+          "Give the numbers real meanings",
+          "If one exercise book costs GHS 7, three books cost 3 * 7. A print label such as Total GHS makes the answer easier to interpret, but a classroom example does not replace a complete accounting system."
+        ],
+        [
+          "Check your own calculations",
+          "Before pressing Run, estimate an answer mentally or on paper. If three books cost 7 each, the total must be more than 7 and equal to 21. That independent check is more important than clicking the button quickly."
+        ]
+      ],
+      "unplugged": "Use a pencil to calculate 2 + 3 * 4, then calculate (2 + 3) * 4. Explain why both answers are reasonable for different expressions.",
+      "trace": "Book price 7, quantity 3. Multiply 7 by 3 to get 21. Add GHS 5 delivery to obtain 26. How should parentheses be used if the delivery charge is per book instead?",
+      "code": "ka 2 + 3 * 4\nka (2 + 3) * 4\n",
+      "expected": "14\n20\n",
+      "modify": "Replace 3 with 5 in both lines. Predict the two new results before running.",
+      "make": "Calculate the total price of four school notebooks that cost GHS 6 each plus a one-time delivery charge of GHS 4.",
+      "mistake": "An expression is always evaluated strictly from left to right. Kasa follows operator precedence.",
+      "questions": [
+        [
+          "What is 2 + 3 * 4?",
+          "14, because multiplication occurs before addition."
+        ],
+        [
+          "How do you change the operation order?",
+          "Use parentheses."
+        ],
+        [
+          "Why write a label such as Total GHS?",
+          "It tells the reader what the number represents."
+        ]
+      ]
+    },
+    {
       "id": "memory-boxes",
       "title": "Variables are labeled boxes",
       "age": "Store and change values",
@@ -298,6 +398,56 @@
         [
           "Why use nsɛm(age)?",
           "To convert the numeric age to text before joining it with a label."
+        ]
+      ]
+    },
+    {
+      "id": "compare-two-values",
+      "title": "Compare numbers and check rules",
+      "age": "Questions that return truth",
+      "minutes": 24,
+      "story": "A reading club may borrow an extra book if it has at least ten donated books on the shelf.",
+      "goals": [
+        "Use comparisons to form true/false questions",
+        "Distinguish the meaning of >, >= and =="
+      ],
+      "explain": [
+        [
+          "Comparisons produce Booleans",
+          "When a program compares two values, the result is either nokware or atoro. For example, 10 >= 10 is true and 9 >= 10 is false."
+        ],
+        [
+          "Different operators express different rules",
+          "The symbol > means greater than. >= means greater than or equal to. == checks equality. Be careful not to confuse == with = used in an assignment."
+        ],
+        [
+          "Use boundary values",
+          "If a rule says 'at least ten', test 9, 10 and 11. These three simple examples check that the correct operator was used."
+        ],
+        [
+          "Discuss rules before coding",
+          "A school or community decision should have a rule agreed by people. Code implements the rule but should not quietly invent a policy."
+        ]
+      ],
+      "unplugged": "Write number cards 9, 10 and 11. Place each against the rule 'at least 10'. Sort them under Yes and No and explain the boundary.",
+      "trace": "For ma books = 9, the comparison books >= 10 is atoro. For 10 it is nokware. The equality check books == 10 is only nokware when the number is exactly 10.",
+      "code": "ma books = 10\nka books > 10\nka books >= 10\nka books == 10\n",
+      "expected": "atoro\nnokware\nnokware\n",
+      "modify": "Change books to 9 and then 11. Write the three Booleans before running each version.",
+      "make": "Create two comparisons to check whether a pupil brought exactly 2 notebooks and whether they brought at least 2 notebooks.",
+      "mistake": "The operators > and >= mean the same thing. One includes the boundary value and the other excludes it.",
+      "questions": [
+        [
+          "Does 10 > 10 evaluate to true?",
+          "No, it evaluates to atoro."
+        ],
+        [
+          "Does 10 >= 10 evaluate to true?",
+          "Yes, it evaluates to nokware."
+        ],
+        [
+          "What does == do?",
+          "Compare two values for equality."
         ]
       ]
     },
@@ -402,6 +552,207 @@
       ]
     },
     {
+      "id": "talk-to-your-program",
+      "title": "Let your program ask questions",
+      "age": "Inputs and responses",
+      "minutes": 26,
+      "story": "A community library wants to greet learners by the name they choose to type, without storing private details.",
+      "goals": [
+        "Describe input and output as different directions of information",
+        "Use bisa() with the supplied Program Input field"
+      ],
+      "explain": [
+        [
+          "Input enters the program",
+          "Instead of giving the same greeting every time, Kasa can read a response using bisa(). The in-lesson Program Input field supplies one line for each call."
+        ],
+        [
+          "A prompt guides the learner",
+          "Before taking input, print a short question or instruction that tells the person what they should type. It is easier for beginners to understand programs that explain what is happening."
+        ],
+        [
+          "Input arrives as text",
+          "If a learner types 5, bisa() reads text. Converting with nɔma() allows arithmetic, but invalid text needs careful validation in production applications."
+        ],
+        [
+          "Choose safe examples",
+          "While practicing, enter fictional names or colors rather than a real pupil's full name, phone number, home address or school results."
+        ]
+      ],
+      "unplugged": "Ask a friend 'What is your favorite school subject?' Write their answer in a box labeled Input. Draw an arrow to a second box labeled Output: 'You chose ...'.",
+      "trace": "If the program asks for a color and the input field contains blue, ka color prints blue. If the input changes to green, what should the output be?",
+      "code": "ka \"Choose a colour:\"\nma colour = bisa()\nka \"You chose \" + colour\n",
+      "expected": "Choose a colour:\nYou chose blue\n",
+      "input": "blue\n",
+      "modify": "Replace the input word blue with red. Run again and explain which output line changed.",
+      "make": "Write a program that asks for a fictional club nickname and displays a welcome line.",
+      "mistake": "bisa() automatically saves input to a permanent database. The classroom interpreter uses the provided input while the program runs; it does not automatically save it as a permanent record.",
+      "questions": [
+        [
+          "What does bisa() read?",
+          "One line of program input as text."
+        ],
+        [
+          "Why include a prompt?",
+          "To explain what the program expects the user to enter."
+        ],
+        [
+          "Should you type your real password into a learning example?",
+          "No. Use safe, invented information."
+        ]
+      ]
+    },
+    {
+      "id": "a-box-of-many-values",
+      "title": "Lists keep related things together",
+      "age": "Organize information",
+      "minutes": 26,
+      "story": "At a school store, three exercise books have different prices. Instead of writing three unrelated variables, the store can keep a list.",
+      "goals": [
+        "Represent a short ordered collection as a list",
+        "Use zero-based indices and list length correctly"
+      ],
+      "explain": [
+        [
+          "One variable can hold several values",
+          "A list is a collection whose items have positions. The expression [5, 10, 15] contains three numeric values in a chosen order."
+        ],
+        [
+          "Counting positions starts at zero",
+          "Kasa indexes the first item at 0. The second item is index 1; the third is index 2. If a list has three items, index 3 is outside it."
+        ],
+        [
+          "Get the number of items",
+          "tentɛn(values) returns the length of the list. Use it to reason about how many items exist, not to access an extra last element."
+        ],
+        [
+          "Lists are useful but require checking",
+          "An index must exist. A real stock application should also verify whether prices are missing, negative or incorrectly entered."
+        ]
+      ],
+      "unplugged": "Draw three numbered boxes, but start the labels at 0. Write 5, 10 and 15 inside them. Ask a friend which box contains 10.",
+      "trace": "For prices = [5, 10, 15], prices[0] is 5 and prices[2] is 15. There are three elements, so tentɛn(prices) is 3.",
+      "code": "ma prices = [5, 10, 15]\nka prices[0]\nka prices[2]\nka tentɛn(prices)\n",
+      "expected": "5\n15\n3\n",
+      "modify": "Add another price to the list. Update your prediction for the length before running.",
+      "make": "Create a list of four imaginary classroom test marks and print the first and last mark. Use fictitious marks only.",
+      "mistake": "In a list of three values, the third item uses index 3. Kasa uses zero-based indexing, so the third item uses index 2.",
+      "questions": [
+        [
+          "What is the first index?",
+          "0."
+        ],
+        [
+          "What does tentɛn([5, 10, 15]) return?",
+          "3."
+        ],
+        [
+          "What is the last valid index for a four-item list?",
+          "3."
+        ]
+      ]
+    },
+    {
+      "id": "a-reusable-machine",
+      "title": "Functions: write once, use many times",
+      "age": "Build reusable ideas",
+      "minutes": 28,
+      "story": "A class fundraiser needs to multiply different quantities by prices. Rewriting the entire calculation for every product is repetitive.",
+      "goals": [
+        "Describe functions as reusable named operations",
+        "Identify parameters and returned results"
+      ],
+      "explain": [
+        [
+          "Functions organize instructions",
+          "A function is a named block of code that can be called when needed. In Kasa, dwumadie defines a function and awiei closes its body."
+        ],
+        [
+          "Parameters are inputs to a function",
+          "If a function receives quantity and price, those parameter names receive values each time you call the function. Different calls can reuse the same rule."
+        ],
+        [
+          "Return a value to the caller",
+          "sanma returns the result. Printing inside a function and returning a value are different. Returning lets other code reuse the value in a further expression."
+        ],
+        [
+          "Think about simple tests",
+          "Try quantity 3 with price 7, then quantity 4 with price 2. If your function handles both correctly, you have better evidence than a single successful example."
+        ]
+      ],
+      "unplugged": "Draw a machine with two input arrows labeled quantity and price and one output arrow labeled total. Test it with 2 and 5, then 3 and 4.",
+      "trace": "fare(2, 5) returns 10. fare(3, 4) returns 12. The rule does not change, only the inputs.",
+      "code": "dwumadie total(quantity, price)\n    sanma quantity * price\nawiei\nka total(3, 7)\n",
+      "expected": "21\n",
+      "modify": "Call the same function with 5 and 4. What is returned?",
+      "make": "Create a reusable function that adds two numbers and print its result for two different pairs.",
+      "mistake": "A function works only for one fixed set of numbers. Parameters allow it to work with many valid inputs.",
+      "questions": [
+        [
+          "What does dwumadie begin?",
+          "A function definition."
+        ],
+        [
+          "Why use parameters?",
+          "They allow different inputs to be passed to the same reusable procedure."
+        ],
+        [
+          "How is sanma different from ka?",
+          "sanma returns a value; ka prints it."
+        ]
+      ]
+    },
+    {
+      "id": "choose-and-repeat",
+      "title": "Combine decisions and repetition",
+      "age": "Build a bigger program",
+      "minutes": 28,
+      "story": "A school library wants to check several days of small book donations and calculate how many books were received.",
+      "goals": [
+        "Combine a loop with an accumulator",
+        "Add a conditional warning when a total crosses a threshold"
+      ],
+      "explain": [
+        [
+          "Real tasks combine small concepts",
+          "A useful program often needs a variable, an operation, a loop and a decision. It is fine to build those pieces separately before combining them."
+        ],
+        [
+          "Start with a simple repeatable rule",
+          "In the example, each week contributes a fixed number of books to a running total. This is a teaching model; real donations would vary and require input."
+        ],
+        [
+          "Use a conditional after accumulation",
+          "Once the loop ends, a condition can check whether the total reaches a chosen goal. The rule should be easy for a learner to state aloud."
+        ],
+        [
+          "Test both paths",
+          "Try a small contribution that does not reach the goal and a larger one that does. A learner understands a decision better after seeing both outcomes."
+        ]
+      ],
+      "unplugged": "Draw four weeks and add three dots in each box. Total the dots, then compare the result with a goal of ten. Draw two branches for goal reached or not reached.",
+      "trace": "Four weeks of three books gives 12. Since 12 >= 10, the example prints Goal reached. Four weeks of two books gives 8, so the decision would change.",
+      "code": "ma total = 0\nmpɛn 4\n    ma total = total + 3\nawiei\nsɛ total >= 10 a\n    ka \"Goal reached\"\nanyɛ_saa_a\n    ka \"Keep going\"\nawiei\n",
+      "expected": "Goal reached\n",
+      "modify": "Change the contribution from 3 to 2. Predict the displayed message.",
+      "make": "Build a classroom reading target program that adds a weekly reading count and tells learners whether they reached a target.",
+      "mistake": "A conditional inside or after a loop always gives the same result. The branch depends on the values computed by the program.",
+      "questions": [
+        [
+          "What is the total after four additions of 3?",
+          "12."
+        ],
+        [
+          "Why does the example print Goal reached?",
+          "The accumulated total is at least ten."
+        ],
+        [
+          "What changes when the weekly contribution is reduced to 2?",
+          "The total becomes 8 and the other branch runs."
+        ]
+      ]
+    },
+    {
       "id": "bugs-are-clues",
       "title": "Finding and fixing mistakes",
       "age": "Be a code detective",
@@ -498,6 +849,56 @@
         [
           "Should a practice app include classmates' passwords or private contact details?",
           "No. Use fictional data and protect personal information."
+        ]
+      ]
+    },
+    {
+      "id": "safe-shared-computing",
+      "title": "Responsible computing in a shared world",
+      "age": "Digital citizenship",
+      "minutes": 23,
+      "story": "A group of children uses the same school computer for a programming club. They should know how to work responsibly and protect one another's information.",
+      "goals": [
+        "Identify personal information that should not be shared in a practice program",
+        "Explain why checking and communicating results matters"
+      ],
+      "explain": [
+        [
+          "Treat other people's information with respect",
+          "A real name, home address, phone number, password, picture or sensitive school record can identify a child. Classroom examples should use invented names and fictional data unless an appropriate adult-supervised process has been reviewed."
+        ],
+        [
+          "Your computer may be shared",
+          "A shared computer can retain browser drafts and other traces. Learners should ask their teacher or caregiver how to sign out of services, remove personal work and avoid storing sensitive information."
+        ],
+        [
+          "Digital tools can make mistakes",
+          "A working program can still have a logic error or wrong input. Verify results independently before using them to make decisions affecting others."
+        ],
+        [
+          "Communicate clearly and kindly",
+          "When reviewing another learner's program, say what you observed and suggest a test. Good computing includes collaboration and respectful feedback, not just typing quickly."
+        ]
+      ],
+      "unplugged": "Make two columns on paper: safe fictional classroom data and private information. Sort sample cards such as 'fictional name Ama', 'home address', 'book quantity 3', 'password' into the correct columns.",
+      "trace": "A program using an invented learner name and a book count does not require a real pupil's personal details. Could a club project work with invented data instead of collecting classmates' phone numbers?",
+      "code": "ma club = \"Reading Club\"\nma books = 3\nka club\nka books\n",
+      "expected": "Reading Club\n3\n",
+      "modify": "Change the club name and quantity, using fictional values only.",
+      "make": "Write a class agreement with three rules for safe, respectful use of shared computers and explain why each rule matters.",
+      "mistake": "A learning program should ask learners for their real passwords or phone numbers to feel realistic. Invented sample data are safer and sufficient for teaching.",
+      "questions": [
+        [
+          "Should your program ask classmates for their passwords?",
+          "No."
+        ],
+        [
+          "Why should you check a program's answer?",
+          "Incorrect instructions or input can produce misleading results."
+        ],
+        [
+          "What should you do before leaving a shared computer?",
+          "Follow your teacher's guidance to close sessions and protect your work and personal information."
         ]
       ]
     }
