@@ -4,7 +4,7 @@ A **separate, public learning website** for [Kasa Programming Language](https://
 
 ## Features
 
-- Responsive learning site: course catalog, 20 prepared interactive lessons, 8 coding challenges and 3 setup guides
+- Responsive learning site: course catalog, 24 prepared interactive lessons, 8 coding challenges and 3 setup guides
 - Browser-based Twi-first Kasa code editor with local JavaScript worker, Run, Check and input for `bisa()`
 - Lesson quizzes, expected outputs, progress completion stored **only in the browser** (no learner signup)
 - Payload CMS v3 on Next.js with PostgreSQL, secured administrator authentication, drafts, versions and publishing
@@ -36,7 +36,7 @@ npm run seed
 npm run dev
 ```
 
-For Windows PowerShell, use `Copy-Item .env.example .env.local` instead of `cp`. Open **http://localhost:3000** for the public site, and **http://localhost:3000/admin** to log in as the administrator created by the bootstrap script. The seed script adds 20 published lessons, 8 challenges, 3 setup guides and 5 modules; it **never overwrites** existing documents.
+For Windows PowerShell, use `Copy-Item .env.example .env.local` instead of `cp`. Open **http://localhost:3000** for the public site, and **http://localhost:3000/admin** to log in as the administrator created by the bootstrap script. The seed script adds 24 published lessons, 8 challenges, 3 setup guides and 5 modules; it **never overwrites** existing documents.
 
 ### First administrator: important security detail
 
@@ -77,7 +77,7 @@ src/components/           Kasa editor, quiz and progress components
 src/lib/content.ts        Public published-only server queries
 scripts/bootstrap-admin.ts  One-time first administrator
 scripts/seed.ts             Import prepared curriculum without overwrites
-scripts/content/           Initial 20-lesson curriculum
+scripts/content/           Initial 24-lesson curriculum
 public/kasa-runtime.js      Versioned browser-language snapshot
 public/kasa-worker.js       Web Worker execution isolation
 docs/                       Architecture notes
@@ -95,3 +95,9 @@ The Academy now has a **/playground** page for the full Netlify-hosted Kasa inte
 Before the field becomes available, apply the new **additive** CMS migration `20261118_200729` through the approved production database workflow (`npm run db:migrate` with authorized credentials). It creates the single `playground_settings` table without altering lesson, video, user or challenge tables. Before setup, the full-playground page falls back to the local browser interpreter. The remote iframe and external link appear only after the URL is saved. See [Netlify Playground CMS setup](docs/NETLIFY_PLAYGROUND_CMS.md).
 
 The standalone playground is published separately using `fosterb1/kasa_programming_language` and its Netlify build configuration. **Do not deploy this dynamic Academy CMS as a static ZIP.**
+
+## Missing video on a published lesson
+
+The public lesson page displays a video only when the **published** lesson has a valid YouTube URL. If a video was entered but cannot be seen, go to **/admin → Lessons → the exact lesson → YouTube lesson URL**. Confirm the URL is on that lesson (not a separate module), click **Publish** (not only Save Draft), and reload the public lesson page. The course index now labels videos explicitly; lessons without a video say **Text + interactive code**. A valid YouTube link must be public or unlisted and allow embedding. The academy does **not** store uploaded video files; it embeds YouTube videos. Existing CMS content is never overwritten by the seed script. If you published and the video still does not appear, check the active production database, the published version and whether Vercel deployed the current revision.
+
+The additional market-profit, student-average, stock-reorder and saving-target lessons are new seed entries. For a database that was already seeded, run the idempotent seeder again with the documented environment setting and authorized database access. It inserts the new lessons while preserving all existing lesson edits, including video URLs and transcripts.
