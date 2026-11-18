@@ -86,3 +86,12 @@
  .kasa-video-modes button{font-size:11px;padding:10px 9px;flex:1}
  .lesson-page > .kasa-video-lesson .kasa-video-frame{min-height:0}
 }
+
+
+/* Embedded full Netlify playground; keep existing in-lesson editor intact. */
+.academy-full-playground{padding-bottom:66px}
+.academy-playground-toolbar{display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;margin:0 0 14px;font-size:14px;font-weight:650;color:var(--darkgreen)}
+.academy-playground-iframe{width:100%;height:min(1000px,90vh);min-height:640px;border:1px solid var(--line);border-radius:16px;background:#102026;display:block}
+.academy-playground-footnote,.academy-full-playground-link{font-size:14px;color:var(--muted);line-height:1.6;margin:16px 0 24px}
+.academy-full-playground-link a,.academy-playground-footnote a{color:var(--green);font-weight:750}
+@media(max-width:700px){.academy-playground-iframe{min-height:820px;height:1120px}.academy-playground-toolbar{align-items:flex-start}}
