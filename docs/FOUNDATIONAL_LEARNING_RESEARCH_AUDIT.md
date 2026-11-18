@@ -49,7 +49,7 @@
 
 ## New priority sequence (do not confuse with completed work)
 
-### Priority A: pre-coding foundations — implemented as a ten-chapter free reading pathway
+### Priority A: pre-coding foundations — implemented as a eighteen-chapter free reading pathway
 What is a computer; sequencing and algorithms; patterns/decomposition; first Kasa output; variables; data types; decisions; repetition; debugging; a simple safe project.
 
 Each chapter has: contextual story, two measurable objectives, four explained concepts, unplugged activity, prediction and trace task, runnable Kasa example, modification challenge, independent build, misconception, and three self-review questions with answer explanations.
