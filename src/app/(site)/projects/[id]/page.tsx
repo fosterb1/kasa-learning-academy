@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { capstones } from '@/lib/capstones'
-import { Playground } from '@/components/Playground'
+import { BilingualLessonEditor } from '@/components/BilingualLessonEditor'
 export const dynamicParams = false
 export function generateStaticParams() { return capstones.map(project => ({id: project.id})) }
 export default async function Project({params}:{params:Promise<{id:string}>}) {
@@ -15,7 +15,7 @@ export default async function Project({params}:{params:Promise<{id:string}>}) {
       <ol><li>Describe the input values and the expected output.</li><li>Write a short plan in plain language before modifying the code.</li><li>Implement the solution and run it; compare the sample output.</li><li>Change a number or input, predict the result and retest.</li><li>Explain your solution to someone learning Kasa.</li></ol>
       <p><strong>Assessment:</strong> matching the sample output is only a first check, not proof that a program handles every input. This is a learning project, not a production accounting or school records system.</p>
     </div>
-    <Playground sourceCode={project.starterCode} starterInput={project.starterInput} expectedOutput={project.expectedOutput}/>
+    <BilingualLessonEditor slug={"project/"+id} sourceCode={project.starterCode} starterInput={project.starterInput} expectedOutput={project.expectedOutput}/>
     <details className="hint-box"><summary>Show a hint if you get stuck</summary><p>{project.hint}</p></details>
     <p className="academy-full-playground-link"><Link href="/projects">Explore another project →</Link></p>
   </main>
