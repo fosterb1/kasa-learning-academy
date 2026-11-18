@@ -4,8 +4,8 @@ import { readFile } from 'node:fs/promises'
 import '../public/kasa-runtime.js'
 
 const course = JSON.parse(await readFile(new URL('../src/lib/beginner-course.json', import.meta.url), 'utf8'))
-test('Foundations include ten ordered and unique chapters', () => {
-  assert.equal(course.units.length, 10)
+test('Foundations include eighteen ordered and unique chapters', () => {
+  assert.equal(course.units.length, 18)
   assert.equal(new Set(course.units.map(c => c.id)).size, 10)
   for(const c of course.units) {
     assert.ok(c.story.length >= 90, c.id + ': missing relatable context')
