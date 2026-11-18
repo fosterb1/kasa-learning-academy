@@ -6,7 +6,7 @@ import '../public/kasa-runtime.js'
 const course = JSON.parse(await readFile(new URL('../src/lib/beginner-course.json', import.meta.url), 'utf8'))
 test('Foundations include eighteen ordered and unique chapters', () => {
   assert.equal(course.units.length, 18)
-  assert.equal(new Set(course.units.map(c => c.id)).size, 10)
+  assert.equal(new Set(course.units.map(c => c.id)).size, 18)
   for(const c of course.units) {
     assert.ok(c.story.length >= 90, c.id + ': missing relatable context')
     assert.ok(c.goals.length >= 2)
@@ -20,7 +20,7 @@ test('Foundations include eighteen ordered and unique chapters', () => {
 })
 for(const chapter of course.units) {
   test('Kasa worked example matches published output: '+chapter.id, () => {
-    const result = globalThis.KasaRuntime.executeKasa(chapter.code, '', 'run')
+    const result = globalThis.KasaRuntime.executeKasa(chapter.code, chapter.input || '', 'run')
     assert.equal(result.ok, true, String(result.error))
     assert.equal(result.output, chapter.expected)
   })
