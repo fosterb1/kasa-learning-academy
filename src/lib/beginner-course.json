@@ -1,0 +1,505 @@
+{
+  "intro": "This is a first-ever computing course. It assumes no previous coding knowledge, works with a pencil and paper, and uses the existing free Kasa editor for the runnable portions. Suggested for supported upper-primary and junior-high learners; younger learners benefit from an adult or teacher.",
+  "units": [
+    {
+      "id": "meet-the-computer",
+      "title": "What is a computer, really?",
+      "age": "Start here",
+      "minutes": 18,
+      "story": "At a school in Sunyani, one learner has a phone, another has a desktop computer, and another shares a tablet with a sibling. All three devices can follow instructions and process information.",
+      "goals": [
+        "Identify input, processing, output and storage in familiar devices",
+        "Distinguish the human's instructions from the computer's actions"
+      ],
+      "explain": [
+        [
+          "A computer is not a magic thinking box",
+          "A computer is a machine that follows stored instructions to process data. A phone, laptop, ATM and some electronic appliances use computer systems. They do not automatically understand what you want: an application has to define the actions clearly."
+        ],
+        [
+          "Four ideas to learn first",
+          "INPUT is information provided to a system: a name typed on a keyboard or a button press. PROCESSING is work on the information, such as adding two prices. OUTPUT is a result such as a displayed total. STORAGE keeps information to use later. Not every short program saves data."
+        ],
+        [
+          "People design the instructions",
+          "A teacher can mark a scorebook by hand. A computer program can calculate totals repeatedly, but the result depends on correct instructions and data. If someone enters a wrong mark, the program may calculate a precise but wrong answer."
+        ],
+        [
+          "Computing is bigger than coding",
+          "Computing includes problem-solving, design, digital safety, representing data, communicating instructions and evaluating whether results make sense. Programming is one powerful part of it."
+        ]
+      ],
+      "unplugged": "Draw a phone, a school calculator and an ATM in your notebook. For each, label one input and one output. If no device is available, explain your drawing to a friend or caregiver.",
+      "trace": "A teacher types marks 7 and 8 into a calculator. Input: 7 and 8. Processing: addition. Output: 15. What would change if the second mark were 9?",
+      "code": "ka \"Akwaaba, learner!\"\n",
+      "expected": "Akwaaba, learner!\n",
+      "modify": "Change the greeting to welcome a learner from your community. Predict the message first.",
+      "make": "Draw a simple system that takes the number of exercise books and their price and displays the total. You do not need to write code yet.",
+      "mistake": "A computer automatically knows what result is correct. It only performs the operations it is given.",
+      "questions": [
+        [
+          "Is a smartphone a type of computer?",
+          "Yes. It processes data by following software instructions."
+        ],
+        [
+          "If the entered price is wrong, can the output be wrong?",
+          "Yes. Reliable outputs depend on valid input and correct instructions."
+        ],
+        [
+          "What is an output?",
+          "A result from the system, such as text, a number, a sound or an image."
+        ]
+      ]
+    },
+    {
+      "id": "instructions-and-order",
+      "title": "Giving clear instructions",
+      "age": "Unplugged first",
+      "minutes": 20,
+      "story": "Imagine guiding someone who has never made a cup of milo or sorted schoolbooks. If your instructions are vague, the result can be surprising.",
+      "goals": [
+        "Write a precise step-by-step set of instructions",
+        "Explain why the order of instructions affects an outcome"
+      ],
+      "explain": [
+        [
+          "Sequence means order",
+          "A sequence is a list of steps performed in a chosen order. For example: get a clean cup, add a drink ingredient, add safe drinking water, stir. If you tell a robot only to 'make a drink', it would need more detailed instructions to know exactly what to do."
+        ],
+        [
+          "Humans fill in gaps; programs cannot safely assume them",
+          "A person may know that an empty water container needs refilling. A program needs an explicit rule to check whether enough water is available. Computers execute precise commands rather than guessing missing steps."
+        ],
+        [
+          "Algorithms before syntax",
+          "An algorithm is a finite set of understandable steps intended to solve a problem. You can describe an algorithm using everyday language, arrows or numbered steps before using Kasa code."
+        ],
+        [
+          "Check the starting conditions",
+          "The algorithm should describe what it needs. A school attendance total might require a list of learners and one attendance mark per learner. Without the input, the computer cannot give a dependable total."
+        ]
+      ],
+      "unplugged": "Write six clear steps for arranging three books from smallest to largest. Give your steps to a friend without showing the final arrangement. Can they reproduce it?",
+      "trace": "Start: an empty page. Step 1: write 'Kasa'. Step 2: write 'Ghana'. The final page has two lines in that order. Reverse the steps: what changes?",
+      "code": "ka \"Step one\"\nka \"Step two\"\nka \"Step three\"\n",
+      "expected": "Step one\nStep two\nStep three\n",
+      "modify": "Swap the second and third print statements. What changes about the visible result?",
+      "make": "Create an algorithm for checking whether all classroom lights have been turned off at closing time.",
+      "mistake": "The order of lines never matters. In a sequence, the order often determines the output.",
+      "questions": [
+        [
+          "What is a sequence?",
+          "Instructions followed in a specified order."
+        ],
+        [
+          "Can an algorithm be written without a programming language?",
+          "Yes. It can be written in clear ordinary language or represented as a diagram."
+        ],
+        [
+          "What makes an instruction useful to a computer?",
+          "It is precise and expressed as an operation the computer can perform."
+        ]
+      ]
+    },
+    {
+      "id": "spot-the-pattern",
+      "title": "Patterns and problem-solving",
+      "age": "Think like a coder",
+      "minutes": 18,
+      "story": "At a market in Tamale, a trader arranges oranges into small groups. Instead of counting every orange from the start, the trader notices a repeating pattern.",
+      "goals": [
+        "Recognize a simple repeatable pattern",
+        "Break a large problem into smaller steps"
+      ],
+      "explain": [
+        [
+          "Decomposition makes problems smaller",
+          "Decomposition means dividing a difficult task into smaller manageable parts. To plan a school trip, first decide the number of learners, cost per learner, transport and total. Each smaller question can be answered separately."
+        ],
+        [
+          "Patterns save repeated work",
+          "A pattern is something that repeats or follows a rule. If one group contains four oranges and there are three equal groups, addition can be described as 4 + 4 + 4. Later, a loop can express repeated actions."
+        ],
+        [
+          "Abstraction selects what matters",
+          "Abstraction means focusing on information relevant to the problem. For a classroom seating count, number of desks and seats per desk matter; the color of the desks usually does not."
+        ],
+        [
+          "Test your plan against a small example",
+          "Before inventing a general rule, try tiny values you can calculate yourself. Use two desks with three seats each. The total is six; if your algorithm says five, investigate the steps."
+        ]
+      ],
+      "unplugged": "Lay out six bottle tops as two groups of three. Draw the arrangement, then describe the repeated pattern. If you have no bottle tops, draw circles.",
+      "trace": "Two classrooms each have four chairs. 4 + 4 = 8. Three classrooms with four chairs each: 4 + 4 + 4 = 12. What is the next result?",
+      "code": "ka 4 + 4 + 4\n",
+      "expected": "12\n",
+      "modify": "Change the program to calculate five groups of four. Predict the answer before clicking Run.",
+      "make": "List the three smaller calculations needed to estimate the cost of a class trip: passengers, fare per passenger and total fare.",
+      "mistake": "A complicated problem must be solved in one giant step. Breaking it down makes it easier to check.",
+      "questions": [
+        [
+          "What is decomposition?",
+          "Breaking a problem into smaller manageable parts."
+        ],
+        [
+          "Why notice repeated patterns?",
+          "They help us design simpler reusable procedures."
+        ],
+        [
+          "What information matters for calculating seats?",
+          "The number of desks and seats per desk, not irrelevant details such as paint color."
+        ]
+      ]
+    },
+    {
+      "id": "first-line-of-kasa",
+      "title": "Your first line of Kasa",
+      "age": "First working program",
+      "minutes": 20,
+      "story": "A student in Accra wants to print a greeting for visitors to a school science club. One line of code can perform that task.",
+      "goals": [
+        "Identify a Kasa statement and a quoted string",
+        "Run a basic program and predict its exact output"
+      ],
+      "explain": [
+        [
+          "A programming language has rules",
+          "Kasa uses Akan-inspired commands for programming concepts. The keyword ka instructs the interpreter to display the following value. Its meaning as a programming keyword is defined by the language."
+        ],
+        [
+          "Quotation marks matter",
+          "In ka \"Maakye!\", the quotation marks show that Maakye! is text. The program prints the characters inside the quotation marks. ka 4 + 6 is different: Kasa first calculates the expression and prints the result."
+        ],
+        [
+          "Run, observe, explain",
+          "A good learning habit is to read your code aloud in plain English: 'Print the words Akwaaba, Ghana.' Then predict what should appear, run the program and compare the result."
+        ],
+        [
+          "Comments are notes for people",
+          "A line beginning with # explains what the code is for. The interpreter does not print it. Useful comments explain intent rather than repeat the obvious."
+        ]
+      ],
+      "unplugged": "Write ka on a card and a greeting in another card with quotation marks. Explain which part is the command and which part is the data.",
+      "trace": "Code: ka \"School club\" followed by ka 3 + 2. Output line 1: School club. Output line 2: 5. What happens if the arithmetic is inside quotation marks?",
+      "code": "# My first Kasa program\nka \"Akwaaba, Ghana!\"\nka 3 + 2\n",
+      "expected": "Akwaaba, Ghana!\n5\n",
+      "modify": "Change the first output line to greet your own school and change 3 + 2 to 7 + 4.",
+      "make": "Write a three-line Kasa program introducing your coding club: its name, a welcome message and the total number of members.",
+      "mistake": "Writing numbers in quotation marks makes Kasa add them. Inside quotes, the characters are text.",
+      "questions": [
+        [
+          "What does ka do?",
+          "It prints a value in the output area."
+        ],
+        [
+          "Why are quotation marks used?",
+          "To identify text as a string literal."
+        ],
+        [
+          "Does a # comment appear in program output?",
+          "No. It is a note for people reading the code."
+        ]
+      ]
+    },
+    {
+      "id": "memory-boxes",
+      "title": "Variables are labeled boxes",
+      "age": "Store and change values",
+      "minutes": 24,
+      "story": "A pupil records an amount saved for a school excursion. Writing the number on a labeled box makes it easier to remember and update.",
+      "goals": [
+        "Declare and update variables using ma",
+        "Trace values after a sequence of assignments"
+      ],
+      "explain": [
+        [
+          "A name points to a value",
+          "A variable is like a labeled box in an introductory analogy. Write ma balance = 10 to give the name balance the numeric value 10. In Kasa, ma is used for assignment."
+        ],
+        [
+          "Values can change",
+          "After ma balance = balance + 5, the current balance becomes 15. The right side is calculated first using the old value; then the new value is assigned to the name."
+        ],
+        [
+          "Use descriptive names",
+          "balance tells the reader what the number means better than x. A name can help you understand the code later. Beginners should avoid changing several names at once when debugging."
+        ],
+        [
+          "Numbers and text are different",
+          "ma name = \"Ama\" stores text. ma age = 12 stores a number. When producing a sentence that joins text with a numeric value, use nsɛm(age) to convert the number into text deliberately."
+        ]
+      ],
+      "unplugged": "Draw two boxes labeled balance and name. Put 10 and Ama in them. Replace balance with 15, then explain why the other box stays the same.",
+      "trace": "After ma coins = 4, ma coins = coins + 3, and ma coins = coins + 2, the final value is 9. Track the value after each statement.",
+      "code": "ma balance = 10\nka balance\nma balance = balance + 5\nka balance\n",
+      "expected": "10\n15\n",
+      "modify": "Change the starting balance to 20 and the extra contribution to 7. Predict both output lines.",
+      "make": "Build a small school supplies program that stores the number of notebooks, increases it after a purchase and prints the new count.",
+      "mistake": "ma balance = balance + 5 means both sides must be mathematically equal forever. It is an update instruction, not an algebraic equation.",
+      "questions": [
+        [
+          "What does ma balance = 10 do?",
+          "It assigns the value 10 to the name balance."
+        ],
+        [
+          "What value is printed after balance becomes balance + 5?",
+          "The updated value."
+        ],
+        [
+          "Why name a variable clearly?",
+          "It makes the program easier to read, understand and maintain."
+        ]
+      ]
+    },
+    {
+      "id": "numbers-text-and-truth",
+      "title": "Numbers, words and true/false",
+      "age": "Know your data",
+      "minutes": 23,
+      "story": "A class survey records names, ages and whether students brought a book. These are different kinds of information.",
+      "goals": [
+        "Distinguish text, numeric and Boolean values",
+        "Explain why explicit conversion prevents mistakes"
+      ],
+      "explain": [
+        [
+          "Text is for words and labels",
+          "A string is text such as \"Kojo\" or \"Room 4\". Even the string \"12\" is still text. It may look numeric, but Kasa does not silently convert it to an arithmetic number."
+        ],
+        [
+          "Numbers are for quantities",
+          "Use numbers to count pens, calculate totals or compare scores. Arithmetic operators such as + and * operate on numbers according to the language's rules."
+        ],
+        [
+          "Boolean means one of two truth values",
+          "In Kasa, nokware is true and atoro is false. These are used in decisions such as whether a score meets a pass threshold. They are not interchangeable with numeric 1 and 0."
+        ],
+        [
+          "Convert when a problem needs it",
+          "nɔma(\"12\") converts numeric text to a number, while nsɛm(12) converts a value to text for display. Conversion should be intentional, and invalid input needs checking in real applications."
+        ]
+      ],
+      "unplugged": "Make three columns on paper: numbers, words and true/false. Sort these cards into columns: 15, \"15\", \"Mawuli\", nokware, 0, atoro.",
+      "trace": "ma score = 12 and ma label = \"12\" represent different types. Which value can be added directly to 3?",
+      "code": "ma name = \"Akosua\"\nma age = 12\nma enrolled = nokware\nka \"Learner: \" + name\nka \"Age: \" + nsɛm(age)\nka enrolled\n",
+      "expected": "Learner: Akosua\nAge: 12\nnokware\n",
+      "modify": "Change the learner's name and age. Predict which lines change and which stay the same.",
+      "make": "Represent a simple club registration with one name, one age and one Boolean showing whether the learner has registered.",
+      "mistake": "Anything containing digits is a number. Quotation marks determine whether digits are stored as text.",
+      "questions": [
+        [
+          "Is \"42\" a number in Kasa?",
+          "No, it is a string."
+        ],
+        [
+          "What are the Boolean literals in Kasa?",
+          "nokware and atoro."
+        ],
+        [
+          "Why use nsɛm(age)?",
+          "To convert the numeric age to text before joining it with a label."
+        ]
+      ]
+    },
+    {
+      "id": "decisions-with-rules",
+      "title": "Making fair decisions with rules",
+      "age": "If and otherwise",
+      "minutes": 26,
+      "story": "A school club has a published rule: students with at least 50 points pass a practice test. The computer must follow that exact rule.",
+      "goals": [
+        "Understand how a Boolean comparison selects a branch",
+        "Test a decision at the boundary values"
+      ],
+      "explain": [
+        [
+          "A decision asks a question",
+          "A condition such as score >= 50 produces true or false. In Kasa, sɛ condition a begins the branch, anyɛ_saa_a introduces an alternative and awiei ends the block."
+        ],
+        [
+          "A rule must be written precisely",
+          "At least 50 includes 50. The expression score > 50 excludes it. A one-symbol difference can unfairly change who passes, so learners must test the threshold carefully."
+        ],
+        [
+          "Only the chosen branch runs",
+          "If the condition is true, the first branch runs. Otherwise the alternative runs. Read the statements as a flowchart: question → yes path or no path."
+        ],
+        [
+          "Real policies require human responsibility",
+          "A learning exercise uses a sample pass mark. A real school must follow its actual published policy and protect student records. Code cannot choose the fairest policy for people."
+        ]
+      ],
+      "unplugged": "Draw a diamond labeled 'Is score at least 50?' Draw one arrow for Yes and one for No, leading to the labels Pass and Review.",
+      "trace": "For score 49, 50 and 51, list whether the comparison score >= 50 is true or false. Check your predictions by editing the example.",
+      "code": "ma score = 50\nsɛ score >= 50 a\n    ka \"Pass\"\nanyɛ_saa_a\n    ka \"Review\"\nawiei\n",
+      "expected": "Pass\n",
+      "modify": "Set score to 49, then 51. Explain each different output without guessing.",
+      "make": "Write a decision that prints Restock when a bookshop has 5 or fewer notebooks remaining.",
+      "mistake": "At least 50 means greater than 50 only. It actually means greater than or equal to 50.",
+      "questions": [
+        [
+          "Does score = 50 pass the >= 50 rule?",
+          "Yes."
+        ],
+        [
+          "What does anyɛ_saa_a mean in this program?",
+          "It begins the alternative branch when the condition is false."
+        ],
+        [
+          "Why test score 49, 50 and 51?",
+          "These boundary cases reveal whether the comparison is implemented correctly."
+        ]
+      ]
+    },
+    {
+      "id": "repeat-a-task",
+      "title": "When actions need repeating",
+      "age": "Loops without fear",
+      "minutes": 26,
+      "story": "A school savings club collects the same small amount from its members for several weeks. Writing the same addition repeatedly is tedious.",
+      "goals": [
+        "Describe repetition as a loop",
+        "Trace an accumulator after every iteration"
+      ],
+      "explain": [
+        [
+          "Repetition follows a pattern",
+          "A loop runs a block of instructions repeatedly. mpɛn 4 repeats a block four times. This makes programs shorter and reduces repeated copying."
+        ],
+        [
+          "A running total is an accumulator",
+          "Start with ma total = 0. Inside each repetition, update total by adding the contribution. Write down the values after each step to see why the final total is correct."
+        ],
+        [
+          "Loops need a safe stopping rule",
+          "A counted mpɛn loop stops after the specified count. Later you can use bere_a for repetition controlled by a changing condition; failing to change the condition risks an endless loop."
+        ],
+        [
+          "Connect repetition to mathematics",
+          "Four groups of 5 is 5 + 5 + 5 + 5 = 20. Understanding the repeated operation makes loops less mysterious. You can check simple examples using arithmetic first."
+        ]
+      ],
+      "unplugged": "Draw four boxes, each representing a week. Put five dots in each box. Add them one week at a time and record your running total.",
+      "trace": "Starting total 0, four additions of 5 produce 5, 10, 15, 20. Point to the exact step that creates each total.",
+      "code": "ma total = 0\nmpɛn 4\n    ma total = total + 5\nawiei\nka total\n",
+      "expected": "20\n",
+      "modify": "Change four weeks to six and the contribution to 3. Predict the final total.",
+      "make": "Build a program calculating the number of books received when a library gets 2 books every week for 8 weeks.",
+      "mistake": "mpɛn 4 automatically prints four results. It runs the body four times, and printing occurs only when you use ka.",
+      "questions": [
+        [
+          "How many times does mpɛn 4 execute its body?",
+          "Four times."
+        ],
+        [
+          "What is an accumulator?",
+          "A variable that collects a running result."
+        ],
+        [
+          "How do you trace a loop?",
+          "Record the changing values after each iteration."
+        ]
+      ]
+    },
+    {
+      "id": "bugs-are-clues",
+      "title": "Finding and fixing mistakes",
+      "age": "Be a code detective",
+      "minutes": 24,
+      "story": "A learner prints an unexpected answer during a school coding-club activity. The goal is not to panic but to investigate.",
+      "goals": [
+        "Explain syntax, runtime and logic errors",
+        "Use a simple evidence-based debugging routine"
+      ],
+      "explain": [
+        [
+          "A bug is a problem in an instruction or program design",
+          "A syntax error means the program does not follow a grammar rule. A runtime error appears during execution, such as dividing by zero. A logic error may produce the wrong answer without stopping."
+        ],
+        [
+          "Use a calm investigation method",
+          "Step 1: reproduce the problem. Step 2: read the error or compare the output. Step 3: predict where the problem might be. Step 4: change one thing. Step 5: run the original case again."
+        ],
+        [
+          "Test a small example",
+          "If a program calculates a cost incorrectly, use easy values such as 2 items costing 3 each. You know the answer is 6, so it is easy to detect a mistake."
+        ],
+        [
+          "Errors are part of learning",
+          "A learner who can describe why a program failed is developing a real computer-science skill. Ask for explanations and fixes, not just copied working answers."
+        ]
+      ],
+      "unplugged": "Give a friend the instruction 'Write numbers 1 to 5, but start at 2.' Ask what would go wrong. Correct the instruction so the desired numbers appear.",
+      "trace": "A program prints 12 when you expect 6 because it uses 3 * 4 instead of 2 * 3. Identify the incorrect quantities and explain how to correct them.",
+      "code": "ma price = 3\nma items = 2\nka price * items\n",
+      "expected": "6\n",
+      "modify": "Change the multiplication to addition. Explain why the result is wrong even though the code still runs.",
+      "make": "Write two tiny programs: one with a deliberate wrong calculation and one corrected version. Explain the bug in a sentence.",
+      "mistake": "If a program runs without an error message, its answer must be correct. Logic errors can produce incorrect results without warnings.",
+      "questions": [
+        [
+          "What is a logic error?",
+          "A program runs but produces the wrong behavior or answer."
+        ],
+        [
+          "What should you do after making a fix?",
+          "Rerun the case that originally failed and check the output."
+        ],
+        [
+          "Why use simple values in debugging?",
+          "Their expected outputs are easy to calculate and compare."
+        ]
+      ]
+    },
+    {
+      "id": "build-with-kindness",
+      "title": "Build something useful and safe",
+      "age": "Your first mini-project",
+      "minutes": 28,
+      "story": "A young coder wants to help a neighborhood reading club work out how many exercise books they can afford.",
+      "goals": [
+        "Describe a simple real problem using input, processing and output",
+        "Explain why privacy and accuracy matter"
+      ],
+      "explain": [
+        [
+          "Start with a real question",
+          "Instead of asking 'What code should I type?', ask 'How many exercise books can the club buy?' Decide the number of books, unit price and the total cost."
+        ],
+        [
+          "Write a plan first",
+          "Inputs are the number of books and price per book. Processing is multiplication. Output is a labeled total. Only after drawing this plan do we write the Kasa program."
+        ],
+        [
+          "Check before trusting the answer",
+          "If three books cost 7 each, the total is 21. Verify with hand calculation and try different quantities. Remember that a classroom example is not a complete shop payment system."
+        ],
+        [
+          "Protect people",
+          "Do not publish classmates' phone numbers, full names, passwords, school marks or other private details. Use invented sample names and figures while learning. Ask a teacher before sharing a project online."
+        ]
+      ],
+      "unplugged": "Draw a simple receipt in your notebook for three books costing 7 each. Label input, calculation and output.",
+      "trace": "Number of books 3. Price per book 7. Calculate 3 * 7 = 21. Predict the output of the example below before running.",
+      "code": "ma books = 3\nma price = 7\nma total = books * price\nka \"Total GHS: \" + nsɛm(total)\n",
+      "expected": "Total GHS: 21\n",
+      "modify": "Change the number of books to 5 and the price to 4. What total will the club pay?",
+      "make": "Create a small receipt for pencils or exercise books sold at a local shop. Label every output clearly and explain the arithmetic to a friend.",
+      "mistake": "A correct classroom calculation is a complete and secure sales app. Real applications must handle validation, records, privacy, payment and errors.",
+      "questions": [
+        [
+          "What are the inputs in the book-cost problem?",
+          "Quantity and price per book."
+        ],
+        [
+          "What is processing?",
+          "Multiplying quantity by unit price."
+        ],
+        [
+          "Should a practice app include classmates' passwords or private contact details?",
+          "No. Use fictional data and protect personal information."
+        ]
+      ]
+    }
+  ]
+}
