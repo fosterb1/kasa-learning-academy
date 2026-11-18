@@ -150,3 +150,45 @@
 .glossary-table thead{background:#eef6ee}
 .glossary-table code{white-space:nowrap}
 @media(max-width:620px){.project-promo{align-items:flex-start}.project-promo .button{width:100%;text-align:center}}
+
+
+/* Start-from-zero curriculum: readable first, accessible, no extra JS/frameworks. */
+.kasa-first-steps,.beginner-chapter{padding-bottom:74px}
+.kasa-first-steps .page-heading,.beginner-chapter .page-heading{max-width:920px}
+.beginner-intro{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin:12px 0 32px}
+.beginner-intro>div,.beginner-next,.beginner-end{background:#eaf3e9;border:1px solid #cfe2d3;border-radius:16px;padding:24px}
+.beginner-intro strong,.beginner-end strong{font-size:17px;color:#164b32}
+.beginner-intro p,.beginner-next p,.beginner-end p{line-height:1.8;color:#476153}
+.beginner-course-list{display:grid;gap:12px}
+.beginner-unit-card{display:grid;grid-template-columns:56px minmax(0,1fr) 24px;align-items:center;gap:20px;border:1px solid #d8e5db;border-radius:14px;padding:20px 22px;background:#fff;transition:border-color .12s,transform .12s}
+.beginner-unit-card:hover,.beginner-unit-card:focus-visible{border-color:#338159;transform:translateY(-1px)}
+.beginner-unit-card>span:nth-child(2){display:grid;gap:5px}
+.beginner-unit-card small{color:#357250;font-weight:750}
+.beginner-unit-card strong{font-size:19px;color:#173e2f}
+.beginner-unit-card>span:nth-child(2)>span{color:#52685b;font-size:13px;line-height:1.65}
+.beginner-index{color:#26704b;font-family:Outfit,sans-serif;font-weight:850;font-size:25px}
+.beginner-next{margin-top:30px}
+.beginner-next h2{margin:0}
+.beginner-reading{max-width:850px}
+.beginner-goals{background:#e8f2e8;padding:23px 28px;border-radius:15px;margin:0 0 28px}
+.beginner-goals h2,.beginner-reading h2,.beginner-coding h2,.beginner-review h2{font-size:clamp(20px,2.4vw,28px);margin:8px 0 12px;color:#193e30}
+.beginner-goals li{margin:8px 0;line-height:1.7}
+.beginner-topic{background:#fff;border:1px solid #dce6de;border-radius:14px;padding:24px 27px;margin:18px 0}
+.beginner-topic p,.beginner-activity p,.beginner-coding>p,.beginner-review>p{font-size:16px;line-height:1.95;color:#344b3e}
+.beginner-activity{margin:18px 0;padding:22px 26px;border-radius:13px;border-left:5px solid #4b885c;background:#f0f6ef}
+.beginner-activity h2,.beginner-activity h3{font-size:20px;margin:5px 0 10px}
+.beginner-coding{max-width:930px;margin:44px 0}
+.beginner-review{max-width:850px;margin:36px 0}
+.beginner-review details{background:#fff;border:1px solid #d6e3d8;border-radius:11px;margin:12px 0;padding:18px}
+.beginner-review summary{cursor:pointer;font-weight:750;line-height:1.6;color:#1a5338}
+.beginner-review details p{color:#455e4d;font-size:14px;line-height:1.8}
+.beginner-end{display:flex;justify-content:space-between;align-items:center;gap:22px;flex-wrap:wrap;margin:30px 0}
+.beginner-end p{max-width:60ch}
+.beginner-nav{display:flex;flex-wrap:wrap;gap:16px}
+.beginner-nav a{background:#225d40;color:white;padding:12px 16px;border-radius:9px;font-weight:750}
+.beginner-nav a:hover,.beginner-nav a:focus-visible{background:#153f2b}
+.beginner-route-promo{background:#f0f7e9;border:1px solid #d0e2ce;border-radius:14px;padding:22px 25px;margin:18px 0 26px;display:flex;gap:20px;justify-content:space-between;align-items:center;flex-wrap:wrap}
+.beginner-route-promo h2{margin:4px 0 8px;font-size:22px}
+.beginner-route-promo p{line-height:1.7;color:#4a6351;max-width:66ch;margin:0}
+@media(max-width:700px){.beginner-intro{grid-template-columns:1fr}.beginner-topic,.beginner-goals,.beginner-activity{padding:17px}.beginner-unit-card{grid-template-columns:35px minmax(0,1fr) 18px;padding:16px;gap:12px}.beginner-unit-card strong{font-size:16px}}
+@media print{.beginner-topic,.beginner-activity,.beginner-review details{break-inside:avoid}.beginner-nav,.primary-nav{display:none}}
