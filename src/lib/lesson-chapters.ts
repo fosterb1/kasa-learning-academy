@@ -560,5 +560,285 @@ export const lessonChapters: Record<string,LessonChapter> = {
       "Why might actual savings differ from the projection?",
       "What condition indicates that the goal was reached?"
     ]
+  },
+  "welcome": {
+    "context": "A senior high school learner opens Kasa for the first time on a shared computer.",
+    "concepts": [
+      [
+        "Computing starts with a problem",
+        "A program is a precise set of instructions that transforms an input into an outcome. Before typing code, decide what the computer should accomplish and how success can be checked."
+      ],
+      [
+        "Read first, type second",
+        "The Kasa browser editor lets you experiment without a paid account or installation. The skill you are developing is the ability to describe and reason about a solution."
+      ],
+      [
+        "Build confidence through small changes",
+        "Change one printed greeting, predict the result, and run it. A successful prediction proves more understanding than copying a long program."
+      ]
+    ],
+    "terms": [
+      [
+        "program",
+        "Set of executable instructions"
+      ],
+      [
+        "output",
+        "Information produced by a program"
+      ],
+      [
+        "interpreter",
+        "Software that executes source code"
+      ]
+    ],
+    "checks": [
+      "Name an input and output from a familiar school or market task.",
+      "What did changing one line teach you about program execution?"
+    ]
+  },
+  "install": {
+    "context": "A young programmer has occasional internet access and wants to code from a home laptop.",
+    "concepts": [
+      [
+        "Two ways to learn",
+        "Browser exercises require no installation. A local command-line interpreter lets you run saved .kasa files and experiment without opening the Academy website."
+      ],
+      [
+        "Working with files",
+        "A source file contains text in Kasa syntax. Use the .kasa extension and UTF-8 encoding, especially for letters such as ɛ and ɔ."
+      ],
+      [
+        "Develop good habits",
+        "Keep your examples in a separate folder, use descriptive filenames, and check the interpreter version when instructions differ from your installation."
+      ]
+    ],
+    "terms": [
+      [
+        "CLI",
+        "Command-line interface"
+      ],
+      [
+        "UTF-8",
+        "Encoding that supports Kasa's accented characters"
+      ],
+      [
+        ".kasa",
+        "Kasa source file extension"
+      ]
+    ],
+    "checks": [
+      "When is the browser editor sufficient?",
+      "Why does UTF-8 matter for Kasa keywords?"
+    ]
+  },
+  "recursion": {
+    "context": "A school coding club studies how a big mathematical problem can be reduced to smaller ones.",
+    "concepts": [
+      [
+        "A function can call itself",
+        "Recursion solves a problem by referring to a smaller instance of the same problem. For example, factorial of n uses n times factorial of n - 1."
+      ],
+      [
+        "The base case must stop",
+        "Every recursive process needs a base case that returns without another recursive call. Otherwise the computation can grow without end and exceed safety limits."
+      ],
+      [
+        "Trace the stack mentally",
+        "For factorial of 4, record the calls factorial(4), factorial(3), factorial(2), factorial(1), then work backwards to compute the result."
+      ]
+    ],
+    "terms": [
+      [
+        "recursion",
+        "Function calling itself on a smaller problem"
+      ],
+      [
+        "base case",
+        "Condition that stops recursive calls"
+      ],
+      [
+        "call stack",
+        "Record of active function calls"
+      ]
+    ],
+    "checks": [
+      "What base case does factorial need?",
+      "Which smaller calls occur before factorial(4) returns?"
+    ]
+  },
+  "list-update": {
+    "context": "A store manager updates a list of product costs after receiving a new supplier quote.",
+    "concepts": [
+      [
+        "Mutation changes existing data",
+        "Updating a list element replaces the value at an index. If the original price was 50 and a new price is 55, only that position should change."
+      ],
+      [
+        "Traversing is systematic",
+        "Use a counter starting from zero and continue while it is smaller than the list length. Print or add each item once, then increase the counter."
+      ],
+      [
+        "Check data before changing it",
+        "A real app should validate that an index exists and keep the original records when auditability matters. A classroom list illustrates mechanics, not a full inventory database."
+      ]
+    ],
+    "terms": [
+      [
+        "mutation",
+        "Change to an existing data structure"
+      ],
+      [
+        "traversal",
+        "Visit items in a collection"
+      ],
+      [
+        "index bounds",
+        "Valid positions of a list"
+      ]
+    ],
+    "checks": [
+      "What happens when you try to update an index past the final item?",
+      "How can you prove your loop visits every element once?"
+    ]
+  },
+  "input": {
+    "context": "A farmer cooperative enters quantities at the end of each market day.",
+    "concepts": [
+      [
+        "Input is text at first",
+        "The bisa() function reads a line of program input. The learner can supply lines in the Academy editor without a command-line application."
+      ],
+      [
+        "Convert for arithmetic",
+        "If an input line contains digits but needs to be multiplied, use nɔma() to convert it to a number first. A meaningful prompt and clear labels make the program easier to use."
+      ],
+      [
+        "Be skeptical of input",
+        "A real production system should reject negative quantities, invalid text and missing answers instead of treating all typed values as trustworthy."
+      ]
+    ],
+    "terms": [
+      [
+        "bisa()",
+        "Read a line of supplied input"
+      ],
+      [
+        "validation",
+        "Check that entered values satisfy requirements"
+      ],
+      [
+        "conversion",
+        "Change a value between representations"
+      ]
+    ],
+    "checks": [
+      "Why can you not always multiply raw user text?",
+      "What invalid inputs should a farm quantity form reject?"
+    ]
+  },
+  "student-average": {
+    "context": "A teacher prepares a simple report for three subjects taught in a Ghanaian school.",
+    "concepts": [
+      [
+        "Start with a transparent formula",
+        "An average of three marks is their sum divided by three. State that each mark uses the same scale, and write down the threshold used in the learning exercise."
+      ],
+      [
+        "Decisions need a published rule",
+        "A pass condition of average >= 50 is an example, not a universal school policy. Learners should be able to alter the condition and see how the classification changes."
+      ],
+      [
+        "Reliable systems go further",
+        "If marks are missing or out of range, the program should flag them. Recording the date and source of marks matters when decisions affect real students."
+      ]
+    ],
+    "terms": [
+      [
+        "mean",
+        "Arithmetic average"
+      ],
+      [
+        "pass rule",
+        "Condition used to classify a result"
+      ],
+      [
+        "data range",
+        "Allowed interval for an input"
+      ]
+    ],
+    "checks": [
+      "What is the average of 45, 50 and 55?",
+      "How would an invalid mark of 150 affect the calculation?"
+    ]
+  },
+  "stock-reorder": {
+    "context": "A pharmacy or small shop needs an early warning when an item is running out.",
+    "concepts": [
+      [
+        "Stock movement is arithmetic",
+        "Remaining units equal opening inventory minus units sold in a simplified example. Real movement also includes receipts, returns, damage and adjustments."
+      ],
+      [
+        "Thresholds drive actions",
+        "A reorder threshold does not predict demand automatically. It is a chosen policy: if the closing quantity is at or below the threshold, display a warning."
+      ],
+      [
+        "Defend against impossible figures",
+        "If sales exceed opening stock, negative balances should be investigated rather than presented as healthy inventory. Use a conditional to detect this edge case."
+      ]
+    ],
+    "terms": [
+      [
+        "closing stock",
+        "Units remaining at the end of a period"
+      ],
+      [
+        "reorder point",
+        "Quantity that triggers a restocking decision"
+      ],
+      [
+        "negative balance",
+        "A signal requiring investigation"
+      ]
+    ],
+    "checks": [
+      "What is closing stock after selling 32 from 40?",
+      "Why is a negative inventory quantity suspicious?"
+    ]
+  },
+  "saving-target": {
+    "context": "Members of a youth club in Accra plan a predictable contribution schedule.",
+    "concepts": [
+      [
+        "A repeatable savings model",
+        "A fixed monthly contribution adds to an accumulated total. The model has a starting balance, contribution amount and number of months."
+      ],
+      [
+        "Explain assumptions to users",
+        "Saving 150 each month for six months produces 900 if all contributions happen. Actual balances can differ due to withdrawals or missed payments."
+      ],
+      [
+        "Build comparisons",
+        "Try different months and contribution sizes, then explain which scenario reaches a goal sooner. Record each month in a small table to verify the loop."
+      ]
+    ],
+    "terms": [
+      [
+        "contribution",
+        "Amount added to savings"
+      ],
+      [
+        "accumulation",
+        "Repeated addition to a total"
+      ],
+      [
+        "assumption",
+        "Condition held fixed in a model"
+      ]
+    ],
+    "checks": [
+      "Calculate the balance for 12 deposits of 200.",
+      "Which real-world event could break the simple projection?"
+    ]
   }
 }
