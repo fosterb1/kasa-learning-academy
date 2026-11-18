@@ -4,7 +4,7 @@ A **separate, public learning website** for [Kasa Programming Language](https://
 
 ## Features
 
-- Responsive learning site: course catalog, 24 prepared interactive lessons, 8 coding challenges and 3 setup guides
+- Responsive learning site: course catalog, 24 prepared interactive lessons, 13 prepared coding challenges and 3 setup guides
 - Browser-based Twi-first Kasa code editor with local JavaScript worker, Run, Check and input for `bisa()`
 - Lesson quizzes, expected outputs, progress completion stored **only in the browser** (no learner signup)
 - Payload CMS v3 on Next.js with PostgreSQL, secured administrator authentication, drafts, versions and publishing
@@ -36,7 +36,7 @@ npm run seed
 npm run dev
 ```
 
-For Windows PowerShell, use `Copy-Item .env.example .env.local` instead of `cp`. Open **http://localhost:3000** for the public site, and **http://localhost:3000/admin** to log in as the administrator created by the bootstrap script. The seed script adds 24 published lessons, 8 challenges, 3 setup guides and 5 modules; it **never overwrites** existing documents.
+For Windows PowerShell, use `Copy-Item .env.example .env.local` instead of `cp`. Open **http://localhost:3000** for the public site, and **http://localhost:3000/admin** to log in as the administrator created by the bootstrap script. The seed script adds 24 published lessons, 13 challenges, 3 setup guides and 5 modules; it **never overwrites** existing documents.
 
 ### First administrator: important security detail
 
@@ -101,3 +101,15 @@ The standalone playground is published separately using `fosterb1/kasa_programmi
 The public lesson page displays a video only when the **published** lesson has a valid YouTube URL. If a video was entered but cannot be seen, go to **/admin → Lessons → the exact lesson → YouTube lesson URL**. Confirm the URL is on that lesson (not a separate module), click **Publish** (not only Save Draft), and reload the public lesson page. The course index now labels videos explicitly; lessons without a video say **Text + interactive code**. A valid YouTube link must be public or unlisted and allow embedding. The academy does **not** store uploaded video files; it embeds YouTube videos. Existing CMS content is never overwritten by the seed script. If you published and the video still does not appear, check the active production database, the published version and whether Vercel deployed the current revision.
 
 The additional market-profit, student-average, stock-reorder and saving-target lessons are new seed entries. For a database that was already seeded, run the idempotent seeder again with the documented environment setting and authorized database access. It inserts the new lessons while preserving all existing lesson edits, including video URLs and transcripts.
+
+## Ghana-first learning expansion (November 2026)
+
+Every one of the 24 bundled lesson slugs now has an authored study chapter and study companion (objectives, multiple concept explanations, computing vocabulary, guided practice, common mistakes, independent assignments, and review prompts). The companion is rendered alongside existing CMS records, without editing users' videos, captions or lessons. These are deliberately short instructional chapters and **not yet equivalent in depth to a complete Python textbook**.
+
+The public **/glossary** explains current Kasa keyword behavior in English and points to the ongoing Twi terminology audit; the programming vocabulary is not certified as a native-language translation. The public **/projects** catalog contains five Ghana-oriented practice assignments (receipts, marks, reorder decisions, savings, and trotro fare calculation). They are bundled as read-only web content, independent of the CMS seed, and each project has a functional browser editor.
+
+The in-lesson code editor now supports sample-output matching and beginner-friendly debugging suggestions, with repeatable runs after ordinary execution errors. **Output matching is not a secure auto-grader or proof of correctness for arbitrary inputs**; future assessment development requires hidden test coverage and careful security controls.
+
+The JSON curriculum also contains 24 starter lessons and 13 practice entries. **The existing production CMS has its own records**; the idempotent seed script must be executed through an authorized application environment to insert missing curriculum entries. Do not manually overwrite edited records, including videos, or treat GitHub changes as evidence that the PostgreSQL records were automatically inserted.
+
+The new public project pages and study companions require no database migration; they ship through existing Vercel Git deployments. To verify, open /learn/variables, /projects/p9 and /glossary, and exercise the Kasa code worker. Development checks include `npm run test:smoke`; CI smoke tests are not run by the normal production build unless explicitly configured.
