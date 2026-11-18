@@ -679,6 +679,150 @@
         "explanation": "A temporary variable preserves the old value during the swap."
       },
       "input": ""
+    },
+    {
+      "id": "market-profit",
+      "unit": "Build real projects",
+      "title": "Market-day profit and margin",
+      "subtitle": "Understand sales, cost and what a trader keeps.",
+      "mins": 12,
+      "overview": "A trader can sell many items and still earn little if costs are high. Model sales revenue, purchase costs and profit in Kasa. This is a learning calculation, not a complete business accounting statement.",
+      "points": [
+        [
+          "Revenue and cost",
+          "Revenue is the amount earned from sales. Cost is the amount spent to acquire the goods sold; in this simplified example we omit rent, transport and other expenses."
+        ],
+        [
+          "Profit and margin",
+          "Profit = revenue - cost. Profit margin as a percentage = profit / revenue * 100 when revenue is greater than zero."
+        ],
+        [
+          "Try real-world scenarios",
+          "Run the program with lower sales or higher costs. A negative profit means the simplified sale lost money."
+        ]
+      ],
+      "code": "ma revenue = 500\nma cost = 350\nma profit = revenue - cost\nma margin = profit / revenue * 100\nka \"Profit\"\nka profit\nka \"Margin percent\"\nka margin\n",
+      "expected": "Profit\n150\nMargin percent\n30\n",
+      "task": "Change revenue to 800 and cost to 620. Calculate profit and margin before you run the program.",
+      "quiz": {
+        "question": "If revenue is 500 and cost is 350, what is profit?",
+        "choices": [
+          "150",
+          "350",
+          "850"
+        ],
+        "answer": 0,
+        "explanation": "Subtract cost from sales revenue: 500 - 350 = 150."
+      },
+      "input": ""
+    },
+    {
+      "id": "student-average",
+      "unit": "Build real projects",
+      "title": "School results: averages and decisions",
+      "subtitle": "Calculate an average mark and check a pass threshold.",
+      "mins": 12,
+      "overview": "Build a transparent three-subject average for a classroom exercise. This introduces arithmetic, reusable variables and a conditional outcome without needing external data or libraries.",
+      "points": [
+        [
+          "Compute the average",
+          "Sum the subject marks, then divide by the number of subjects. Here three marks are each on a scale of 0 to 100."
+        ],
+        [
+          "Apply a clear rule",
+          "The pass threshold in this exercise is 50. Actual school grading rules may be different."
+        ],
+        [
+          "Check the boundary",
+          "Test averages of 49, 50 and 51 to see exactly where the decision changes."
+        ]
+      ],
+      "code": "ma maths = 80\nma science = 70\nma english = 60\nma average = (maths + science + english) / 3\nka average\nsɛ average >= 50 a\n    ka \"Pass\"\nanyɛ_saa_a\n    ka \"Review\"\nawiei\n",
+      "expected": "70\nPass\n",
+      "task": "Set the marks to 45, 50 and 55. Predict the result, then change the threshold from 50 to 60.",
+      "quiz": {
+        "question": "Which expression calculates the average of three marks?",
+        "choices": [
+          "a + b + c / 3",
+          "(a + b + c) / 3",
+          "a * b * c"
+        ],
+        "answer": 1,
+        "explanation": "Parentheses ensure all three marks are added before division."
+      },
+      "input": ""
+    },
+    {
+      "id": "stock-reorder",
+      "unit": "Build real projects",
+      "title": "Inventory restock alert",
+      "subtitle": "Decide when a small shop needs new stock.",
+      "mins": 11,
+      "overview": "Track units in stock after sales, then print a message when the remaining quantity reaches a reorder point. This is a practical introduction to decisions and basic inventory control.",
+      "points": [
+        [
+          "Stock movement",
+          "Closing units = opening units - units sold. Real stock records should also include purchases, returns and damaged stock."
+        ],
+        [
+          "Reorder point",
+          "The threshold is a policy set by a shopkeeper. At or below 10 units, this exercise recommends restocking."
+        ],
+        [
+          "Prevent unrealistic examples",
+          "In a production application, validate sales against stock and record transactions before updating balances."
+        ]
+      ],
+      "code": "ma opening = 40\nma sold = 32\nma remaining = opening - sold\nka \"Remaining units\"\nka remaining\nsɛ remaining <= 10 a\n    ka \"Restock\"\nanyɛ_saa_a\n    ka \"Stock okay\"\nawiei\n",
+      "expected": "Remaining units\n8\nRestock\n",
+      "task": "Change sold to 20, then 35. When does the warning first appear? Add your own reorder threshold.",
+      "quiz": {
+        "question": "When opening stock is 40 and sales are 32, how many remain?",
+        "choices": [
+          "72",
+          "8",
+          "32"
+        ],
+        "answer": 1,
+        "explanation": "Closing units are 40 - 32 = 8."
+      },
+      "input": ""
+    },
+    {
+      "id": "saving-target",
+      "unit": "Build real projects",
+      "title": "Plan a savings target",
+      "subtitle": "Repeat monthly contributions and track the total.",
+      "mins": 11,
+      "overview": "A savings goal is easier to understand when you model regular contributions. Use a counted loop to accumulate an amount month by month. Interest and fees are deliberately excluded.",
+      "points": [
+        [
+          "Accumulation",
+          "The total starts at zero. Each repetition adds one fixed monthly contribution."
+        ],
+        [
+          "Interpret the model",
+          "After six contributions of 150, the total is 900. The model assumes every contribution is made."
+        ],
+        [
+          "Stretch challenge",
+          "Try different monthly amounts and compare six versus twelve months."
+        ]
+      ],
+      "code": "ma total = 0\nmpɛn 6\n    ma total = total + 150\nawiei\nka \"Saved\"\nka total\n",
+      "expected": "Saved\n900\n",
+      "task": "Make the contribution 200 and the duration 12 months. Predict the saved amount and confirm by running.",
+      "quiz": {
+        "question": "How much is saved with six contributions of 150 and no interest?",
+        "choices": [
+          "150",
+          "600",
+          "900"
+        ],
+        "answer": 2,
+        "explanation": "Six equal contributions of 150 add to 900."
+      },
+      "input": ""
     }
   ],
   "practices": [
