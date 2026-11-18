@@ -1,5 +1,7 @@
 import Link from 'next/link'
 import { Playground } from '@/components/Playground'
+import { getPayload } from 'payload'
+import config from '@payload-config'
 
 export const metadata = {
   title: 'Kasa online playground',
@@ -9,8 +11,24 @@ export const metadata = {
 const DEFAULT_SOURCE = 'ma edin = "Ghana"\nka "Akwaaba, " + edin\n'
 
 /** Only embed HTTPS origins; never render an arbitrary iframe scheme. */
-function configuredPlaygroundUrl(): string | null {
-  const configured = process.env.NEXT_PUBLIC_KASA_PLAYGROUND_URL?.trim()
+async function configuredPlaygroundUrl(): Promise<string | null> {
+  let configured: string | undefined
+  try {
+    const payload = await getPayload({ config })
+    const settings = await payload.findGlobal({ slug: 'playground-settings', overrideAccess: true })
+    configured = typeof settings.playgroundUrl === 'string' ? settings.playgroundUrl.trim() : undefined
+  } catch (error) {
+    // Before the additive migration is applied, preserve the existing inline
+    // interpreter rather than taking down the public playground route.
+    let cause: unknown = error
+    let missingTable = false
+    for (let i = 0; i < 8 && cause && typeof cause === 'object'; i++) {
+      if ((cause as {code?: unknown}).code === '42P01') { missingTable = true; break }
+      cause = (cause as {cause?: unknown}).cause
+    }
+    if (!missingTable) throw error
+    return null
+  }
   if (!configured) return null
   try {
     const target = new URL(configured)
@@ -22,8 +40,10 @@ function configuredPlaygroundUrl(): string | null {
   }
 }
 
-export default function PlaygroundPage() {
-  const remote = configuredPlaygroundUrl()
+export const dynamic = 'force-dynamic'
+
+export default async function PlaygroundPage() {
+  const remote = await configuredPlaygroundUrl()
   return <div className="content-width academy-full-playground">
     <div className="page-heading">
       <span className="eyebrow">WRITE KASA · RUN IN YOUR BROWSER</span>
