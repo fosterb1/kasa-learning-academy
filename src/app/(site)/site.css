@@ -192,3 +192,31 @@
 .beginner-route-promo p{line-height:1.7;color:#4a6351;max-width:66ch;margin:0}
 @media(max-width:700px){.beginner-intro{grid-template-columns:1fr}.beginner-topic,.beginner-goals,.beginner-activity{padding:17px}.beginner-unit-card{grid-template-columns:35px minmax(0,1fr) 18px;padding:16px;gap:12px}.beginner-unit-card strong{font-size:16px}}
 @media print{.beginner-topic,.beginner-activity,.beginner-review details{break-inside:avoid}.beginner-nav,.primary-nav{display:none}}
+
+
+/* Kasa Language Grammar school: focus on explicit syntax education. */
+.syntax-course-promo,.syntax-route-info{margin:22px 0 28px;padding:clamp(20px,3vw,30px);border:1px solid #c7ddcb;border-radius:16px;background:#eaf4e8;line-height:1.85}
+.syntax-course-promo h2,.syntax-route-info h2{font-size:clamp(23px,3vw,32px);margin:7px 0}
+.syntax-course-promo p,.syntax-route-info p{max-width:77ch;color:#385741}
+.syntax-course-promo .button{display:inline-block;margin-top:6px}
+.syntax-route-info a{text-decoration:underline;color:#176343;font-weight:700}
+.syntax-chapter-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin:25px 0 46px}
+.syntax-chapter-card{min-width:0;background:#fff;border:1px solid #d9e7d9;border-radius:14px;padding:23px;display:grid;align-content:start;gap:10px;transition:transform .15s,border-color .15s}
+.syntax-chapter-card:hover,.syntax-chapter-card:focus-visible{border-color:#397955;transform:translateY(-2px)}
+.syntax-chapter-card h2{font-size:21px;margin:0;line-height:1.3}
+.syntax-chapter-card p{font-size:14px;line-height:1.8;color:#4e6456;margin:0}
+.syntax-chapter-card code,.syntax-rule pre,.syntax-read pre{font-family:ui-monospace,SFMono-Regular,Consolas,monospace}
+.syntax-chapter-card code{display:block;border-radius:8px;white-space:pre-wrap;overflow-wrap:anywhere;padding:12px;background:#f0f6ee;color:#245339;font-size:13px}
+.syntax-chapter-card .text-link{margin-top:5px;font-weight:800;color:#1e6641}
+.syntax-detail{padding-bottom:55px}
+.syntax-lesson-body{max-width:950px}
+.syntax-rule,.syntax-read,.syntax-practice{padding:clamp(18px,2.7vw,28px);margin:18px 0 26px;background:#fff;border:1px solid #d9e5da;border-radius:15px}
+.syntax-rule{background:#edf6eb}
+.syntax-detail h2{font-size:clamp(22px,2.5vw,29px);line-height:1.35;margin:8px 0 14px}
+.syntax-detail h3{font-size:18px;margin:18px 0 8px}
+.syntax-detail p,.syntax-detail li{font-size:15px;line-height:1.85;color:#354d3e}
+.syntax-rule pre,.syntax-read pre{padding:18px 20px;border-radius:12px;background:#172c28;color:#e1ffdf;white-space:pre-wrap;overflow-wrap:anywhere;overflow:auto;line-height:1.75;font-size:13px}
+.syntax-practice{background:#f4f8ed;border-left:5px solid #408256}
+.syntax-code-exercise{max-width:950px;margin:35px 0}
+.syntax-read summary{cursor:pointer;color:#205f41;font-weight:750}
+@media(max-width:700px){.syntax-chapter-grid{grid-template-columns:1fr}.syntax-chapter-card,.syntax-rule,.syntax-read,.syntax-practice{padding:17px}.syntax-rule pre,.syntax-read pre{padding:13px;font-size:12px}}
