@@ -1,0 +1,9 @@
+import Link from 'next/link'
+import course from '@/lib/syntax-course.json'
+export const metadata={title:'Kasa Syntax and Language Fundamentals'}
+export default function SyntaxIndex(){return <main className="content-width kasa-syntax-course">
+<header className="page-heading"><span className="eyebrow">KASA LANGUAGE · TEXT-BASED PROGRAMMING</span><h1>Learn the syntax, not just the examples.</h1><p>{course.intro}</p></header>
+<section className="syntax-route-info"><h2>How this course works</h2><p><strong>Read the rule → Trace the code → Predict the output → Run → Change the code → Explain the result.</strong> Learn what each symbol means and exactly when a statement is valid. Every chapter works as free reading without video, and its programs use the browser interpreter.</p><p>New to computing? <Link href="/start">Begin with Start from Zero</Link>. Already know these basics? Explore the <Link href="/learn">main learning path</Link>.</p></section>
+<section className="syntax-chapter-grid" aria-label="Kasa grammar and syntax chapters">{course.units.map((unit,i)=><Link key={unit.slug} href={'/learn/syntax/'+unit.slug} className="syntax-chapter-card"><span className="eyebrow">CHAPTER {String(i+1).padStart(2,'0')} · {unit.minutes} MIN</span><h2>{unit.title}</h2><p>{unit.why}</p><code>{unit.syntax}</code><span className="text-link">Study this rule →</span></Link>)}</section>
+<section className="syntax-route-info"><h2>What this course does not promise</h2><p>Kasa 0.4 is still evolving. The core grammar does not yet include Python or JavaScript features such as classes, imports, packages, browser DOM operations, or production-safe money types. Learning Kasa develops transferable programming concepts, but these unsupported features are not presented as existing syntax.</p></section>
+</main>}
