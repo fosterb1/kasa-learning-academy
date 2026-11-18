@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { Playground } from '@/components/Playground'
 import { getPayload } from 'payload'
 import config from '@payload-config'
+import { normalizePlaygroundUrl } from '@/lib/playground-url'
 
 export const metadata = {
   title: 'Kasa online playground',
@@ -29,15 +30,7 @@ async function configuredPlaygroundUrl(): Promise<string | null> {
     if (!missingTable) throw error
     return null
   }
-  if (!configured) return null
-  try {
-    const target = new URL(configured)
-    if (target.protocol !== 'https:' || target.username || target.password) return null
-    // Keep the destination at its root: do not propagate an untrusted query.
-    return target.origin + '/'
-  } catch {
-    return null
-  }
+  return normalizePlaygroundUrl(configured)
 }
 
 export const dynamic = 'force-dynamic'
