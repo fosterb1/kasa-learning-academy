@@ -28,6 +28,21 @@ export const identifierExamples: Record<string,Record<string,string>> = {
   'student-average': {maths:'akontaabu',science:'science',english:'english',average:'sɔhwɛ_average'},
   'stock-reorder': {opening:'nneɛma_open',sold:'nneɛma_sold',remaining:'nneɛma_left'},
   'saving-target': {total:'sika_total'},
+  'start/numbers-text-and-truth': {name:'din',age:'mfe'},
+  'start/compare-two-values': {books:'nwoma'},
+  'start/decisions-with-rules': {score:'sɔhwɛ_score'},
+  'start/repeat-a-task': {total:'sika_total'},
+  'start/a-box-of-many-values': {prices:'nneɛma_prices'},
+  'start/a-reusable-machine': {total:'sika_total',quantity:'dodow'},
+  'start/choose-and-repeat': {total:'sika_total'},
+  'start/bugs-are-clues': {price:'sika_price',items:'nneɛma_count'},
+  'start/build-with-kindness': {books:'nwoma',total:'sika_total'},
+  'start/safe-shared-computing': {books:'nwoma'},
+  'project/p9': {books:'nwoma',book_price:'nwoma_price'},
+  'project/p10': {maths:'akontaabu'},
+  'project/p11': {opening:'nneɛma_open',sold:'nneɛma_sold'},
+  'project/p12': {total:'sika_total',monthly:'bosome_contribution'},
+  'project/p13': {fare:'kwan_fare'},
 }
 const isStart = (ch:string) => /[\p{L}_]/u.test(ch)
 const isPart = (ch:string) => /[\p{L}\p{N}_]/u.test(ch)
