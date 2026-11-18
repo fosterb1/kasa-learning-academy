@@ -5,8 +5,8 @@ import '../public/kasa-runtime.js'
 const base = new URL('../scripts/content/curriculum.json', import.meta.url)
 const c = JSON.parse(await readFile(base, 'utf8'))
 
-test('20 lessons, 8 practice challenges, and 5 modules exist', () => {
-  assert.equal(c.lessons.length, 20)
+test('24 lessons, 8 practice challenges, and 5 modules exist', () => {
+  assert.equal(c.lessons.length, 24)
   assert.equal(c.practices.length, 8)
   assert.equal(c.modules.length, 5)
 })
