@@ -1,5 +1,6 @@
 import type { GlobalConfig } from 'payload'
 import { adminsOnly } from '@/lib/access'
+import { normalizePlaygroundUrl } from '@/lib/playground-url'
 
 /** One editable CMS setting; administrators can update the Netlify URL without redeploying. */
 export const PlaygroundSettings: GlobalConfig = {
@@ -20,19 +21,10 @@ export const PlaygroundSettings: GlobalConfig = {
         placeholder: 'https://your-kasa-playground.netlify.app/',
       },
       validate: (value: unknown) => {
-        if (!value || (typeof value === 'string' && !value.trim())) return true
-        if (typeof value !== 'string') return 'Enter a valid HTTPS URL.'
-        try {
-          const url = new URL(value.trim())
-          if (url.protocol !== 'https:' || url.username || url.password ||
-              url.search || url.hash || url.pathname !== '/' ||
-              !url.hostname.includes('.')) {
-            return 'Use a full HTTPS site-root URL with no username, password, query or fragment.'
-          }
-          return true
-        } catch {
-          return 'Enter a valid HTTPS URL, for example https://your-site.netlify.app/.'
-        }
+        if (value === null || value === undefined || value === '') return true
+        return normalizePlaygroundUrl(value) !== null
+          ? true
+          : 'Enter a full HTTPS site-root address without credentials, path, query or fragment.'
       },
     },
   ],
