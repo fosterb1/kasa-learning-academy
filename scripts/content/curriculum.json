@@ -905,6 +905,56 @@
       "expected": "Profit: 510\n",
       "hint": "Concatenate \"Profit: \" with nsɛm(revenue - cogs).",
       "input": ""
+    },
+    {
+      "id": "p9",
+      "title": "Market day receipt",
+      "level": "Medium",
+      "task": "A trader sells 3 notebooks for 12 Ghana cedis each and 2 pens for 5 each. Print exactly Total GHS: 46 using arithmetic and nsɛm().",
+      "start": "ma books = 3\nma book_price = 12\nma pens = 2\nma pen_price = 5\n# Compute both item totals, then print a labeled receipt\n",
+      "expected": "Total GHS: 46\n",
+      "hint": "Compute books * book_price + pens * pen_price, then join the number to \"Total GHS: \" using nsɛm().",
+      "input": ""
+    },
+    {
+      "id": "p10",
+      "title": "School result decision",
+      "level": "Medium",
+      "task": "A pupil has marks 65, 70 and 75. Print the average followed by Pass on the next line if the average is at least 50. Use the three values supplied.",
+      "start": "ma maths = 65\nma english = 70\nma science = 75\n# Compute the average, then use sɛ to test it\n",
+      "expected": "70\nPass\n",
+      "hint": "Divide the sum by 3, print the average, then use sɛ average >= 50 a ... awiei.",
+      "input": ""
+    },
+    {
+      "id": "p11",
+      "title": "Stock reorder control",
+      "level": "Medium",
+      "task": "Start with 50 units and record 43 units sold. Print Stock: 7 and then Reorder on the next line when stock is at most 10.",
+      "start": "ma opening = 50\nma sold = 43\n# Calculate remaining stock and flag low quantities\n",
+      "expected": "Stock: 7\nReorder\n",
+      "hint": "Calculate opening - sold. Use nsɛm() for the labeled number and sɛ remaining <= 10 a for the warning.",
+      "input": ""
+    },
+    {
+      "id": "p12",
+      "title": "Savings club contribution report",
+      "level": "Advanced",
+      "task": "A savings club deposits 80 Ghana cedis each month for 6 months. Use mpɛn to accumulate contributions and print Saved GHS: 480.",
+      "start": "ma total = 0\nma monthly = 80\n# Repeat deposits, then print the result\n",
+      "expected": "Saved GHS: 480\n",
+      "hint": "Use mpɛn 6, update total with ma total = total + monthly, close with awiei.",
+      "input": ""
+    },
+    {
+      "id": "p13",
+      "title": "Transport fare estimator",
+      "level": "Advanced",
+      "task": "A trotro journey costs 7 Ghana cedis per passenger. Use a reusable Kasa function to calculate the fare for 5 passengers and print Fare GHS: 35.",
+      "start": "# Define dwumadie fare(passengers, price)\n# Return the product; use the function to print total\n",
+      "expected": "Fare GHS: 35\n",
+      "hint": "Use dwumadie fare(passengers, price), sanma passengers * price, awiei, and then ka \"Fare GHS: \" + nsɛm(fare(5, 7)).",
+      "input": ""
     }
   ],
   "glossary": [
