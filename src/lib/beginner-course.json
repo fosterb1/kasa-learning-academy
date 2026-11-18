@@ -314,11 +314,11 @@
       "explain": [
         [
           "A name points to a value",
-          "A variable is like a labeled box in an introductory analogy. Write ma balance = 10 to give the name balance the numeric value 10. In Kasa, ma is used for assignment."
+          "A variable is like a labeled box in an introductory analogy. Write ma sika = 10 to give the name sika the numeric value 10. In Kasa, ma is the fixed assignment keyword. The name sika is learner-chosen, just as balance or money could be; learners must keep their chosen spelling consistent."
         ],
         [
           "Values can change",
-          "After ma balance = balance + 5, the current balance becomes 15. The right side is calculated first using the old value; then the new value is assigned to the name."
+          "After ma sika = sika + 5, the current value becomes 15. The right side uses the old value; the new value is then assigned to sika. Choosing an Akan-inspired name does not change how the program executes."
         ],
         [
           "Use descriptive names",
@@ -330,10 +330,10 @@
         ]
       ],
       "unplugged": "Draw two boxes labeled balance and name. Put 10 and Ama in them. Replace balance with 15, then explain why the other box stays the same.",
-      "trace": "After ma coins = 4, ma coins = coins + 3, and ma coins = coins + 2, the final value is 9. Track the value after each statement.",
-      "code": "ma balance = 10\nka balance\nma balance = balance + 5\nka balance\n",
+      "trace": "After ma sika = 4, ma sika = sika + 3, and ma sika = sika + 2, the final value is 9. Track the value after each statement. Try renaming sika to balance on every line.",
+      "code": "ma sika = 10\nka sika\nma sika = sika + 5\nka sika\n",
       "expected": "10\n15\n",
-      "modify": "Change the starting balance to 20 and the extra contribution to 7. Predict both output lines.",
+      "modify": "Change the starting amount to 20 and the extra contribution to 7. Then rename sika to balance everywhere and run again.",
       "make": "Build a small school supplies program that stores the number of notebooks, increases it after a purchase and prints the new count.",
       "mistake": "ma balance = balance + 5 means both sides must be mathematically equal forever. It is an update instruction, not an algebraic equation.",
       "questions": [
