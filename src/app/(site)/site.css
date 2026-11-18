@@ -114,3 +114,23 @@
 .lesson-video-unavailable p{margin:6px 0 0;color:#536d5b}
 .lesson-video-absent{font-size:12px;display:inline-block;color:#64756a;margin-top:8px}
 @media(max-width:620px){.study-companion-grid{grid-template-columns:1fr}.study-block-wide{grid-column:auto}.study-companion{margin:25px 0;padding:15px}.study-block{padding:15px}}
+
+
+/* Textbook-grade reading sections: accessible, responsive and printable. */
+.study-chapter{margin:22px 0;padding:clamp(16px,2.5vw,26px);background:#fff;border:1px solid #d9e7dc;border-radius:14px}
+.study-chapter>h3{font-size:22px;margin:0 0 12px;color:#173f2d}
+.study-context{padding:14px 16px;border-left:4px solid #3e8256;background:#eef6ed;line-height:1.8}
+.study-chapter-section{margin:20px 0}
+.study-chapter h4{font-size:17px;line-height:1.4;color:#173f2d;margin:14px 0 8px}
+.study-chapter-section p,.study-chapter li{line-height:1.85;font-size:15px;max-width:75ch}
+.study-glossary{margin:14px 0 25px;border-top:1px solid #deeadf}
+.study-glossary>div{display:grid;grid-template-columns:minmax(95px,1fr) minmax(0,3fr);border-bottom:1px solid #deeadf;gap:16px;padding:12px 4px;line-height:1.6}
+.study-glossary dt{font-weight:800;color:#285f40;overflow-wrap:anywhere}
+.study-glossary dd{margin:0}
+.study-language-note{font-size:12px;line-height:1.7;color:#53675b}
+.playground-assessment,.playground-guidance{margin:12px 16px;padding:14px 16px;border-radius:11px;font-size:13px;line-height:1.7}
+.playground-assessment p{margin:4px 0 0}
+.playground-assessment.pass{background:#e9f6eb;border:1px solid #aed6b7;color:#1d6037}
+.playground-assessment.fail,.playground-guidance{background:#fff9e8;border:1px solid #e9d9a6;color:#715a24}
+@media(max-width:620px){.study-glossary>div{grid-template-columns:1fr;gap:3px}.study-chapter{padding:15px}}
+@media print{.study-chapter,.study-block,.study-companion{break-inside:avoid} .playground-toolbar,.playground-codebar{display:none}}
