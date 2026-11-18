@@ -23,7 +23,7 @@ export default async function BeginnerLesson({params}:{params:Promise<{slug:stri
       <section className="beginner-activity"><span className="eyebrow">WATCH YOUR OWN THINKING</span><h2>Common misconception</h2><p>{unit.mistake}</p></section>
     </article>
     <section className="beginner-coding" aria-label="Try this chapter in Kasa"><h2>Try the Kasa example</h2><p>Explain each line in your own words. Predict the exact output. Only then press Run code. A correct sample output is a useful check, but the program may need additional testing in real projects.</p>
-      <Playground sourceCode={unit.code} expectedOutput={unit.expected}/>
+      <Playground sourceCode={unit.code} expectedOutput={unit.expected} starterInput={"input" in unit ? unit.input : ""}/>
       <div className="beginner-activity"><h3>Modify the example</h3><p>{unit.modify}</p></div>
       <div className="beginner-activity"><h3>Make your own solution</h3><p>{unit.make}</p></div>
     </section>
