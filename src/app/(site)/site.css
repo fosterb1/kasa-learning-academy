@@ -220,3 +220,14 @@
 .syntax-code-exercise{max-width:950px;margin:35px 0}
 .syntax-read summary{cursor:pointer;color:#205f41;font-weight:750}
 @media(max-width:700px){.syntax-chapter-grid{grid-template-columns:1fr}.syntax-chapter-card,.syntax-rule,.syntax-read,.syntax-practice{padding:17px}.syntax-rule pre,.syntax-read pre{padding:13px;font-size:12px}}
+
+
+.syntax-token-table{width:100%;border-collapse:collapse;margin:20px 0;background:#f7faf6;border:1px solid #d8e7d9}
+.syntax-token-table th,.syntax-token-table td{padding:12px 15px;border-bottom:1px solid #d8e7d9;text-align:left;vertical-align:top;line-height:1.65;font-size:14px}
+.syntax-token-table th{color:#195333;font-weight:800}
+.syntax-token-table thead{background:#e8f3e8}
+.syntax-token-table code{overflow-wrap:anywhere;white-space:pre-wrap}
+.syntax-trace{margin:18px 0;padding-left:27px;border-left:3px solid #7dad85}
+.syntax-trace li{padding:4px 0 8px 3px}
+.syntax-practice pre{padding:15px;background:#213a30;border-radius:10px;color:#effce9;overflow:auto;white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.7}
+@media(max-width:650px){.syntax-token-table th,.syntax-token-table td{padding:10px;font-size:12px}}
