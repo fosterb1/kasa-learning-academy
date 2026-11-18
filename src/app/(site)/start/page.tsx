@@ -11,6 +11,7 @@ export default function FirstSteps() {
       <p>Learn what computers are, how instructions work, and how to solve problems. Start with everyday activities and write your first Kasa programs when you feel ready.</p>
     </div>
     <div className="beginner-intro"><div><strong>For learners and coding clubs</strong><p>Read a little, draw or discuss an activity, predict what code will do, run it, then create your own version. No student login, video or payment is required.</p></div><div><strong>For parents and teachers</strong><p>Encourage the child to explain their thinking. Use paper-and-pencil tasks when internet is expensive. Offer help with reading, without typing every answer for them.</p></div></div>
+    <p className="academy-full-playground-link"><Link href="/start/teaching-guide">Teachers and parents: read the free classroom facilitator guide →</Link></p>
     <section className="beginner-course-list" aria-label="Foundations course chapters">
       {course.units.map((unit,i)=><Link href={'/start/'+unit.id} className="beginner-unit-card" key={unit.id}>
         <span className="beginner-index">{String(i+1).padStart(2,'0')}</span>
