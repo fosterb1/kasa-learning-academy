@@ -17,7 +17,30 @@
       "practice": "Write a greeting for your school, add a comment explaining it, then change the variable name consistently.",
       "experiment": "Try to use School instead of school in the print statement. Explain why the unknown-name error appears.",
       "caution": "Comments do not run. Kasa keywords are case-sensitive and spaces used for indentation do not define blocks.",
-      "minutes": 20
+      "minutes": 20,
+      "tokens": [
+        [
+          "#",
+          "Starts a comment lasting until the end of the line"
+        ],
+        [
+          "ma",
+          "Declares or updates a name"
+        ],
+        [
+          "ka",
+          "Prints the evaluated expression"
+        ]
+      ],
+      "trace": [
+        "The comment is ignored by the interpreter.",
+        "ma school evaluates the quoted string and associates it with school.",
+        "ka school retrieves and prints the value."
+      ],
+      "invalid": "ka School",
+      "fix": "Names are case-sensitive: School and school are different. Use the assigned spelling.",
+      "challenge": "Why does ka school work after ma school = \"Akwaaba\"? What error would happen if the assignment moved below the print?",
+      "bridge": "Every programming language has lexical rules; Python and JavaScript also distinguish names and strings."
     },
     {
       "slug": "print",
@@ -33,7 +56,30 @@
       "practice": "Print three different messages and one arithmetic result. Predict all output lines first.",
       "experiment": "Try ka \"4 + 3\". Why does the result look different from ka 4 + 3?",
       "caution": "Printing is different from assigning a value. Text inside quotes is not automatically calculated.",
-      "minutes": 25
+      "minutes": 25,
+      "tokens": [
+        [
+          "ka",
+          "Prints the next expression"
+        ],
+        [
+          "\"...\"",
+          "Text string literal"
+        ],
+        [
+          "+",
+          "Adds numeric values or joins compatible text values"
+        ]
+      ],
+      "trace": [
+        "ka \"Maakye!\" evaluates a text literal.",
+        "Its displayed characters are Maakye! and the output ends with a newline.",
+        "ka 4 + 3 evaluates 4 + 3 before printing the number 7."
+      ],
+      "invalid": "ka \"4 + 3\" expecting 7",
+      "fix": "Quoted characters stay text. Write ka 4 + 3 for arithmetic.",
+      "challenge": "Predict output for ka 10 and ka \"10\". Why do the outputs look the same although the values have different types?",
+      "bridge": "Printing a value is distinct from the value's data type, regardless of programming language."
     },
     {
       "slug": "values",
@@ -49,7 +95,35 @@
       "practice": "Classify eight example values into text, number, Boolean and no-value. Explain whether \"9\" is numeric.",
       "experiment": "Try a condition using the number 1 where a Boolean is needed. Read the TypeError.",
       "caution": "A printed representation does not necessarily tell you the original type.",
-      "minutes": 30
+      "minutes": 30,
+      "tokens": [
+        [
+          "12",
+          "Integer numeric literal"
+        ],
+        [
+          "2.5",
+          "Decimal numeric literal"
+        ],
+        [
+          "nokware / atoro",
+          "Boolean true / false"
+        ],
+        [
+          "hwee",
+          "No-value literal"
+        ]
+      ],
+      "trace": [
+        "The first statement displays integer 12.",
+        "The decimal is displayed as 2.5.",
+        "The text \"12\" has a different type although it displays as 12.",
+        "Boolean and no-value literals display their Kasa spellings."
+      ],
+      "invalid": "sɛ 1 a\n    ka \"yes\"\nawiei",
+      "fix": "Conditions require Boolean, not number. Write sɛ nokware a for a deliberately true branch.",
+      "challenge": "What are the types of 12, \"12\", nokware, atoro and hwee? Which can be used in arithmetic without conversion?",
+      "bridge": "Kasa's strict Boolean behavior is important when transferring to Python or JavaScript, which have different truthiness rules."
     },
     {
       "slug": "variables",
@@ -65,7 +139,31 @@
       "practice": "Write code to track donations increasing from 4 books to 9 books.",
       "experiment": "Try printing a name that has not been assigned. Describe the error and correct it.",
       "caution": "ma total = total + 7 is an update instruction, not an algebra equation.",
-      "minutes": 35
+      "minutes": 35,
+      "tokens": [
+        [
+          "ma",
+          "Assignment statement"
+        ],
+        [
+          "books",
+          "Case-sensitive identifier"
+        ],
+        [
+          "=",
+          "Assigns the right-hand result to the name"
+        ]
+      ],
+      "trace": [
+        "books is assigned the integer value 3.",
+        "The first ka reads books and prints 3.",
+        "books + 2 evaluates to 5 using the existing value.",
+        "ma stores 5 back into books, so the second print displays 5."
+      ],
+      "invalid": "ma = 10",
+      "fix": "A variable name is required before the assignment operator: ma total = 10.",
+      "challenge": "Trace x after ma x = 2, ma x = x * 3, ma x = x - 1. Explain why the final result is 5.",
+      "bridge": "Assignments are state changes, not equations from mathematics class."
     },
     {
       "slug": "math",
@@ -81,7 +179,35 @@
       "practice": "Write a program that calculates the cost of five exercise books at GHS 7 each plus a one-time GHS 4 delivery charge.",
       "experiment": "Try dividing by zero and explain why the interpreter rejects it.",
       "caution": "% uses integers; don't assume decimal floating-point arithmetic is suitable for real accounting or money.",
-      "minutes": 20
+      "minutes": 20,
+      "tokens": [
+        [
+          "*",
+          "Multiplication"
+        ],
+        [
+          "/",
+          "Division (decimal result)"
+        ],
+        [
+          "%",
+          "Integer remainder"
+        ],
+        [
+          "( )",
+          "Override operator precedence"
+        ]
+      ],
+      "trace": [
+        "The first line evaluates 3 * 4 before adding 2, yielding 14.",
+        "The second line evaluates 2 + 3 inside the parentheses first.",
+        "Then 5 * 4 yields 20.",
+        "17 % 5 produces the remainder 2."
+      ],
+      "invalid": "ka 4 / 0",
+      "fix": "Division by zero is invalid; check the denominator before dividing.",
+      "challenge": "Predict 8 + 2 * 3, (8 + 2) * 3 and 19 % 4, then check with Kasa.",
+      "bridge": "Precedence is shared by most mainstream languages, but numeric overflow and decimal rounding may differ."
     },
     {
       "slug": "comparison",
@@ -97,7 +223,35 @@
       "practice": "Make a stock alert decision for quantities 9, 10 and 11, with a threshold of ten.",
       "experiment": "Try 1 < 2 < 3; replace it with separate Boolean comparisons joined by ne.",
       "caution": "Use separate comparisons and ne rather than assuming Python-style comparison chaining works.",
-      "minutes": 25
+      "minutes": 25,
+      "tokens": [
+        [
+          "==",
+          "Equality test"
+        ],
+        [
+          "!=",
+          "Not-equal test"
+        ],
+        [
+          ">= / <=",
+          "Inclusive boundary comparisons"
+        ],
+        [
+          "= in ma",
+          "Assignment, not comparison"
+        ]
+      ],
+      "trace": [
+        "score starts as 50.",
+        "score >= 50 evaluates to nokware, so the first print is true.",
+        "score > 50 evaluates to atoro because equality is excluded.",
+        "score == 50 evaluates to nokware."
+      ],
+      "invalid": "ka 1 < 2 < 3",
+      "fix": "Chaining comparisons directly is unsupported; use (1 < 2) ne (2 < 3).",
+      "challenge": "For scores 49, 50 and 51, predict >= 50, > 50 and == 50. Build a truth table.",
+      "bridge": "The comparison operators look familiar across languages, but chained comparisons are not portable."
     },
     {
       "slug": "logic",
@@ -113,7 +267,35 @@
       "practice": "Create a classroom supply check using two Boolean variables for book and pen.",
       "experiment": "Try combining a Boolean with the number 1. Why is the type error useful?",
       "caution": "Kasa requires real Boolean values. Unlike some host languages, arbitrary numbers or strings are not truth values.",
-      "minutes": 30
+      "minutes": 30,
+      "tokens": [
+        [
+          "ne",
+          "Logical AND: both conditions required"
+        ],
+        [
+          "anaa",
+          "Logical OR: either condition sufficient"
+        ],
+        [
+          "ɛnyɛ",
+          "Negates a Boolean"
+        ],
+        [
+          "nokware",
+          "True literal"
+        ]
+      ],
+      "trace": [
+        "nokware ne atoro is atoro because both are not true.",
+        "nokware anaa atoro is nokware because one is true.",
+        "ɛnyɛ nokware reverses true to false.",
+        "The Boolean operators can avoid evaluating a needless second operand."
+      ],
+      "invalid": "ka 1 ne nokware",
+      "fix": "Use strict Boolean operands such as nokware ne nokware, not numeric truthiness.",
+      "challenge": "Draw all four combinations for A and B. Calculate A ne B and A anaa B for each.",
+      "bridge": "Logical expressions are essential in every language, but type and short-circuit rules need to be learned explicitly."
     },
     {
       "slug": "if",
@@ -129,7 +311,35 @@
       "practice": "Change score to 49 and to 50 and predict the branch chosen each time.",
       "experiment": "Remove the a after the condition or awiei. Read the syntax diagnostic, then restore it.",
       "caution": "Don't teach indentation as the block delimiter: it is visual; Kasa ends nested blocks explicitly with awiei.",
-      "minutes": 35
+      "minutes": 35,
+      "tokens": [
+        [
+          "sɛ",
+          "Starts the conditional"
+        ],
+        [
+          "a",
+          "Required conditional marker after the Boolean expression"
+        ],
+        [
+          "anyɛ_saa_a",
+          "Optional alternative branch"
+        ],
+        [
+          "awiei",
+          "Closes the conditional block"
+        ]
+      ],
+      "trace": [
+        "ma assigns 55 to score.",
+        "score >= 50 evaluates to nokware.",
+        "The first branch runs and prints Pass.",
+        "The else branch is skipped, and awiei ends the conditional."
+      ],
+      "invalid": "sɛ score >= 50\n    ka \"Pass\"\nawiei",
+      "fix": "The required a is missing: sɛ score >= 50 a.",
+      "challenge": "Change score to 49, then 50, then 51. Explain exactly which branch runs and why.",
+      "bridge": "The conditional corresponds to if/else in Python and JavaScript, but Kasa has explicit a and awiei markers."
     },
     {
       "slug": "repeat",
@@ -145,7 +355,35 @@
       "practice": "Change the repetition count to six and the contribution to three. Check the result on paper.",
       "experiment": "Try mpɛn -2 and explain why a negative repetition count is invalid.",
       "caution": "The loop repeats the body, not necessarily the output. You only print when ka is executed.",
-      "minutes": 20
+      "minutes": 20,
+      "tokens": [
+        [
+          "mpɛn",
+          "Counted loop"
+        ],
+        [
+          "COUNT",
+          "A nonnegative integer expression"
+        ],
+        [
+          "awiei",
+          "Ends the loop body"
+        ],
+        [
+          "ma total",
+          "Accumulator update"
+        ]
+      ],
+      "trace": [
+        "total begins at 0.",
+        "The four passes produce totals 5, 10, 15 and 20.",
+        "After the fourth pass, execution exits the loop.",
+        "ka total prints 20 only once."
+      ],
+      "invalid": "mpɛn -1\n    ka \"hello\"\nawiei",
+      "fix": "The repeat count must be a nonnegative integer.",
+      "challenge": "Trace total for five repetitions of +4, writing down the value after each pass.",
+      "bridge": "Counted loops train the same fundamental repetition reasoning found in for loops elsewhere."
     },
     {
       "slug": "while",
@@ -161,7 +399,35 @@
       "practice": "Write a loop printing 2, 4, 6 and 8 using a counter updated inside the body.",
       "experiment": "Remove the counter update in a safe, small example; explain why the worker time limit exists.",
       "caution": "A while loop can run zero times. Don't use an always-true condition without a way to stop.",
-      "minutes": 25
+      "minutes": 25,
+      "tokens": [
+        [
+          "bere_a",
+          "Begins condition-controlled loop"
+        ],
+        [
+          "CONDITION",
+          "A Boolean reevaluated before each iteration"
+        ],
+        [
+          "ma count",
+          "Updates the state"
+        ],
+        [
+          "awiei",
+          "Closes the loop"
+        ]
+      ],
+      "trace": [
+        "count begins at 1.",
+        "Before pass 1, 1 <= 3 is true; it prints 1, then increments.",
+        "Passes 2 and 3 print 2 and 3 while updating the counter.",
+        "At count 4, the test fails and the loop stops."
+      ],
+      "invalid": "ma n = 1\nbere_a n <= 3\n    ka n\nawiei",
+      "fix": "The counter never changes, so the loop does not naturally stop. Update n in the body.",
+      "challenge": "Modify the counter so the loop prints 2, 4, 6 and 8 without printing 10.",
+      "bridge": "While loops are useful across languages; termination requires reasoning about changing state."
     },
     {
       "slug": "loop-control",
@@ -177,7 +443,35 @@
       "practice": "Create a loop that stops after printing numbers through 4.",
       "experiment": "Move toa_so above the counter update; discuss how that can create an endless loop.",
       "caution": "Always update state before continuing when necessary for loop termination.",
-      "minutes": 30
+      "minutes": 30,
+      "tokens": [
+        [
+          "gyae",
+          "Stops the nearest loop immediately"
+        ],
+        [
+          "toa_so",
+          "Skips to the next iteration"
+        ],
+        [
+          "sɛ",
+          "Used to decide when to break or continue"
+        ],
+        [
+          "awiei",
+          "Explicitly closes each nested block"
+        ]
+      ],
+      "trace": [
+        "n increases at the start of each loop pass.",
+        "At n=1, the condition is false, so 1 prints.",
+        "At n=2, the condition is false, so 2 prints.",
+        "At n=3, gyae stops the loop before the print statement."
+      ],
+      "invalid": "gyae",
+      "fix": "gyae only makes sense inside an active loop; put it in a loop conditional.",
+      "challenge": "Show how the output changes when gyae is replaced with toa_so. Why must the increment happen first?",
+      "bridge": "Break and continue exist in many languages, but Kasa's keyword spellings are its own."
     },
     {
       "slug": "functions",
@@ -193,7 +487,35 @@
       "practice": "Make a function to calculate a simple transport fare for passengers and ticket price.",
       "experiment": "Call a function with too many or too few arguments. Explain the arity error.",
       "caution": "Returning is different from printing. A function's local variables are not automatically global.",
-      "minutes": 35
+      "minutes": 35,
+      "tokens": [
+        [
+          "dwumadie",
+          "Starts a function definition"
+        ],
+        [
+          "NAME(PARAMS)",
+          "Names the function and its parameter list"
+        ],
+        [
+          "sanma",
+          "Returns a value to the caller"
+        ],
+        [
+          "awiei",
+          "Ends the function definition"
+        ]
+      ],
+      "trace": [
+        "Defining total stores reusable instructions; it does not print.",
+        "The call total(3, 7) binds the two parameter values.",
+        "sanma returns 3 * 7 = 21 to the caller, which prints it.",
+        "The call total(2, 5) reuses the same function, returning 10."
+      ],
+      "invalid": "dwumadie total(qty, price)\n    ka qty * price\nawiei\nka total(3, 7)",
+      "fix": "ka inside the function prints, but without sanma the function returns hwee. Use sanma for a reusable result.",
+      "challenge": "Write a function that adds a fixed fee to a base price, then call it with two different amounts.",
+      "bridge": "Function definitions and parameters translate conceptually to Python def and JavaScript function syntax."
     },
     {
       "slug": "lists",
@@ -209,7 +531,35 @@
       "practice": "Make a list of four prices and print the second and fourth values.",
       "experiment": "Try prices[3] for a three-item list. Explain the index error.",
       "caution": "Indices must be integers and in range; negative indexing is not supported as a shortcut for the final item.",
-      "minutes": 20
+      "minutes": 20,
+      "tokens": [
+        [
+          "[ ]",
+          "Creates a list literal"
+        ],
+        [
+          "LIST[INDEX]",
+          "Reads an element at a zero-based position"
+        ],
+        [
+          "tentɛn(LIST)",
+          "Returns the number of items"
+        ],
+        [
+          ",",
+          "Separates list elements"
+        ]
+      ],
+      "trace": [
+        "prices holds three entries in a fixed order.",
+        "prices[0] retrieves the first entry, 5.",
+        "prices[2] retrieves the third entry, 15.",
+        "tentɛn(prices) returns 3, the number of entries."
+      ],
+      "invalid": "ka prices[3]",
+      "fix": "With three entries, only 0, 1 and 2 are valid indices. Position 3 does not exist.",
+      "challenge": "Create a list of four scores; print its second value, last value and length.",
+      "bridge": "Zero-based list indexing is used by Python, JavaScript arrays and many other languages."
     },
     {
       "slug": "mutation",
@@ -225,7 +575,31 @@
       "practice": "Start with three product quantities, replace the final quantity, and display the full list.",
       "experiment": "Try to assign prices[8]; identify why there is no element at that position.",
       "caution": "Changing a list item is not the same as creating a new list; this changes the existing collection.",
-      "minutes": 25
+      "minutes": 25,
+      "tokens": [
+        [
+          "ma LIST[INDEX] = EXPR",
+          "Mutates an existing element"
+        ],
+        [
+          "[1]",
+          "Selects the second item"
+        ],
+        [
+          "ka LIST",
+          "Displays the updated list"
+        ]
+      ],
+      "trace": [
+        "prices begins as [5, 10, 15].",
+        "ma prices[1] = 12 changes only the second entry.",
+        "ka prices[1] prints 12.",
+        "ka prices displays the entire modified list."
+      ],
+      "invalid": "ma prices[10] = 5",
+      "fix": "The target index must exist in the list; changing an item cannot create skipped positions.",
+      "challenge": "Record three fictional school supply counts, update the first and last, then print the list.",
+      "bridge": "Understanding mutation prepares learners to reason about state changes and side effects in larger programs."
     },
     {
       "slug": "builtins",
@@ -241,7 +615,35 @@
       "practice": "Use bisa() to ask for a fictional product quantity, convert it with nɔma and compute a total.",
       "experiment": "Try nɔma(\"twelve\") and observe the conversion error. What would a real form need to do?",
       "caution": "Kasa does not currently provide imports, file I/O, networking, classes or currency-safe decimal arithmetic in its core grammar.",
-      "minutes": 30
+      "minutes": 30,
+      "tokens": [
+        [
+          "bisa()",
+          "Reads the next supplied input line"
+        ],
+        [
+          "tentɛn(x)",
+          "Counts characters or list entries"
+        ],
+        [
+          "nɔma(x)",
+          "Converts supported numeric text to a number"
+        ],
+        [
+          "nsɛm(x)",
+          "Converts a value to display text"
+        ]
+      ],
+      "trace": [
+        "nɔma(\"5\") produces numeric 5.",
+        "qty * price calculates 5 * 7 = 35.",
+        "nsɛm converts 35 to the text needed for the label.",
+        "tentɛn([1,2,3]) produces 3."
+      ],
+      "invalid": "ka nɔma(\"five\")",
+      "fix": "The input text is not a valid numeric representation. Use a numeric string such as \"5\".",
+      "challenge": "Ask for a fictional number of notebooks with bisa(), convert it, and calculate the cost at GHS 3 each.",
+      "bridge": "These are Kasa built-ins; other languages have different function names and input rules."
     },
     {
       "slug": "debug",
@@ -257,7 +659,35 @@
       "practice": "Deliberately make and fix three different errors, recording the initial problem and solution.",
       "experiment": "Try ka 1 / 0 then fix the denominator. Explain the difference between a syntax and runtime error.",
       "caution": "The web interpreter intentionally has resource and time limits. A green sample-output check tests only that example.",
-      "minutes": 35
+      "minutes": 35,
+      "tokens": [
+        [
+          "SyntaxError",
+          "Invalid grammar, missing required form"
+        ],
+        [
+          "TypeError",
+          "Operation used with the wrong kind of value"
+        ],
+        [
+          "IndexError",
+          "Invalid list position"
+        ],
+        [
+          "ResourceError",
+          "Execution or resource limit reached"
+        ]
+      ],
+      "trace": [
+        "ma total = 3 assigns a numeric value.",
+        "ka total + 2 evaluates to 5.",
+        "The interpreter prints 5 and a newline.",
+        "If the source were incomplete or a type mismatched, errors would explain what failed."
+      ],
+      "invalid": "ka unknown",
+      "fix": "Declare a name with ma first, or correct the spelling. Read the reported location and category.",
+      "challenge": "Write and fix an unknown-name error, a type error and a missing awiei error. Keep notes describing each fix.",
+      "bridge": "Debugging is a transferable habit: observe, hypothesize, change one thing, and verify."
     }
   ]
 }
