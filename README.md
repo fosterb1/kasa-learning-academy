@@ -86,3 +86,12 @@ docs/                       Architecture notes
 ## Maintainer notes
 
 This repository is separate from the compiler repo to avoid coupling CMS deployments to language releases. It is a source prototype until dependencies, migrations, auth and hosting are validated in the target environment. A license has **not yet been selected**; do not assume unrestricted third-party reuse until the repository owner adds one.
+
+
+## Netlify playground inside Academy — CMS-controlled
+
+The Academy now has a **/playground** page for the full Netlify-hosted Kasa interpreter. The Netlify URL is **editable without redeploying**: log in at `/admin`, choose **Website Settings → Playground Settings**, paste the HTTPS Netlify site-root URL and Save. Existing lesson and challenge editors still use their local JavaScript interpreter; they are not replaced.
+
+Before the field becomes available, apply the new **additive** CMS migration `20261118_200729` through the approved production database workflow (`npm run db:migrate` with authorized credentials). It creates the single `playground_settings` table without altering lesson, video, user or challenge tables. Before setup, the full-playground page falls back to the local browser interpreter. The remote iframe and external link appear only after the URL is saved. See [Netlify Playground CMS setup](docs/NETLIFY_PLAYGROUND_CMS.md).
+
+The standalone playground is published separately using `fosterb1/kasa_programming_language` and its Netlify build configuration. **Do not deploy this dynamic Academy CMS as a static ZIP.**

@@ -15,7 +15,7 @@ export default function SiteLayout({ children }: { children: ReactNode }) {
       <header className="site-header">
         <Link href="/" className="logo-link" aria-label="Kasa Academy home"><span className="logo-mark">K</span><span><strong>Kasa</strong><small>Learning Academy</small></span></Link>
         <nav className="primary-nav" aria-label="Main navigation">
-          <Link href="/learn">Learn</Link><Link href="/practice">Practice</Link><Link href="/guides">Set up Kasa</Link><Link href="/announcements">Updates</Link>
+          <Link href="/learn">Learn</Link><Link href="/practice">Practice</Link><Link href="/playground">Playground</Link><Link href="/guides">Set up Kasa</Link><Link href="/announcements">Updates</Link>
         </nav>
         <Link href="/learn" className="header-cta">Start learning <span aria-hidden="true">↗</span></Link>
       </header>
