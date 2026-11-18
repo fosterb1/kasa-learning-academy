@@ -1,7 +1,7 @@
 {
   "title": "Kasa Syntax & Language Fundamentals",
   "version": "0.4 candidate reference",
-  "intro": "This teaches the actual Kasa syntax using the maintained language contract. It includes grammar patterns, a worked program, another runnable example, line-by-line reasoning, practice and mistakes. Treat the contract as a candidate until interpreter parity gates finish.",
+  "intro": "This teaches the actual Kasa syntax using the maintained language contract. It includes grammar patterns, a worked program, another runnable example, line-by-line reasoning, practice and mistakes. Treat the contract as a candidate until interpreter parity gates finish. Many examples intentionally mix Akan-inspired variable names (for example, ɛdin, mfe, sika) with English ones so learners understand that identifiers are their choice, not fixed keywords.",
   "units": [
     {
       "slug": "source",
@@ -9,11 +9,11 @@
       "why": "A computer cannot guess your instructions. Learn exactly what counts as a statement, comment and identifier.",
       "syntax": "# comment",
       "rule": "Comments begin with #; a line ends a statement; names are case-sensitive; source files use UTF-8.",
-      "example": "# This line explains our program\nma school = \"Akwaaba\"\nka school\n",
+      "example": "# A greeting stored with a familiar Akan name\nma ɛdin = \"Akwaaba\"\nka ɛdin\n",
       "output": "Akwaaba\n",
       "secondExample": "# ka \"hidden\"\nka \"visible\"\n",
       "secondOutput": "visible\n",
-      "walkthrough": "Read ka followed by a string; the interpreter prints it and ends the line. A comment is ignored. The name school is assigned before it is used.",
+      "walkthrough": "The comment is ignored. ma ɛdin assigns a text value to a Unicode-capable variable name. ka ɛdin retrieves that text and prints it. Learners may instead choose name, din or another valid identifier.",
       "practice": "Write a greeting for your school, add a comment explaining it, then change the variable name consistently.",
       "experiment": "Try to use School instead of school in the print statement. Explain why the unknown-name error appears.",
       "caution": "Comments do not run. Kasa keywords are case-sensitive and spaces used for indentation do not define blocks.",
@@ -33,14 +33,15 @@
         ]
       ],
       "trace": [
-        "The comment is ignored by the interpreter.",
-        "ma school evaluates the quoted string and associates it with school.",
-        "ka school retrieves and prints the value."
+        "The line starting with # is a comment and does not run.",
+        "ma ɛdin assigns the string Akwaaba to the identifier ɛdin.",
+        "ka ɛdin retrieves the assigned value and prints it."
       ],
       "invalid": "ka School",
       "fix": "Names are case-sensitive: School and school are different. Use the assigned spelling.",
-      "challenge": "Why does ka school work after ma school = \"Akwaaba\"? What error would happen if the assignment moved below the print?",
-      "bridge": "Every programming language has lexical rules; Python and JavaScript also distinguish names and strings."
+      "challenge": "Replace ɛdin with name in both statements. What happens if you replace it in only one?",
+      "bridge": "Every programming language has lexical rules; Python and JavaScript also distinguish names and strings.",
+      "namingNote": "Kasa keywords (such as ma, ka, sɛ) have fixed grammar roles. Names chosen by the learner (for example, ɛdin, mfe, sika, score, total) are not reserved and may use valid Unicode letters. Use meaningful names in the language you prefer; keep spelling consistent. These Akan-inspired examples are illustrative and linguistic review remains ongoing."
     },
     {
       "slug": "print",
@@ -79,7 +80,8 @@
       "invalid": "ka \"4 + 3\" expecting 7",
       "fix": "Quoted characters stay text. Write ka 4 + 3 for arithmetic.",
       "challenge": "Predict output for ka 10 and ka \"10\". Why do the outputs look the same although the values have different types?",
-      "bridge": "Printing a value is distinct from the value's data type, regardless of programming language."
+      "bridge": "Printing a value is distinct from the value's data type, regardless of programming language.",
+      "namingNote": "Kasa keywords (such as ma, ka, sɛ) have fixed grammar roles. Names chosen by the learner (for example, ɛdin, mfe, sika, score, total) are not reserved and may use valid Unicode letters. Use meaningful names in the language you prefer; keep spelling consistent. These Akan-inspired examples are illustrative and linguistic review remains ongoing."
     },
     {
       "slug": "values",
@@ -123,7 +125,8 @@
       "invalid": "sɛ 1 a\n    ka \"yes\"\nawiei",
       "fix": "Conditions require Boolean, not number. Write sɛ nokware a for a deliberately true branch.",
       "challenge": "What are the types of 12, \"12\", nokware, atoro and hwee? Which can be used in arithmetic without conversion?",
-      "bridge": "Kasa's strict Boolean behavior is important when transferring to Python or JavaScript, which have different truthiness rules."
+      "bridge": "Kasa's strict Boolean behavior is important when transferring to Python or JavaScript, which have different truthiness rules.",
+      "namingNote": "Kasa keywords (such as ma, ka, sɛ) have fixed grammar roles. Names chosen by the learner (for example, ɛdin, mfe, sika, score, total) are not reserved and may use valid Unicode letters. Use meaningful names in the language you prefer; keep spelling consistent. These Akan-inspired examples are illustrative and linguistic review remains ongoing."
     },
     {
       "slug": "variables",
@@ -131,11 +134,11 @@
       "why": "Store a value, update it, and track how each statement changes the program state.",
       "syntax": "ma NAME = EXPR",
       "rule": "The right side is evaluated first; ma then binds the resulting value to a name. Reassignment updates its current value.",
-      "example": "ma books = 3\nka books\nma books = books + 2\nka books\n",
+      "example": "ma sika = 3\nka sika\nma sika = sika + 2\nka sika\n",
       "output": "3\n5\n",
       "secondExample": "ma total = 10\nma total = total + 7\nka total\n",
       "secondOutput": "17\n",
-      "walkthrough": "At first books means 3. The expression books + 2 produces 5, then ma changes books. The two ka statements display different values.",
+      "walkthrough": "The learner chooses sika, a Twi word commonly used for money, as the variable name. The first value is 3; adding 2 updates it to 5. The interpreter does not require Twi names: money or total would also be valid.",
       "practice": "Write code to track donations increasing from 4 books to 9 books.",
       "experiment": "Try printing a name that has not been assigned. Describe the error and correct it.",
       "caution": "ma total = total + 7 is an update instruction, not an algebra equation.",
@@ -143,27 +146,32 @@
       "tokens": [
         [
           "ma",
-          "Assignment statement"
+          "Kasa keyword for assignment"
         ],
         [
-          "books",
-          "Case-sensitive identifier"
+          "sika",
+          "Example learner-chosen variable name; not reserved"
         ],
         [
           "=",
-          "Assigns the right-hand result to the name"
+          "Assignment operator; evaluates right-hand side"
+        ],
+        [
+          "money",
+          "Another valid name that can replace sika everywhere"
         ]
       ],
       "trace": [
-        "books is assigned the integer value 3.",
-        "The first ka reads books and prints 3.",
-        "books + 2 evaluates to 5 using the existing value.",
-        "ma stores 5 back into books, so the second print displays 5."
+        "ma sika gives the name sika the value 3.",
+        "ka sika displays 3.",
+        "sika + 2 evaluates to 5, and ma updates the variable.",
+        "The second ka prints the updated value 5."
       ],
       "invalid": "ma = 10",
       "fix": "A variable name is required before the assignment operator: ma total = 10.",
-      "challenge": "Trace x after ma x = 2, ma x = x * 3, ma x = x - 1. Explain why the final result is 5.",
-      "bridge": "Assignments are state changes, not equations from mathematics class."
+      "challenge": "Try ma sika = 4 followed by ka sika. Rename sika to money everywhere; verify the behavior is unchanged.",
+      "bridge": "Assignments are state changes, not equations from mathematics class.",
+      "namingNote": "Kasa keywords (such as ma, ka, sɛ) have fixed grammar roles. Names chosen by the learner (for example, ɛdin, mfe, sika, score, total) are not reserved and may use valid Unicode letters. Use meaningful names in the language you prefer; keep spelling consistent. These Akan-inspired examples are illustrative and linguistic review remains ongoing."
     },
     {
       "slug": "math",
@@ -207,7 +215,8 @@
       "invalid": "ka 4 / 0",
       "fix": "Division by zero is invalid; check the denominator before dividing.",
       "challenge": "Predict 8 + 2 * 3, (8 + 2) * 3 and 19 % 4, then check with Kasa.",
-      "bridge": "Precedence is shared by most mainstream languages, but numeric overflow and decimal rounding may differ."
+      "bridge": "Precedence is shared by most mainstream languages, but numeric overflow and decimal rounding may differ.",
+      "namingNote": "Kasa keywords (such as ma, ka, sɛ) have fixed grammar roles. Names chosen by the learner (for example, ɛdin, mfe, sika, score, total) are not reserved and may use valid Unicode letters. Use meaningful names in the language you prefer; keep spelling consistent. These Akan-inspired examples are illustrative and linguistic review remains ongoing."
     },
     {
       "slug": "comparison",
@@ -251,7 +260,8 @@
       "invalid": "ka 1 < 2 < 3",
       "fix": "Chaining comparisons directly is unsupported; use (1 < 2) ne (2 < 3).",
       "challenge": "For scores 49, 50 and 51, predict >= 50, > 50 and == 50. Build a truth table.",
-      "bridge": "The comparison operators look familiar across languages, but chained comparisons are not portable."
+      "bridge": "The comparison operators look familiar across languages, but chained comparisons are not portable.",
+      "namingNote": "Kasa keywords (such as ma, ka, sɛ) have fixed grammar roles. Names chosen by the learner (for example, ɛdin, mfe, sika, score, total) are not reserved and may use valid Unicode letters. Use meaningful names in the language you prefer; keep spelling consistent. These Akan-inspired examples are illustrative and linguistic review remains ongoing."
     },
     {
       "slug": "logic",
@@ -295,7 +305,8 @@
       "invalid": "ka 1 ne nokware",
       "fix": "Use strict Boolean operands such as nokware ne nokware, not numeric truthiness.",
       "challenge": "Draw all four combinations for A and B. Calculate A ne B and A anaa B for each.",
-      "bridge": "Logical expressions are essential in every language, but type and short-circuit rules need to be learned explicitly."
+      "bridge": "Logical expressions are essential in every language, but type and short-circuit rules need to be learned explicitly.",
+      "namingNote": "Kasa keywords (such as ma, ka, sɛ) have fixed grammar roles. Names chosen by the learner (for example, ɛdin, mfe, sika, score, total) are not reserved and may use valid Unicode letters. Use meaningful names in the language you prefer; keep spelling consistent. These Akan-inspired examples are illustrative and linguistic review remains ongoing."
     },
     {
       "slug": "if",
@@ -303,11 +314,11 @@
       "why": "A conditional selects one of two paths based on a Boolean result.",
       "syntax": "sɛ CONDITION a ... [anyɛ_saa_a ...] awiei",
       "rule": "The contextual a after the condition is required. The else branch is optional. Explicit awiei closes the block.",
-      "example": "ma score = 55\nsɛ score >= 50 a\n    ka \"Pass\"\nanyɛ_saa_a\n    ka \"Review\"\nawiei\n",
-      "output": "Pass\n",
+      "example": "ma mfe = 18\nsɛ mfe >= 18 a\n    ka \"Adult\"\nanyɛ_saa_a\n    ka \"Young\"\nawiei\n",
+      "output": "Adult\n",
       "secondExample": "ma qty = 3\nsɛ qty <= 5 a\n    ka \"Restock\"\nawiei\n",
       "secondOutput": "Restock\n",
-      "walkthrough": "First the comparison score >= 50 evaluates to nokware. Only the Pass branch executes. The closing awiei is essential even though indentation is for readability.",
+      "walkthrough": "mfe is used here as an example Twi-style name for age. The comparison mfe >= 18 is nokware when mfe is 18. The first branch runs and prints Adult. A learner could rename mfe to age without changing the language syntax.",
       "practice": "Change score to 49 and to 50 and predict the branch chosen each time.",
       "experiment": "Remove the a after the condition or awiei. Read the syntax diagnostic, then restore it.",
       "caution": "Don't teach indentation as the block delimiter: it is visual; Kasa ends nested blocks explicitly with awiei.",
@@ -331,15 +342,16 @@
         ]
       ],
       "trace": [
-        "ma assigns 55 to score.",
-        "score >= 50 evaluates to nokware.",
-        "The first branch runs and prints Pass.",
-        "The else branch is skipped, and awiei ends the conditional."
+        "ma mfe assigns 18 to the variable named mfe.",
+        "mfe >= 18 evaluates to nokware.",
+        "The first branch prints Adult.",
+        "The alternative branch is skipped and awiei closes the block."
       ],
       "invalid": "sɛ score >= 50\n    ka \"Pass\"\nawiei",
       "fix": "The required a is missing: sɛ score >= 50 a.",
-      "challenge": "Change score to 49, then 50, then 51. Explain exactly which branch runs and why.",
-      "bridge": "The conditional corresponds to if/else in Python and JavaScript, but Kasa has explicit a and awiei markers."
+      "challenge": "Test mfe = 17, 18 and 19. Rename mfe to age throughout to prove that variable naming is your choice.",
+      "bridge": "The conditional corresponds to if/else in Python and JavaScript, but Kasa has explicit a and awiei markers.",
+      "namingNote": "Kasa keywords (such as ma, ka, sɛ) have fixed grammar roles. Names chosen by the learner (for example, ɛdin, mfe, sika, score, total) are not reserved and may use valid Unicode letters. Use meaningful names in the language you prefer; keep spelling consistent. These Akan-inspired examples are illustrative and linguistic review remains ongoing."
     },
     {
       "slug": "repeat",
@@ -383,7 +395,8 @@
       "invalid": "mpɛn -1\n    ka \"hello\"\nawiei",
       "fix": "The repeat count must be a nonnegative integer.",
       "challenge": "Trace total for five repetitions of +4, writing down the value after each pass.",
-      "bridge": "Counted loops train the same fundamental repetition reasoning found in for loops elsewhere."
+      "bridge": "Counted loops train the same fundamental repetition reasoning found in for loops elsewhere.",
+      "namingNote": "Kasa keywords (such as ma, ka, sɛ) have fixed grammar roles. Names chosen by the learner (for example, ɛdin, mfe, sika, score, total) are not reserved and may use valid Unicode letters. Use meaningful names in the language you prefer; keep spelling consistent. These Akan-inspired examples are illustrative and linguistic review remains ongoing."
     },
     {
       "slug": "while",
@@ -427,7 +440,8 @@
       "invalid": "ma n = 1\nbere_a n <= 3\n    ka n\nawiei",
       "fix": "The counter never changes, so the loop does not naturally stop. Update n in the body.",
       "challenge": "Modify the counter so the loop prints 2, 4, 6 and 8 without printing 10.",
-      "bridge": "While loops are useful across languages; termination requires reasoning about changing state."
+      "bridge": "While loops are useful across languages; termination requires reasoning about changing state.",
+      "namingNote": "Kasa keywords (such as ma, ka, sɛ) have fixed grammar roles. Names chosen by the learner (for example, ɛdin, mfe, sika, score, total) are not reserved and may use valid Unicode letters. Use meaningful names in the language you prefer; keep spelling consistent. These Akan-inspired examples are illustrative and linguistic review remains ongoing."
     },
     {
       "slug": "loop-control",
@@ -471,7 +485,8 @@
       "invalid": "gyae",
       "fix": "gyae only makes sense inside an active loop; put it in a loop conditional.",
       "challenge": "Show how the output changes when gyae is replaced with toa_so. Why must the increment happen first?",
-      "bridge": "Break and continue exist in many languages, but Kasa's keyword spellings are its own."
+      "bridge": "Break and continue exist in many languages, but Kasa's keyword spellings are its own.",
+      "namingNote": "Kasa keywords (such as ma, ka, sɛ) have fixed grammar roles. Names chosen by the learner (for example, ɛdin, mfe, sika, score, total) are not reserved and may use valid Unicode letters. Use meaningful names in the language you prefer; keep spelling consistent. These Akan-inspired examples are illustrative and linguistic review remains ongoing."
     },
     {
       "slug": "functions",
@@ -481,7 +496,7 @@
       "rule": "A function definition stores code. Calling passes arguments; sanma returns a value. Without an explicit return the result is hwee.",
       "example": "dwumadie total(qty, price)\n    sanma qty * price\nawiei\nka total(3, 7)\nka total(2, 5)\n",
       "output": "21\n10\n",
-      "secondExample": "dwumadie add(a, b)\n    sanma a + b\nawiei\nka add(4, 6)\n",
+      "secondExample": "dwumadie sika_bom(a, b)\n    sanma a + b\nawiei\nka sika_bom(4, 6)\n",
       "secondOutput": "10\n",
       "walkthrough": "The first call binds qty=3 and price=7 in a local environment, returning 21. The second call reuses the function definition with different arguments.",
       "practice": "Make a function to calculate a simple transport fare for passengers and ticket price.",
@@ -515,7 +530,8 @@
       "invalid": "dwumadie total(qty, price)\n    ka qty * price\nawiei\nka total(3, 7)",
       "fix": "ka inside the function prints, but without sanma the function returns hwee. Use sanma for a reusable result.",
       "challenge": "Write a function that adds a fixed fee to a base price, then call it with two different amounts.",
-      "bridge": "Function definitions and parameters translate conceptually to Python def and JavaScript function syntax."
+      "bridge": "Function names are programmer-chosen: sika_bom is a provisional Akan-inspired teaching name; add or sum is also valid. The Kasa keywords dwumadie and sanma remain unchanged. Language experts should review teaching translations.",
+      "namingNote": "Kasa keywords (such as ma, ka, sɛ) have fixed grammar roles. Names chosen by the learner (for example, ɛdin, mfe, sika, score, total) are not reserved and may use valid Unicode letters. Use meaningful names in the language you prefer; keep spelling consistent. These Akan-inspired examples are illustrative and linguistic review remains ongoing."
     },
     {
       "slug": "lists",
@@ -559,7 +575,8 @@
       "invalid": "ka prices[3]",
       "fix": "With three entries, only 0, 1 and 2 are valid indices. Position 3 does not exist.",
       "challenge": "Create a list of four scores; print its second value, last value and length.",
-      "bridge": "Zero-based list indexing is used by Python, JavaScript arrays and many other languages."
+      "bridge": "Zero-based list indexing is used by Python, JavaScript arrays and many other languages.",
+      "namingNote": "Kasa keywords (such as ma, ka, sɛ) have fixed grammar roles. Names chosen by the learner (for example, ɛdin, mfe, sika, score, total) are not reserved and may use valid Unicode letters. Use meaningful names in the language you prefer; keep spelling consistent. These Akan-inspired examples are illustrative and linguistic review remains ongoing."
     },
     {
       "slug": "mutation",
@@ -599,7 +616,8 @@
       "invalid": "ma prices[10] = 5",
       "fix": "The target index must exist in the list; changing an item cannot create skipped positions.",
       "challenge": "Record three fictional school supply counts, update the first and last, then print the list.",
-      "bridge": "Understanding mutation prepares learners to reason about state changes and side effects in larger programs."
+      "bridge": "Understanding mutation prepares learners to reason about state changes and side effects in larger programs.",
+      "namingNote": "Kasa keywords (such as ma, ka, sɛ) have fixed grammar roles. Names chosen by the learner (for example, ɛdin, mfe, sika, score, total) are not reserved and may use valid Unicode letters. Use meaningful names in the language you prefer; keep spelling consistent. These Akan-inspired examples are illustrative and linguistic review remains ongoing."
     },
     {
       "slug": "builtins",
@@ -643,7 +661,8 @@
       "invalid": "ka nɔma(\"five\")",
       "fix": "The input text is not a valid numeric representation. Use a numeric string such as \"5\".",
       "challenge": "Ask for a fictional number of notebooks with bisa(), convert it, and calculate the cost at GHS 3 each.",
-      "bridge": "These are Kasa built-ins; other languages have different function names and input rules."
+      "bridge": "These are Kasa built-ins; other languages have different function names and input rules.",
+      "namingNote": "Kasa keywords (such as ma, ka, sɛ) have fixed grammar roles. Names chosen by the learner (for example, ɛdin, mfe, sika, score, total) are not reserved and may use valid Unicode letters. Use meaningful names in the language you prefer; keep spelling consistent. These Akan-inspired examples are illustrative and linguistic review remains ongoing."
     },
     {
       "slug": "debug",
@@ -687,7 +706,8 @@
       "invalid": "ka unknown",
       "fix": "Declare a name with ma first, or correct the spelling. Read the reported location and category.",
       "challenge": "Write and fix an unknown-name error, a type error and a missing awiei error. Keep notes describing each fix.",
-      "bridge": "Debugging is a transferable habit: observe, hypothesize, change one thing, and verify."
+      "bridge": "Debugging is a transferable habit: observe, hypothesize, change one thing, and verify.",
+      "namingNote": "Kasa keywords (such as ma, ka, sɛ) have fixed grammar roles. Names chosen by the learner (for example, ɛdin, mfe, sika, score, total) are not reserved and may use valid Unicode letters. Use meaningful names in the language you prefer; keep spelling consistent. These Akan-inspired examples are illustrative and linguistic review remains ongoing."
     }
   ]
 }
