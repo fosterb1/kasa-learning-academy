@@ -231,3 +231,21 @@
 .syntax-trace li{padding:4px 0 8px 3px}
 .syntax-practice pre{padding:15px;background:#213a30;border-radius:10px;color:#effce9;overflow:auto;white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.7}
 @media(max-width:650px){.syntax-token-table th,.syntax-token-table td{padding:10px;font-size:12px}}
+
+
+/* Mixed Twi / English identifiers without forcing a language choice. */
+.bilingual-lesson-editor{margin:26px 0 30px}
+.bilingual-intro{padding:22px 24px;border:1px solid #d5e5d8;background:#eff7ef;border-radius:14px;margin-bottom:17px}
+.bilingual-intro h2{font-size:clamp(18px,2.6vw,25px);color:#184c31;line-height:1.35;margin:8px 0 10px}
+.bilingual-intro p{line-height:1.8;font-size:14px;color:#3d5945}
+.bilingual-intro code{font-family:ui-monospace,SFMono-Regular,Consolas,monospace}
+.bilingual-name-compare{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px;margin:20px 0}
+.bilingual-name-compare>div{min-width:0;border:1px solid #d0e1d4;background:#fff;padding:13px;border-radius:10px}
+.bilingual-name-compare strong{display:block;margin:0 0 9px;font-size:13px;color:#205f3d}
+.bilingual-name-compare pre{margin:0;background:#1a3029;color:#e7ffe1;border-radius:8px;padding:12px;font-size:13px;line-height:1.7;white-space:pre-wrap;overflow-wrap:anywhere}
+.bilingual-switch{display:flex;gap:8px;flex-wrap:wrap;margin:16px 0 8px}
+.bilingual-switch button{border:1px solid #7c9d86;background:#fff;color:#205438;padding:10px 14px;border-radius:9px;font-weight:750;font-size:13px;cursor:pointer}
+.bilingual-switch button.selected{background:#205638;color:#fff;border-color:#205638}
+.bilingual-switch button:focus-visible{outline:2px solid #136945;outline-offset:3px}
+.bilingual-caution{font-size:12px!important}
+@media(max-width:590px){.bilingual-name-compare{grid-template-columns:1fr}.bilingual-intro{padding:15px}.bilingual-switch button{flex:1}}
