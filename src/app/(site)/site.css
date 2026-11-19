@@ -249,3 +249,11 @@
 .bilingual-switch button:focus-visible{outline:2px solid #136945;outline-offset:3px}
 .bilingual-caution{font-size:12px!important}
 @media(max-width:590px){.bilingual-name-compare{grid-template-columns:1fr}.bilingual-intro{padding:15px}.bilingual-switch button{flex:1}}
+
+
+.bilingual-translation-guide{margin:16px 0;padding:15px;border-radius:11px;background:#fff;border:1px solid #cbded0}
+.bilingual-translation-guide strong{font-size:13px;color:#20553a}
+.bilingual-translation-guide ul{list-style:none;padding:0;margin:11px 0;display:flex;flex-wrap:wrap;gap:9px}
+.bilingual-translation-guide li{display:flex;gap:8px;align-items:center;border:1px solid #e0eae0;border-radius:8px;padding:7px 10px;max-width:100%;overflow-wrap:anywhere}
+.bilingual-translation-guide code{font-size:12px;color:#164f31;overflow-wrap:anywhere}
+.bilingual-translation-guide p{font-size:12px!important;margin-bottom:0}
