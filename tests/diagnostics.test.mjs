@@ -13,7 +13,7 @@ const cases=[
  {source:'sɛ nokware\n ka "yes"\nawiei',code:'KASA-SYN002',suggestion:/CONDITION a/},
  {source:'ma a = 3\nka a / 0',code:'KASA-MATH001',suggestion:/denominator/},
  {source:'ma x = [1,2]\nka x[4]',code:'KASA-LIST001',suggestion:/tentɛn/},
- {source:'sɛ 4 a\n ka "hi"\nawiei',code:'KASA-TYPE001',suggestion:/nokware/},
+ {source:'sɛ 4 a\n ka "hi"\nawiei',code:'KASA-TYPE001',suggestion:/comparison/},
  {source:'ma sika = "Hello',code:'KASA-SYN003',suggestion:/double quote/}
 ]
 for(const {source,code,suggestion} of cases){
