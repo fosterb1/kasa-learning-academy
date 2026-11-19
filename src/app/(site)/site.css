@@ -279,3 +279,24 @@
 .site-shell:has(.academy-native-playground) .main-content{flex:1;min-height:100vh;min-height:100dvh;width:100%;padding:0;margin:0;max-width:none}
 .academy-native-playground{height:100vh;height:100dvh;min-height:500px;width:100%;margin:0;background:#0e191e;overflow:hidden}
 .academy-native-playground-frame{border:0;width:100%;height:100%;display:block;background:#0e191e}
+
+
+/* Phase 4B: editorially sequenced, low-bandwidth learner workbook. */
+.syntax-deep-practice{margin:30px auto 34px;padding:clamp(16px,3vw,28px);border:1px solid #c9decb;border-radius:17px;background:#f5faf4;max-width:950px}
+.syntax-deep-header{border-bottom:1px solid #cbdccc;padding-bottom:13px;margin-bottom:20px}
+.syntax-deep-header h2{font-size:clamp(23px,3vw,31px);line-height:1.35;margin:8px 0}
+.syntax-deep-header p,.syntax-deep-practice p{font-size:14px;line-height:1.8;color:#37513d}
+.syntax-deep-stage{display:grid;grid-template-columns:40px minmax(0,1fr);gap:15px;margin:0 0 22px;padding-bottom:19px;border-bottom:1px solid #d6e4d7}
+.syntax-step{display:grid;place-items:center;height:38px;width:38px;border-radius:12px;background:#1f6343;color:#fff;font-weight:800;font-size:13px}
+.syntax-deep-stage h3,.syntax-deep-checklist h3{margin:4px 0 8px;font-size:20px;color:#194d36}
+.syntax-deep-stage h4{font-size:15px;margin:20px 0 5px}
+.syntax-deep-stage pre{padding:16px;border-radius:11px;background:#182f28;color:#e6fbe4;line-height:1.7;font-size:13px;white-space:pre-wrap;overflow-wrap:anywhere;overflow:auto}
+.syntax-deep-stage details{margin-top:11px;padding:12px 14px;border:1px solid #c9ddc9;border-radius:10px;background:#fff}
+.syntax-deep-stage summary{cursor:pointer;color:#1d6b48;font-weight:750}
+.syntax-deep-stage ol{padding-left:20px;line-height:1.8}
+.syntax-deep-checklist{padding:18px;background:#eaf4e9;border-radius:12px}
+.syntax-deep-checklist label{display:flex;gap:10px;align-items:flex-start;padding:9px 0;line-height:1.7;font-size:14px}
+.syntax-deep-checklist input{margin-top:5px;accent-color:#21774c}
+.syntax-deep-checklist p:last-child{font-weight:750}
+.syntax-workbook-output{margin-top:13px}
+@media(max-width:620px){.syntax-deep-practice{padding:13px}.syntax-deep-stage{grid-template-columns:30px minmax(0,1fr);gap:9px}.syntax-step{height:29px;width:29px}.syntax-deep-stage pre{padding:12px;font-size:12px}.syntax-deep-stage h3{font-size:18px}}
