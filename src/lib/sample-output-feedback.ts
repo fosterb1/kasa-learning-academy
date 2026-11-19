@@ -56,7 +56,7 @@ export function explainSampleOutput(actual: string, expected: string): SampleFee
             kind: 'missing-label',
             title: 'Your number is correct — the output label is missing.',
             explanation: 'You printed ' + line + ', but this example expects ' + expectedLine + '. The calculation matches this sample; the printed format is different.',
-            suggestion: 'Use ka " ' + expectedLabel[1].trimEnd().replace(/"/g, '') + ' " + nsɛm(your_total) (without the extra spaces around the label). For example: ka "' + expectedLabel[1].replace(/"/g, '') + '" + nsɛm(your_total). Replace your_total with your own variable name.'
+            suggestion: 'Print the label and the number together, for example: ka "' + expectedLabel[1].replace(/"/g, '') + '" + nsɛm(your_total). Replace your_total with the name of your calculated total.'
           }
         }
         if (expectedNumber !== null) return {
