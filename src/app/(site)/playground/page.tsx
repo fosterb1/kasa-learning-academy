@@ -1,4 +1,7 @@
 import type { Metadata } from 'next'
+import { ExternalPlaygroundLink } from '@/components/ExternalPlaygroundLink'
+
+export const dynamic = 'force-dynamic'
 
 export const metadata: Metadata = {
   title: 'Kasa Studio — Full Playground',
@@ -20,6 +23,7 @@ export default function PlaygroundPage() {
       referrerPolicy="same-origin"
       allow="clipboard-write"
     />
+    <ExternalPlaygroundLink />
     <noscript>
       <p>JavaScript is required to run Kasa in your browser. You can still read the <a href="/learn">Kasa learning materials</a>.</p>
     </noscript>
