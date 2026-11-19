@@ -2,13 +2,14 @@
 import {useState} from 'react'
 import Link from 'next/link'
 import {Playground} from '@/components/Playground'
-import {bilingualLessonCode} from '@/lib/kasa-identifiers'
+import {bilingualLessonCode,identifierExamples} from '@/lib/kasa-identifiers'
 
 type Props={slug:string;sourceCode:string;starterInput?:string;expectedOutput?:string}
 export function BilingualLessonEditor({slug,sourceCode,starterInput='',expectedOutput=''}:Props){
   const {blended,hasVariant}=bilingualLessonCode(slug,sourceCode)
   const [style,setStyle]=useState<'blended'|'original'>('blended')
   const current=style==='blended'?blended:sourceCode
+  const substitutions=Object.entries(identifierExamples[slug]||{}).filter(([original])=>new RegExp('(^|[^\\p{L}\\p{N}_])'+original+'(?=$|[^\\p{L}\\p{N}_])','u').test(sourceCode))
   return <section className="bilingual-lesson-editor" aria-label="Learn to choose Kasa variable names">
     <div className="bilingual-intro">
       <span className="eyebrow">KASA IS YOUR LANGUAGE · CHOOSE YOUR OWN NAMES</span>
@@ -18,6 +19,11 @@ export function BilingualLessonEditor({slug,sourceCode,starterInput='',expectedO
         <div><strong>Twi-style name</strong><pre><code>{'ma sika = 4\nka sika'}</code></pre></div>
         <div><strong>English name</strong><pre><code>{'ma money = 4\nka money'}</code></pre></div>
       </div>
+      {hasVariant&&substitutions.length>0&&<div className="bilingual-translation-guide">
+        <strong>Names used in this lesson (illustrative examples)</strong>
+        <ul>{substitutions.map(([original,twi])=><li key={original}><code>{original}</code><span aria-hidden="true">→</span><code>{twi}</code></li>)}</ul>
+        <p>These are variable or function identifiers, not new reserved Kasa commands. Their everyday Akan meanings and spellings need teacher review.</p>
+      </div>}
       {hasVariant&&<div className="bilingual-switch" role="group" aria-label="Select identifier naming style">
         <button type="button" aria-pressed={style==='blended'} className={style==='blended'?'selected':''} onClick={()=>setStyle('blended')}>Twi + English names</button>
         <button type="button" aria-pressed={style==='original'} className={style==='original'?'selected':''} onClick={()=>setStyle('original')}>Original lesson names</button>
