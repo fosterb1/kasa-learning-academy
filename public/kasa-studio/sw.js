@@ -1,9 +1,9 @@
 /* Kasa offline-first shell. Build-time hash changes when site contents change. */
 'use strict';
-const CACHE_NAME = 'kasa-playground-academy-native-20261119a';
+const CACHE_NAME = 'kasa-playground-academy-4c-diagnostics-20261119';
 const CORE = [
   './', './index.html', './style.css', './app.js', './worker.js',
-  './kasa-runtime.js', './manifest.webmanifest',
+  './kasa-runtime.js', './diagnostics.js', './manifest.webmanifest',
   './icons/kasa-192.png', './icons/kasa-512.png',
 ];
 const OPTIONAL_NATIVE = ['./native/kasa-native.js', './native/kasa-native.wasm'];
