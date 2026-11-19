@@ -14,17 +14,15 @@ test('only secure root HTTPS origins may be embedded from the CMS', () => {
   ]) assert.equal(normalizePlaygroundUrl(value), null, String(value))
 })
 
-test('Payload global and dynamic academy page use the shared validator', async () => {
+test('CMS URL validator remains available while full Studio is first-party', async () => {
   const config = await readFile(new URL('../src/payload.config.ts', import.meta.url), 'utf8')
   const globalFile = await readFile(new URL('../src/globals/PlaygroundSettings.ts', import.meta.url), 'utf8')
   const page = await readFile(new URL('../src/app/(site)/playground/page.tsx', import.meta.url), 'utf8')
   assert.match(config, /globals:\s*\[PlaygroundSettings\]/)
   assert.match(globalFile, /slug:\s*'playground-settings'/)
   assert.match(globalFile, /normalizePlaygroundUrl\(value\)/)
-  assert.match(page, /findGlobal\(\{\s*slug:\s*'playground-settings'/)
-  assert.match(page, /dynamic\s*=\s*'force-dynamic'/)
-  assert.match(page, /<Playground sourceCode=/)
-  assert.match(page, /sandbox="allow-scripts allow-same-origin allow-downloads"/)
+  assert.match(page, /src="\/kasa-studio\/index\.html"/)
+  assert.doesNotMatch(page, /findGlobal|netlify\.app|configuredPlaygroundUrl/)
 })
 
 test('migration adds only the optional playground settings table', async () => {
