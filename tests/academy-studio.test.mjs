@@ -5,7 +5,7 @@ import {createHash} from 'node:crypto'
 
 const studio = new URL('../public/kasa-studio/', import.meta.url)
 test('Academy owns every required Kasa Studio file, including actual native WASM', async () => {
-  const names = ['index.html','app.js','style.css','worker.js','kasa-runtime.js','sw.js',
+  const names = ['index.html','app.js','style.css','diagnostics.js','worker.js','kasa-runtime.js','sw.js',
     'manifest.webmanifest','native/kasa-native.js','native/kasa-native.wasm',
     'icons/kasa-192.png','icons/kasa-512.png']
   for (const name of names) {
@@ -42,4 +42,5 @@ test('approved release manifest matches all bundled first-party assets byte-for-
  }
  assert.ok(manifest.files['native/kasa-native.wasm'])
  assert.ok(manifest.files['native/kasa-native.js'])
+ assert.ok(manifest.files['diagnostics.js'])
 })
