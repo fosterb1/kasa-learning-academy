@@ -1,51 +1,55 @@
 {
-  "format": "kasa-studio-release-v1",
-  "release": "academy-initial-snapshot-20261119",
-  "source_repo": "fosterb1/kasa_programming_language",
   "files": {
-    "index.html": {
-      "sha256": "025683b9ab93cfaaa6db48557b1bf8ded66bb39adbc3acdb90eaca24cf91acd4",
-      "bytes": 8269
-    },
-    "style.css": {
-      "sha256": "3fb39f4d64fcc750e6ac61cab8068ee48dfbdf3580470c51fd0886423b907608",
-      "bytes": 10425
-    },
     "app.js": {
-      "sha256": "7ad0d80175c025d964d7f0f434e481b8a72eb38564f17459637559cc1bb6002f",
-      "bytes": 12091
+      "bytes": 13990,
+      "sha256": "bd6bf8042b537edd73201a0627e90b3f2ec2048f5329f245a54bac86baff2560"
     },
-    "worker.js": {
-      "sha256": "875423ffb118db56b40baad724013a050adf64a233a62bf4bd12c2a018795f4c",
-      "bytes": 3494
-    },
-    "kasa-runtime.js": {
-      "sha256": "4bd70e267f41e3a503094be57cda3b17e767c42cf7e81c44a424a788408691a1",
-      "bytes": 27520
-    },
-    "sw.js": {
-      "sha256": "cde6b488d24363d5c8d49161e29545aea71d2832b7ad0e03210331ad30d7fd20",
-      "bytes": 1651
-    },
-    "manifest.webmanifest": {
-      "sha256": "34b7f0e15a4fef287e959ddafdcc9b6c2986d9fc770264b932bb8e132c490782",
-      "bytes": 536
+    "diagnostics.js": {
+      "bytes": 5446,
+      "sha256": "38043b0f112a4b4b19b968319fb10733f27ea143b64eee23c69e4c75eb5d376e"
     },
     "icons/kasa-192.png": {
-      "sha256": "c540ae15a53003d8a2182dcbf9b2c8f08aeb6ab79253c2db66384009d2cdc0db",
-      "bytes": 971
+      "bytes": 971,
+      "sha256": "c540ae15a53003d8a2182dcbf9b2c8f08aeb6ab79253c2db66384009d2cdc0db"
     },
     "icons/kasa-512.png": {
-      "sha256": "5c64d9fcf26db29cdbcd63d251aba0c5c8fe5039caa0d1152475b4cb4e6d80fe",
-      "bytes": 2886
+      "bytes": 2886,
+      "sha256": "5c64d9fcf26db29cdbcd63d251aba0c5c8fe5039caa0d1152475b4cb4e6d80fe"
+    },
+    "index.html": {
+      "bytes": 8418,
+      "sha256": "8d7c84fdb9230b415a1dbb39ca8b3694fac5742b4e86d61f638d2c866fc38e7d"
+    },
+    "kasa-runtime.js": {
+      "bytes": 27520,
+      "sha256": "4bd70e267f41e3a503094be57cda3b17e767c42cf7e81c44a424a788408691a1"
+    },
+    "manifest.webmanifest": {
+      "bytes": 536,
+      "sha256": "34b7f0e15a4fef287e959ddafdcc9b6c2986d9fc770264b932bb8e132c490782"
     },
     "native/kasa-native.js": {
-      "sha256": "c9fe0c941a7fec5f5af3c2f418f5658192fc527db61325bdb18aac831c9132ec",
-      "bytes": 24714
+      "bytes": 24714,
+      "sha256": "c9fe0c941a7fec5f5af3c2f418f5658192fc527db61325bdb18aac831c9132ec"
     },
     "native/kasa-native.wasm": {
-      "sha256": "539fe094ff979473adcf1d77efda1d2d0c15d54667fbc67a4b3d9974d20993e6",
-      "bytes": 491166
+      "bytes": 491166,
+      "sha256": "539fe094ff979473adcf1d77efda1d2d0c15d54667fbc67a4b3d9974d20993e6"
+    },
+    "style.css": {
+      "bytes": 11400,
+      "sha256": "54107902e5188188043ea896217f1936376e42eb4766dbd06abbc01ec450b706"
+    },
+    "sw.js": {
+      "bytes": 1678,
+      "sha256": "347e70c5d13bc8f5c8cfeb111fd279382ecfe50d75bf07a48cfe7d4ca9d80eae"
+    },
+    "worker.js": {
+      "bytes": 3494,
+      "sha256": "875423ffb118db56b40baad724013a050adf64a233a62bf4bd12c2a018795f4c"
     }
-  }
+  },
+  "format": "kasa-studio-release-v1",
+  "release": "academy-4c1-diagnostics",
+  "source_repo": "fosterb1/kasa_programming_language"
 }
