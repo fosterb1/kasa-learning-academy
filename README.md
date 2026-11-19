@@ -113,3 +113,11 @@ The in-lesson code editor now supports sample-output matching and beginner-frien
 The JSON curriculum also contains 24 starter lessons and 13 practice entries. **The existing production CMS has its own records**; the idempotent seed script must be executed through an authorized application environment to insert missing curriculum entries. Do not manually overwrite edited records, including videos, or treat GitHub changes as evidence that the PostgreSQL records were automatically inserted.
 
 The new public project pages and study companions require no database migration; they ship through existing Vercel Git deployments. To verify, open /learn/variables, /projects/p9 and /glossary, and exercise the Kasa code worker. Development checks include `npm run test:smoke`; CI smoke tests are not run by the normal production build unless explicitly configured.
+
+## Phase 8: Kasa Studio from the Academy and CMS
+
+The syntax course and its chapters retain embedded guided coding exercises and now link to the full first-party Studio at `/playground`. The Studio iframe continues to load `/kasa-studio/index.html`, with its native WASM and JavaScript fallback assets pinned by `public/kasa-studio/release-manifest.json`.
+
+Admins can paste an HTTPS Netlify playground origin into **CMS → Website Settings → Playground Settings → Netlify Playground URL**. If configured and the database is reachable, the full Studio page displays a clearly marked **optional external playground link**. This does **not** replace the first-party iframe or automatically sync its assets; leave the setting empty to show only the Academy Studio. Admin input is validated and the external link opens with `rel=\"noopener noreferrer\"`.
+
+Run `npm run test:smoke` in a compatible Node environment. Full production behaviour and DB integration require live deployment testing, which is intentionally deferred until a reviewed batch release. No automatic Vercel/Netlify deployment is triggered by the content changes themselves.
