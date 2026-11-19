@@ -1,6 +1,7 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
 import {readFile,stat} from 'node:fs/promises'
+import {createHash} from 'node:crypto'
 
 const studio = new URL('../public/kasa-studio/', import.meta.url)
 test('Academy owns every required Kasa Studio file, including actual native WASM', async () => {
@@ -27,4 +28,18 @@ test('Studio uses first-party local paths and explicitly enables native WebAssem
   assert.match(page,/src="\/kasa-studio\/index\.html"/)
   assert.doesNotMatch(page,/netlify\.app|configuredPlaygroundUrl/)
   assert.ok(app.includes('source.setRangeText(token'), 'Twi keyboard helper missing')
+})
+
+test('approved release manifest matches all bundled first-party assets byte-for-byte',async()=>{
+ const manifest=JSON.parse(await readFile(new URL('release-manifest.json',studio),'utf8'))
+ assert.equal(manifest.format,'kasa-studio-release-v1')
+ assert.ok(manifest.release)
+ assert.equal(manifest.source_repo,'fosterb1/kasa_programming_language')
+ for (const [filename,record] of Object.entries(manifest.files)) {
+  const data=await readFile(new URL(filename,studio))
+  assert.equal(data.length,record.bytes,filename+' size differs from release manifest')
+  assert.equal(createHash('sha256').update(data).digest('hex'),record.sha256,filename+' digest differs from release manifest')
+ }
+ assert.ok(manifest.files['native/kasa-native.wasm'])
+ assert.ok(manifest.files['native/kasa-native.js'])
 })
