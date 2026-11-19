@@ -1,5 +1,6 @@
 'use client'
 import { useCallback, useEffect, useRef, useState } from 'react'
+import { explainSampleOutput, type SampleFeedback } from '@/lib/sample-output-feedback'
 
 type RunResult = { ok: boolean; output: string; error: string }
 type Props = { sourceCode: string; starterInput?: string; expectedOutput?: string }
@@ -10,7 +11,7 @@ export function Playground({ sourceCode, starterInput = '', expectedOutput = '' 
   const [output, setOutput] = useState('Run the example to see its output.')
   const [status, setStatus] = useState<'loading'|'ready'|'running'|'error'>('loading')
   const [showExpected, setShowExpected] = useState(false)
-  const [assessment, setAssessment] = useState<'pass'|'fail'|null>(null)
+  const [assessment, setAssessment] = useState<SampleFeedback | null>(null)
   const [debugTip, setDebugTip] = useState('')
   const modeRef = useRef<'run'|'check'>('run')
   const workerRef = useRef<Worker | null>(null)
@@ -35,8 +36,7 @@ export function Playground({ sourceCode, starterInput = '', expectedOutput = '' 
         setOutput([result.output?.trimEnd(), result.error].filter(Boolean).join('\n') || (modeRef.current === 'check' ? 'Syntax OK.' : 'Program finished without output.'))
         setStatus('ready')
         if (modeRef.current === 'run' && expectedOutput) {
-          const normalize = (s: string) => s.replace(/\r\n/g, '\n').trimEnd()
-          setAssessment(result.ok && normalize(result.output || '') === normalize(expectedOutput) ? 'pass' : 'fail')
+          if (result.ok) setAssessment(explainSampleOutput(result.output || '', expectedOutput))
         }
         if (!result.ok) {
           const error = result.error || ''
@@ -79,9 +79,11 @@ export function Playground({ sourceCode, starterInput = '', expectedOutput = '' 
     <div className="playground-toolbar"><span>Tip: predict the output, then run. Fix errors and retry without restarting.</span><div><button type="button" className="button button-muted" disabled={status !== 'ready'} onClick={()=>execute('check')}>Check syntax</button><button type="button" className="button button-primary" disabled={status !== 'ready'} onClick={()=>execute('run')}>▶ Run code</button><button type="button" className="small-link" onClick={()=>{setCode(sourceCode);setInput(starterInput);setAssessment(null);setDebugTip('')}}>Reset example</button><button type="button" className="small-link" onClick={boot}>Restart engine</button></div></div>
     <div className="playground-result"><div className="output-head">OUTPUT <button type="button" className="small-link" onClick={()=>setOutput('')}>Clear</button></div><pre aria-live="polite">{output}</pre></div>
     {debugTip && <p role="status" className="playground-guidance"><strong>Debugging suggestion:</strong> {debugTip}</p>}
-    {assessment && <div role="status" className={'playground-assessment ' + assessment}>
-      <strong>{assessment === 'pass' ? 'Output check passed!' : 'Output does not match the example yet.'}</strong>
-      <p>{assessment === 'pass' ? 'Your program produced the expected output for this one sample. Try changing the input and checking edge cases.' : 'Compare each printed line with the expected output. This is a sample-output check, not a complete automated grade.'}</p>
+    {assessment && <div role="status" className={'playground-assessment ' + (assessment.kind === 'pass' ? 'pass' : 'fail')}>
+      <strong>{assessment.title}</strong>
+      <p>{assessment.explanation}</p>
+      <p><strong>Next step:</strong> {assessment.suggestion}</p>
+      <p className="playground-assessment-note">This compares one sample output, not every possible input. It is not a complete automated grade.</p>
     </div>}
     <div className="playground-bottom"><label htmlFor="program-input">PROGRAM INPUT <small>One line per `bisa()` response</small></label><textarea id="program-input" value={input} onChange={e=>setInput(e.target.value)} rows={2} placeholder="Optional input for bisa()" />{expectedOutput&&<><button type="button" className="small-link expected-toggle" onClick={()=>setShowExpected(v=>!v)}>{showExpected ? 'Hide expected output' : 'Show expected output'}</button>{showExpected&&<pre className="expected-output">{expectedOutput}</pre>}</>}</div>
   </section>
