@@ -13,6 +13,7 @@ export function Playground({ sourceCode, starterInput = '', expectedOutput = '' 
   const [showExpected, setShowExpected] = useState(false)
   const [assessment, setAssessment] = useState<SampleFeedback | null>(null)
   const [debugTip, setDebugTip] = useState('')
+  const sourceRef = useRef<HTMLTextAreaElement | null>(null)
   const modeRef = useRef<'run'|'check'>('run')
   const workerRef = useRef<Worker | null>(null)
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
@@ -57,6 +58,23 @@ export function Playground({ sourceCode, starterInput = '', expectedOutput = '' 
   useEffect(() => { boot(); return () => { workerRef.current?.terminate(); if (timerRef.current) clearTimeout(timerRef.current) } }, [boot])
   useEffect(() => { setCode(sourceCode); setInput(starterInput); setShowExpected(false); setAssessment(null); setDebugTip('') }, [sourceCode, starterInput])
 
+  // Insert at the caret, preserving surrounding code and the learner's draft.
+  // A click on the toolbar should not move the editor's selection.
+  const insertKasaText = (text: string) => {
+    const editor = sourceRef.current
+    if (!editor) return
+    const start = editor.selectionStart
+    const end = editor.selectionEnd
+    const updated = code.slice(0, start) + text + code.slice(end)
+    setCode(updated)
+    setAssessment(null)
+    setDebugTip('')
+    requestAnimationFrame(() => {
+      editor.focus()
+      editor.setSelectionRange(start + text.length, start + text.length)
+    })
+  }
+
   const execute = (mode: 'run'|'check') => {
     if (!workerRef.current || status !== 'ready') return
     modeRef.current = mode
@@ -75,7 +93,14 @@ export function Playground({ sourceCode, starterInput = '', expectedOutput = '' 
   return <section className="code-playground" aria-label="Interactive Kasa code playground">
     <div className="playground-top"><div><span className="eyebrow">TRY IT YOURSELF</span><h2>Run Kasa right here</h2></div><span className="runtime-status" data-state={status}>{status === 'loading' ? 'Starting engine' : status === 'running' ? 'Running' : status === 'error' ? 'Check output' : '● Ready offline'}</span></div>
     <div className="playground-codebar"><span><span className="file-circle"/> main.kasa</span><span>TWI-FIRST CODE</span></div>
-    <label htmlFor="kasa-source" className="sr-only">Kasa source code</label><textarea id="kasa-source" className="code-editor" spellCheck={false} value={code} onChange={e=>setCode(e.target.value)} aria-label="Kasa source code" autoComplete="off" autoCapitalize="off" />
+    <label htmlFor="kasa-source" className="sr-only">Kasa source code</label><textarea ref={sourceRef} id="kasa-source" className="code-editor" spellCheck={false} value={code} onChange={e=>setCode(e.target.value)} aria-label="Kasa source code" autoComplete="off" autoCapitalize="off" />
+    <div className="kasa-character-toolbar" aria-label="Kasa keyboard helper">
+      <div className="kasa-character-toolbar-heading"><strong>Need Twi letters?</strong><span>Place the cursor in your code, then tap to insert. No keyboard installation needed.</span></div>
+      <div className="kasa-character-keys">{['ɛ', 'Ɛ', 'ɔ', 'Ɔ', 'sɛ', 'mpɛn', 'ɛnyɛ'].map(token =>
+        <button key={token} type="button" className="kasa-character-key" onMouseDown={event=>event.preventDefault()} onClick={()=>insertKasaText(token)} aria-label={'Insert ' + token + ' into code'}>{token}</button>
+      )}</div>
+      <details className="kasa-keyboard-tips"><summary>Typing on a phone or laptop</summary><p>Use these buttons on any keyboard, or install an Akan/Twi-capable input layout on your own device for regular typing. Kasa's keywords still use their real Unicode spelling; we do not silently turn English words into Kasa commands.</p></details>
+    </div>
     <div className="playground-toolbar"><span>Tip: predict the output, then run. Fix errors and retry without restarting.</span><div><button type="button" className="button button-muted" disabled={status !== 'ready'} onClick={()=>execute('check')}>Check syntax</button><button type="button" className="button button-primary" disabled={status !== 'ready'} onClick={()=>execute('run')}>▶ Run code</button><button type="button" className="small-link" onClick={()=>{setCode(sourceCode);setInput(starterInput);setAssessment(null);setDebugTip('')}}>Reset example</button><button type="button" className="small-link" onClick={boot}>Restart engine</button></div></div>
     <div className="playground-result"><div className="output-head">OUTPUT <button type="button" className="small-link" onClick={()=>setOutput('')}>Clear</button></div><pre aria-live="polite">{output}</pre></div>
     {debugTip && <p role="status" className="playground-guidance"><strong>Debugging suggestion:</strong> {debugTip}</p>}
