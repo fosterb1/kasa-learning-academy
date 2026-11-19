@@ -702,7 +702,7 @@
         ]
       ],
       "code": "ma revenue = 500\nma cost = 350\nma profit = revenue - cost\nma margin = profit / revenue * 100\nka \"Profit\"\nka profit\nka \"Margin percent\"\nka margin\n",
-      "expected": "Profit\n150\nMargin percent\n30\n",
+      "expected": "Profit\n150\nMargin percent\n30.0\n",
       "task": "Change revenue to 800 and cost to 620. Calculate profit and margin before you run the program.",
       "quiz": {
         "question": "If revenue is 500 and cost is 350, what is profit?",
@@ -738,7 +738,7 @@
         ]
       ],
       "code": "ma maths = 80\nma science = 70\nma english = 60\nma average = (maths + science + english) / 3\nka average\nsɛ average >= 50 a\n    ka \"Pass\"\nanyɛ_saa_a\n    ka \"Review\"\nawiei\n",
-      "expected": "70\nPass\n",
+      "expected": "70.0\nPass\n",
       "task": "Set the marks to 45, 50 and 55. Predict the result, then change the threshold from 50 to 60.",
       "quiz": {
         "question": "Which expression calculates the average of three marks?",
