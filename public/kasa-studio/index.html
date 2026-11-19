@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Write and run native WebAssembly Kasa programs inside Kasa Learning Academy." />
+  <meta name="theme-color" content="#101c24" />
+  <link rel="manifest" href="./manifest.webmanifest" />
+  <link rel="icon" type="image/png" sizes="192x192" href="./icons/kasa-192.png" />
+  <title>Kasa Playground — Kasa Learning Academy</title>
+  <link rel="stylesheet" href="./style.css?v=academy1" />
+  <script src="./app.js?v=academy1" defer></script>
+</head>
+<body>
+  <div class="page-shell">
+    <header class="topbar">
+      <a class="wordmark" href="https://github.com/fosterb1/kasa_programming_language" target="_blank" rel="noopener noreferrer" aria-label="Kasa project on GitHub"><span class="logo">K</span><span>Kasa <small>Playground</small></span></a>
+      <div class="topbar-right"><a class="academy-back-link" href="/learn">← Back to Academy</a><span class="version">ACADEMY-HOSTED · 0.4</span><a class="github-link" href="https://github.com/fosterb1/kasa_programming_language" target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span></a></div>
+    </header>
+
+    <main>
+      <section class="intro" aria-labelledby="headline">
+        <span class="eyebrow">PROGRAMMING IN YOUR LANGUAGE</span>
+        <h1 id="headline">Write code in <em>Twi.</em><br />See what you can create.</h1>
+        <p>Learn programming through familiar words. No installs, no terminal. Just choose an example, write Kasa code, and press Run.</p>
+      </section>
+
+      <section class="workspace" aria-label="Kasa code editor and output">
+        <div class="editor-panel">
+          <div class="panel-header">
+            <div class="panel-title"><span class="file-dot"></span> main.kasa</div>
+            <label class="example-picker">Try an example
+              <select id="example" aria-label="Choose an example">
+                <option value="hello">Hello, Ghana</option>
+                <option value="conditions">Conditions</option>
+                <option value="loops">Loops</option>
+                <option value="functions">Functions</option>
+                <option value="lists">Lists</option>
+                <option value="input">User input</option>
+                <option value="market">Market receipt (GHS)</option>
+                <option value="grades">School marks</option>
+                <option value="stock">Inventory alert</option>
+                <option value="savings">Savings club</option>
+                <option value="fare">Trotro fare</option>
+              </select>
+            </label>
+          </div>
+          <div class="editor-frame"><span class="editor-label">KASA SOURCE CODE</span><label for="source" class="sr-only">Kasa program source code</label><textarea id="source" spellcheck="false" autocapitalize="off" autocomplete="off" autocorrect="off" aria-label="Kasa program source code" aria-describedby="editor-help"></textarea></div>
+          <div class="character-toolbar" aria-label="Kasa keyboard helper">
+            <div class="character-toolbar-title"><strong>Missing Twi letters?</strong><span>Click where you want to type in the code above, then tap a key.</span></div>
+            <div class="character-keys">
+              <button type="button" class="character-key" data-insert="ɛ" aria-label="Insert ɛ">ɛ</button>
+              <button type="button" class="character-key" data-insert="Ɛ" aria-label="Insert Ɛ">Ɛ</button>
+              <button type="button" class="character-key" data-insert="ɔ" aria-label="Insert ɔ">ɔ</button>
+              <button type="button" class="character-key" data-insert="Ɔ" aria-label="Insert Ɔ">Ɔ</button>
+              <button type="button" class="character-key" data-insert="sɛ" aria-label="Insert sɛ keyword">sɛ</button>
+              <button type="button" class="character-key" data-insert="mpɛn" aria-label="Insert mpɛn keyword">mpɛn</button>
+              <button type="button" class="character-key" data-insert="ɛnyɛ" aria-label="Insert ɛnyɛ keyword">ɛnyɛ</button>
+            </div>
+            <details class="character-keyboard-tips"><summary>Help for phone and laptop keyboards</summary><p>No special keyboard is required inside this editor. Use the buttons above or a Twi/Akan input layout installed on your own device. Kasa keywords keep their real spelling; English words are not automatically converted into language commands.</p></details>
+          </div>
+          <div class="editor-footer">
+            <div id="editor-help" class="hint">Ctrl + Enter to run · Saved on this device (source only)</div>
+            <div class="editor-actions"><label class="engine-picker" for="engine">Engine <select id="engine" aria-label="Choose Kasa execution engine"><option value="auto">Auto</option><option value="javascript">JavaScript</option><option value="native" disabled>Native WebAssembly</option></select></label><label for="upload" class="button ghost file-action">Open .kasa<input type="file" id="upload" accept=".kasa,text/plain" class="sr-only" /></label><button type="button" id="reset" class="button ghost">Reset draft</button><button type="button" id="download" class="button ghost">Download .kasa</button><button type="button" id="check" class="button secondary" disabled>Check syntax</button><button type="button" id="run" class="button primary" disabled><span aria-hidden="true">▶</span> Run code</button></div>
+          </div>
+        </div>
+        <div class="output-panel">
+          <div class="panel-header"><div class="panel-title"><span class="terminal-icon" aria-hidden="true">›_</span> Output</div><div><button class="button text-button" id="retry" type="button" title="Restart the Kasa JavaScript interpreter and retry loading the native WebAssembly engine">Retry engine</button><button class="button text-button" id="clear" type="button">Clear</button></div></div>
+          <div class="output-body"><div class="run-status" id="status" role="status" aria-live="polite"><span class="pulse"></span> Preparing Kasa interpreter…</div><pre id="output" tabindex="0" aria-label="Kasa program output">Interpreter loading…</pre></div>
+          <div class="stdin-section"><label for="input">PROGRAM INPUT <small>for bisa() · one response per line</small></label><textarea id="input" rows="3" placeholder="Type any input your program needs, one response per line."></textarea></div>
+          <div class="output-footer">Source is saved only in this browser until you reset it. Program input is not saved. Native WebAssembly is used only when this deployment includes a working native module; otherwise JavaScript is used.</div>
+        </div>
+      </section>
+      <section class="learning-help" aria-labelledby="learn-help-title">
+        <div><span class="eyebrow">LEARN WHILE YOU CODE</span><h2 id="learn-help-title">Follow a real-world example</h2><p id="example-explanation">Choose an example, predict its output, run it, then change one value.</p></div>
+        <div class="learning-help-actions"><a href="https://kasa-learning-academy.vercel.app/learn" target="_blank" rel="noopener noreferrer">Read the lessons ↗</a><a href="https://kasa-learning-academy.vercel.app/projects" target="_blank" rel="noopener noreferrer">Try Ghanaian projects ↗</a><a href="https://kasa-learning-academy.vercel.app/glossary" target="_blank" rel="noopener noreferrer">Kasa word guide ↗</a></div>
+        <p id="debug-guidance" class="debug-guidance" role="status" aria-live="polite" hidden></p>
+      </section>
+      <section class="below"><div><h2>Learn the building blocks.</h2><p>Kasa teaches real programming concepts using Twi-first keywords.</p></div><div class="vocab" aria-label="Kasa keyword translations"><span><code>ka</code> Print</span><span><code>ma</code> Assign</span><span><code>sɛ</code> If</span><span><code>mpɛn</code> Repeat</span><span><code>dwumadie</code> Function</span><span><code>awiei</code> End</span></div></section>
+    </main>
+    <footer><span>Made for curious minds in Ghana and beyond.</span><span>Kasa is experimental. Vocabulary is subject to community review.</span></footer>
+  </div>
+</body>
+</html>
