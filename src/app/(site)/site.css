@@ -257,3 +257,18 @@
 .bilingual-translation-guide li{display:flex;gap:8px;align-items:center;border:1px solid #e0eae0;border-radius:8px;padding:7px 10px;max-width:100%;overflow-wrap:anywhere}
 .bilingual-translation-guide code{font-size:12px;color:#164f31;overflow-wrap:anywhere}
 .bilingual-translation-guide p{font-size:12px!important;margin-bottom:0}
+
+
+/* On-screen Akan/Twi letters for physical and touch keyboards. */
+.kasa-character-toolbar{padding:13px 19px;border-top:1px solid #cddfd2;border-bottom:1px solid #cddfd2;background:#edf6ee}
+.kasa-character-toolbar-heading{display:flex;flex-wrap:wrap;align-items:center;gap:6px 13px;margin-bottom:9px}
+.kasa-character-toolbar-heading strong{color:#1b573b;font-size:14px}
+.kasa-character-toolbar-heading span{color:#496856;font-size:12px;line-height:1.6}
+.kasa-character-keys{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.kasa-character-key{min-width:42px;min-height:42px;border-radius:9px;background:#fff;border:1px solid #9fbfa7;color:#165738;font-size:17px;font-weight:800;padding:7px 11px;cursor:pointer}
+.kasa-character-key:hover{background:#d5ead9}
+.kasa-character-key:focus-visible{outline:3px solid #257449;outline-offset:2px}
+.kasa-keyboard-tips{font-size:12px;color:#476351;margin-top:10px}
+.kasa-keyboard-tips summary{cursor:pointer;font-weight:750}
+.kasa-keyboard-tips p{line-height:1.8;margin:6px 0 0;max-width:90ch}
+@media(max-width:650px){.kasa-character-toolbar{padding:12px}.kasa-character-keys{gap:6px}.kasa-character-key{flex:1;min-width:43px}}
