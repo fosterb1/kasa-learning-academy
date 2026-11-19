@@ -13,7 +13,6 @@
     ZeroDivisionError: "The program tried to divide by zero.",
     ResourceError: "The program reached a safety limit."
   });
-  const word = /[\p{L}_][\p{L}\p{N}_]*/gu;
   function identifyDeclarations(source) {
     const found = new Set();
     const stripped = source.replace(/"(?:\\.|[^"\\])*"/g, '""');
@@ -63,7 +62,7 @@
     } else if(category==="SyntaxError" && /Unterminated string/.test(message)){
       code="KASA-SYN003";title="Text is missing a closing quote";
       explanation="A text value begins and ends with a double quotation mark.";
-      suggestion="Close the string with a matching double quote (").";
+      suggestion='Close the string with a matching double quote (").';
     } else if(category==="NameError" && /Unknown name '([^']+)'/.test(message)){
       const missing=/Unknown name '([^']+)'/.exec(message)[1];
       code="KASA-NAME001";title="Unknown variable or function name";
