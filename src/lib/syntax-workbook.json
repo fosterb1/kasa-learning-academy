@@ -1,0 +1,487 @@
+{
+  "title": "Kasa Syntax Practice Workbook",
+  "edition": "Phase 4B · three runnable cases per chapter",
+  "method": "Predict → trace → execute → change → explain. Worked examples are not grades; independent transfer is the goal.",
+  "units": [
+    {
+      "slug": "source",
+      "chapter": "Writing Kasa source: lines, comments and names",
+      "objective": "A computer cannot guess your instructions. Learn exactly what counts as a statement, comment and identifier.",
+      "preflight": "Before running: mark every fixed Kasa keyword, underline the learner-chosen names, and write the exact output (including labels and line breaks).",
+      "newExample": {
+        "title": "Apply the rule in a fresh situation",
+        "code": "ma din = \"Ama\"\nka din\nma din = \"Kofi\"\nka din\n",
+        "output": "Ama\nKofi\n",
+        "purpose": "Trace two successive assignments to the same name.",
+        "coach": "Only ka prints. The second ma changes what din refers to.",
+        "transfer": "Rename din to name on every line; predict whether the output changes."
+      },
+      "debugging": {
+        "incorrect": "ka School",
+        "explanation": "Names are case-sensitive: School and school are different. Use the assigned spelling."
+      },
+      "mastery": [
+        "Explain the syntax pattern # comment without reading the worked answer.",
+        "Replace ɛdin with name in both statements. What happens if you replace it in only one?",
+        "Rewrite the fresh example using different meaningful identifier names, while keeping its output unchanged."
+      ],
+      "checklist": [
+        "I can predict the output before running.",
+        "I can trace which values change and why.",
+        "I can intentionally cause and explain a mistake.",
+        "I can solve a modified version without copying."
+      ],
+      "minutes": 35
+    },
+    {
+      "slug": "print",
+      "chapter": "Printing text and values with ka",
+      "objective": "A program can tell a learner what it calculated, but only when asked to print.",
+      "preflight": "Before running: mark every fixed Kasa keyword, underline the learner-chosen names, and write the exact output (including labels and line breaks).",
+      "newExample": {
+        "title": "Apply the rule in a fresh situation",
+        "code": "ka \"Akwaaba!\"\nka 3 * 4\nka \"Meda wo ase\"\n",
+        "output": "Akwaaba!\n12\nMeda wo ase\n",
+        "purpose": "Predict the three output lines and identify the expression evaluated.",
+        "coach": "Text in quotation marks prints literally; multiplication is evaluated.",
+        "transfer": "Change 3 * 4 into \"3 * 4\". Explain the difference."
+      },
+      "debugging": {
+        "incorrect": "ka \"4 + 3\" expecting 7",
+        "explanation": "Quoted characters stay text. Write ka 4 + 3 for arithmetic."
+      },
+      "mastery": [
+        "Explain the syntax pattern ka EXPR without reading the worked answer.",
+        "Predict output for ka 10 and ka \"10\". Why do the outputs look the same although the values have different types?",
+        "Rewrite the fresh example using different meaningful identifier names, while keeping its output unchanged."
+      ],
+      "checklist": [
+        "I can predict the output before running.",
+        "I can trace which values change and why.",
+        "I can intentionally cause and explain a mistake.",
+        "I can solve a modified version without copying."
+      ],
+      "minutes": 40
+    },
+    {
+      "slug": "values",
+      "chapter": "The types: numbers, strings, Boolean and hwee",
+      "objective": "Different kinds of information follow different rules; knowing the type prevents surprising mistakes.",
+      "preflight": "Before running: mark every fixed Kasa keyword, underline the learner-chosen names, and write the exact output (including labels and line breaks).",
+      "newExample": {
+        "title": "Apply the rule in a fresh situation",
+        "code": "ka 12\nka \"12\"\nka nokware\nka atoro\n",
+        "output": "12\n12\nnokware\natoro\n",
+        "purpose": "Distinguish numeric, text and Boolean values even when display is similar.",
+        "coach": "The first 12 and second \"12\" look identical but have different types.",
+        "transfer": "Try ka nɔma(\"12\") + 3 and explain the conversion."
+      },
+      "debugging": {
+        "incorrect": "sɛ 1 a\n    ka \"yes\"\nawiei",
+        "explanation": "Conditions require Boolean, not number. Write sɛ nokware a for a deliberately true branch."
+      },
+      "mastery": [
+        "Explain the syntax pattern 42 | 2.5 | \"text\" | nokware | atoro | hwee without reading the worked answer.",
+        "What are the types of 12, \"12\", nokware, atoro and hwee? Which can be used in arithmetic without conversion?",
+        "Rewrite the fresh example using different meaningful identifier names, while keeping its output unchanged."
+      ],
+      "checklist": [
+        "I can predict the output before running.",
+        "I can trace which values change and why.",
+        "I can intentionally cause and explain a mistake.",
+        "I can solve a modified version without copying."
+      ],
+      "minutes": 45
+    },
+    {
+      "slug": "variables",
+      "chapter": "Variables: ma, names and reassignment",
+      "objective": "Store a value, update it, and track how each statement changes the program state.",
+      "preflight": "Before running: mark every fixed Kasa keyword, underline the learner-chosen names, and write the exact output (including labels and line breaks).",
+      "newExample": {
+        "title": "Apply the rule in a fresh situation",
+        "code": "ma sika = 10\nka sika\nma sika = sika + 5\nka sika\n",
+        "output": "10\n15\n",
+        "purpose": "Trace sika before and after reassignment.",
+        "coach": "The right side uses the previous value before ma updates the name.",
+        "transfer": "Change sika to total everywhere; note that the output does not depend on the name."
+      },
+      "debugging": {
+        "incorrect": "ma = 10",
+        "explanation": "A variable name is required before the assignment operator: ma total = 10."
+      },
+      "mastery": [
+        "Explain the syntax pattern ma NAME = EXPR without reading the worked answer.",
+        "Try ma sika = 4 followed by ka sika. Rename sika to money everywhere; verify the behavior is unchanged.",
+        "Rewrite the fresh example using different meaningful identifier names, while keeping its output unchanged."
+      ],
+      "checklist": [
+        "I can predict the output before running.",
+        "I can trace which values change and why.",
+        "I can intentionally cause and explain a mistake.",
+        "I can solve a modified version without copying."
+      ],
+      "minutes": 50
+    },
+    {
+      "slug": "math",
+      "chapter": "Arithmetic and operator precedence",
+      "objective": "Code uses mathematical rules, not guesses. Changing parentheses can change an answer.",
+      "preflight": "Before running: mark every fixed Kasa keyword, underline the learner-chosen names, and write the exact output (including labels and line breaks).",
+      "newExample": {
+        "title": "Apply the rule in a fresh situation",
+        "code": "ka 2 + 3 * 4\nka (2 + 3) * 4\n",
+        "output": "14\n20\n",
+        "purpose": "Explain why two arithmetic expressions print different values.",
+        "coach": "Multiplication precedes addition unless parentheses force an earlier sum.",
+        "transfer": "Replace the 3 with 5 in both expressions; compute results by hand."
+      },
+      "debugging": {
+        "incorrect": "ka 4 / 0",
+        "explanation": "Division by zero is invalid; check the denominator before dividing."
+      },
+      "mastery": [
+        "Explain the syntax pattern +  -  *  /  %  ( ) without reading the worked answer.",
+        "Predict 8 + 2 * 3, (8 + 2) * 3 and 19 % 4, then check with Kasa.",
+        "Rewrite the fresh example using different meaningful identifier names, while keeping its output unchanged."
+      ],
+      "checklist": [
+        "I can predict the output before running.",
+        "I can trace which values change and why.",
+        "I can intentionally cause and explain a mistake.",
+        "I can solve a modified version without copying."
+      ],
+      "minutes": 35
+    },
+    {
+      "slug": "comparison",
+      "chapter": "Comparisons: ask precise questions",
+      "objective": "A computer makes a decision using a true/false comparison with an exact boundary.",
+      "preflight": "Before running: mark every fixed Kasa keyword, underline the learner-chosen names, and write the exact output (including labels and line breaks).",
+      "newExample": {
+        "title": "Apply the rule in a fresh situation",
+        "code": "ma mfe = 17\nka mfe >= 18\nka mfe < 18\n",
+        "output": "atoro\nnokware\n",
+        "purpose": "Explain the inclusive and exclusive age comparisons.",
+        "coach": "17 is not at least 18 but is less than 18.",
+        "transfer": "Try mfe = 18 and then 19; explain which comparison changes."
+      },
+      "debugging": {
+        "incorrect": "ka 1 < 2 < 3",
+        "explanation": "Chaining comparisons directly is unsupported; use (1 < 2) ne (2 < 3)."
+      },
+      "mastery": [
+        "Explain the syntax pattern ==  !=  <  <=  >  >= without reading the worked answer.",
+        "For scores 49, 50 and 51, predict >= 50, > 50 and == 50. Build a truth table.",
+        "Rewrite the fresh example using different meaningful identifier names, while keeping its output unchanged."
+      ],
+      "checklist": [
+        "I can predict the output before running.",
+        "I can trace which values change and why.",
+        "I can intentionally cause and explain a mistake.",
+        "I can solve a modified version without copying."
+      ],
+      "minutes": 40
+    },
+    {
+      "slug": "logic",
+      "chapter": "Boolean logic: ne, anaa and ɛnyɛ",
+      "objective": "Sometimes more than one condition matters: permission may require two rules or allow alternatives.",
+      "preflight": "Before running: mark every fixed Kasa keyword, underline the learner-chosen names, and write the exact output (including labels and line breaks).",
+      "newExample": {
+        "title": "Apply the rule in a fresh situation",
+        "code": "ma mfe = 20\nma wɔ_kaad = nokware\nka mfe >= 18 ne wɔ_kaad\nka ɛnyɛ wɔ_kaad\n",
+        "output": "nokware\natoro\n",
+        "purpose": "Predict the combination of two true conditions and negation.",
+        "coach": "AND is true only when both inputs are true. NOT inverts a Boolean.",
+        "transfer": "Change wɔ_kaad to atoro and predict both lines."
+      },
+      "debugging": {
+        "incorrect": "ka 1 ne nokware",
+        "explanation": "Use strict Boolean operands such as nokware ne nokware, not numeric truthiness."
+      },
+      "mastery": [
+        "Explain the syntax pattern COND ne COND | COND anaa COND | ɛnyɛ COND without reading the worked answer.",
+        "Draw all four combinations for A and B. Calculate A ne B and A anaa B for each.",
+        "Rewrite the fresh example using different meaningful identifier names, while keeping its output unchanged."
+      ],
+      "checklist": [
+        "I can predict the output before running.",
+        "I can trace which values change and why.",
+        "I can intentionally cause and explain a mistake.",
+        "I can solve a modified version without copying."
+      ],
+      "minutes": 45
+    },
+    {
+      "slug": "if",
+      "chapter": "Conditions: sɛ ... a, otherwise, awiei",
+      "objective": "A conditional selects one of two paths based on a Boolean result.",
+      "preflight": "Before running: mark every fixed Kasa keyword, underline the learner-chosen names, and write the exact output (including labels and line breaks).",
+      "newExample": {
+        "title": "Apply the rule in a fresh situation",
+        "code": "ma sɔhwɛ = 72\nsɛ sɔhwɛ >= 50 a\n    ka \"Pass\"\nanyɛ_saa_a\n    ka \"Review\"\nawiei\n",
+        "output": "Pass\n",
+        "purpose": "Follow the branch chosen by a comparison.",
+        "coach": "Only one of the two branches prints; awiei closes the block.",
+        "transfer": "Test sɔhwɛ = 49 and exactly 50. Explain the difference."
+      },
+      "debugging": {
+        "incorrect": "sɛ score >= 50\n    ka \"Pass\"\nawiei",
+        "explanation": "The required a is missing: sɛ score >= 50 a."
+      },
+      "mastery": [
+        "Explain the syntax pattern sɛ CONDITION a ... [anyɛ_saa_a ...] awiei without reading the worked answer.",
+        "Test mfe = 17, 18 and 19. Rename mfe to age throughout to prove that variable naming is your choice.",
+        "Rewrite the fresh example using different meaningful identifier names, while keeping its output unchanged."
+      ],
+      "checklist": [
+        "I can predict the output before running.",
+        "I can trace which values change and why.",
+        "I can intentionally cause and explain a mistake.",
+        "I can solve a modified version without copying."
+      ],
+      "minutes": 50
+    },
+    {
+      "slug": "repeat",
+      "chapter": "Counted repetition with mpɛn",
+      "objective": "Don't copy identical instructions many times. Use repetition and keep a trace of the running total.",
+      "preflight": "Before running: mark every fixed Kasa keyword, underline the learner-chosen names, and write the exact output (including labels and line breaks).",
+      "newExample": {
+        "title": "Apply the rule in a fresh situation",
+        "code": "ma sika = 0\nmpɛn 4\n    ma sika = sika + 10\nawiei\nka sika\n",
+        "output": "40\n",
+        "purpose": "Trace a repeated savings contribution.",
+        "coach": "The variable changes four times but is printed only after the loop.",
+        "transfer": "Change the count to three and contribution to twelve."
+      },
+      "debugging": {
+        "incorrect": "mpɛn -1\n    ka \"hello\"\nawiei",
+        "explanation": "The repeat count must be a nonnegative integer."
+      },
+      "mastery": [
+        "Explain the syntax pattern mpɛn COUNT ... awiei without reading the worked answer.",
+        "Trace total for five repetitions of +4, writing down the value after each pass.",
+        "Rewrite the fresh example using different meaningful identifier names, while keeping its output unchanged."
+      ],
+      "checklist": [
+        "I can predict the output before running.",
+        "I can trace which values change and why.",
+        "I can intentionally cause and explain a mistake.",
+        "I can solve a modified version without copying."
+      ],
+      "minutes": 35
+    },
+    {
+      "slug": "while",
+      "chapter": "Conditional repetition with bere_a",
+      "objective": "Use a while loop when you cannot know in advance how many times a task will repeat.",
+      "preflight": "Before running: mark every fixed Kasa keyword, underline the learner-chosen names, and write the exact output (including labels and line breaks).",
+      "newExample": {
+        "title": "Apply the rule in a fresh situation",
+        "code": "ma n = 1\nbere_a n <= 4\n    ka n\n    ma n = n + 1\nawiei\n",
+        "output": "1\n2\n3\n4\n",
+        "purpose": "Trace the loop condition and update on each iteration.",
+        "coach": "When n becomes 5, the loop condition is false and the body stops.",
+        "transfer": "Replace <= with < and predict the last number."
+      },
+      "debugging": {
+        "incorrect": "ma n = 1\nbere_a n <= 3\n    ka n\nawiei",
+        "explanation": "The counter never changes, so the loop does not naturally stop. Update n in the body."
+      },
+      "mastery": [
+        "Explain the syntax pattern bere_a CONDITION ... awiei without reading the worked answer.",
+        "Modify the counter so the loop prints 2, 4, 6 and 8 without printing 10.",
+        "Rewrite the fresh example using different meaningful identifier names, while keeping its output unchanged."
+      ],
+      "checklist": [
+        "I can predict the output before running.",
+        "I can trace which values change and why.",
+        "I can intentionally cause and explain a mistake.",
+        "I can solve a modified version without copying."
+      ],
+      "minutes": 40
+    },
+    {
+      "slug": "loop-control",
+      "chapter": "Break and continue: gyae and toa_so",
+      "objective": "Sometimes a loop should stop early or skip one pass when a condition is met.",
+      "preflight": "Before running: mark every fixed Kasa keyword, underline the learner-chosen names, and write the exact output (including labels and line breaks).",
+      "newExample": {
+        "title": "Apply the rule in a fresh situation",
+        "code": "ma n = 0\nmpɛn 5\n    ma n = n + 1\n    sɛ n == 3 a\n        gyae\n    awiei\n    ka n\nawiei\n",
+        "output": "1\n2\n",
+        "purpose": "Identify the moment gyae exits the loop.",
+        "coach": "The third iteration breaks before ka n.",
+        "transfer": "Change n == 3 to n == 4; identify how many values print."
+      },
+      "debugging": {
+        "incorrect": "gyae",
+        "explanation": "gyae only makes sense inside an active loop; put it in a loop conditional."
+      },
+      "mastery": [
+        "Explain the syntax pattern gyae | toa_so (inside loops) without reading the worked answer.",
+        "Show how the output changes when gyae is replaced with toa_so. Why must the increment happen first?",
+        "Rewrite the fresh example using different meaningful identifier names, while keeping its output unchanged."
+      ],
+      "checklist": [
+        "I can predict the output before running.",
+        "I can trace which values change and why.",
+        "I can intentionally cause and explain a mistake.",
+        "I can solve a modified version without copying."
+      ],
+      "minutes": 45
+    },
+    {
+      "slug": "functions",
+      "chapter": "Functions: dwumadie, parameters, sanma",
+      "objective": "Write a calculation once, call it with several values and reuse the returned result.",
+      "preflight": "Before running: mark every fixed Kasa keyword, underline the learner-chosen names, and write the exact output (including labels and line breaks).",
+      "newExample": {
+        "title": "Apply the rule in a fresh situation",
+        "code": "dwumadie bom(a, b)\n    sanma a + b\nawiei\nka bom(4, 5)\nka bom(2, 8)\n",
+        "output": "9\n10\n",
+        "purpose": "Trace two calls to the same function with different arguments.",
+        "coach": "sanma returns a result; ka outside prints it.",
+        "transfer": "Change the function name to add everywhere, then call it with different inputs."
+      },
+      "debugging": {
+        "incorrect": "dwumadie total(qty, price)\n    ka qty * price\nawiei\nka total(3, 7)",
+        "explanation": "ka inside the function prints, but without sanma the function returns hwee. Use sanma for a reusable result."
+      },
+      "mastery": [
+        "Explain the syntax pattern dwumadie NAME(PARAMS) ... sanma EXPR ... awiei without reading the worked answer.",
+        "Write a function that adds a fixed fee to a base price, then call it with two different amounts.",
+        "Rewrite the fresh example using different meaningful identifier names, while keeping its output unchanged."
+      ],
+      "checklist": [
+        "I can predict the output before running.",
+        "I can trace which values change and why.",
+        "I can intentionally cause and explain a mistake.",
+        "I can solve a modified version without copying."
+      ],
+      "minutes": 50
+    },
+    {
+      "slug": "lists",
+      "chapter": "Lists: brackets, zero-based indexing and length",
+      "objective": "Organize several related values without inventing a new variable name for each one.",
+      "preflight": "Before running: mark every fixed Kasa keyword, underline the learner-chosen names, and write the exact output (including labels and line breaks).",
+      "newExample": {
+        "title": "Apply the rule in a fresh situation",
+        "code": "ma nsɔhwɛ = [70, 80, 90]\nka nsɔhwɛ[0]\nka nsɔhwɛ[2]\nka tentɛn(nsɔhwɛ)\n",
+        "output": "70\n90\n3\n",
+        "purpose": "Connect zero-based indexes to list length.",
+        "coach": "Index 0 is the first item. The list contains three items.",
+        "transfer": "Try index 1, then deliberately request index 3 and read the error."
+      },
+      "debugging": {
+        "incorrect": "ka prices[3]",
+        "explanation": "With three entries, only 0, 1 and 2 are valid indices. Position 3 does not exist."
+      },
+      "mastery": [
+        "Explain the syntax pattern [EXPR, EXPR] | LIST[INDEX] | tentɛn(LIST) without reading the worked answer.",
+        "Create a list of four scores; print its second value, last value and length.",
+        "Rewrite the fresh example using different meaningful identifier names, while keeping its output unchanged."
+      ],
+      "checklist": [
+        "I can predict the output before running.",
+        "I can trace which values change and why.",
+        "I can intentionally cause and explain a mistake.",
+        "I can solve a modified version without copying."
+      ],
+      "minutes": 35
+    },
+    {
+      "slug": "mutation",
+      "chapter": "Changing list elements",
+      "objective": "Lists can be updated, letting a program represent a changing collection of values.",
+      "preflight": "Before running: mark every fixed Kasa keyword, underline the learner-chosen names, and write the exact output (including labels and line breaks).",
+      "newExample": {
+        "title": "Apply the rule in a fresh situation",
+        "code": "ma nsɔhwɛ = [50, 60, 70]\nma nsɔhwɛ[1] = 65\nka nsɔhwɛ[1]\nka tentɛn(nsɔhwɛ)\n",
+        "output": "65\n3\n",
+        "purpose": "Explain how a list element changes without changing list length.",
+        "coach": "The second item starts at 60; mutation updates it to 65.",
+        "transfer": "Try updating the first and last elements."
+      },
+      "debugging": {
+        "incorrect": "ma prices[10] = 5",
+        "explanation": "The target index must exist in the list; changing an item cannot create skipped positions."
+      },
+      "mastery": [
+        "Explain the syntax pattern ma NAME[INDEX] = EXPR without reading the worked answer.",
+        "Record three fictional school supply counts, update the first and last, then print the list.",
+        "Rewrite the fresh example using different meaningful identifier names, while keeping its output unchanged."
+      ],
+      "checklist": [
+        "I can predict the output before running.",
+        "I can trace which values change and why.",
+        "I can intentionally cause and explain a mistake.",
+        "I can solve a modified version without copying."
+      ],
+      "minutes": 40
+    },
+    {
+      "slug": "builtins",
+      "chapter": "Built-ins: bisa, tentɛn, nɔma and nsɛm",
+      "objective": "Programs must sometimes read a line, count characters, convert numeric input or build a printed label.",
+      "preflight": "Before running: mark every fixed Kasa keyword, underline the learner-chosen names, and write the exact output (including labels and line breaks).",
+      "newExample": {
+        "title": "Apply the rule in a fresh situation",
+        "code": "ma sika = 46\nka \"Total GHS: \" + nsɛm(sika)\nka tentɛn([5, 10, 15])\n",
+        "output": "Total GHS: 46\n3\n",
+        "purpose": "Explain converting numbers to text and finding list length.",
+        "coach": "nsɛm makes a numeric result usable with a string label; tentɛn returns the number of elements.",
+        "transfer": "Remove nsɛm and read the error, then restore it."
+      },
+      "debugging": {
+        "incorrect": "ka nɔma(\"five\")",
+        "explanation": "The input text is not a valid numeric representation. Use a numeric string such as \"5\"."
+      },
+      "mastery": [
+        "Explain the syntax pattern bisa([PROMPT]) | tentɛn(TEXT_OR_LIST) | nɔma(TEXT) | nsɛm(VALUE) without reading the worked answer.",
+        "Ask for a fictional number of notebooks with bisa(), convert it, and calculate the cost at GHS 3 each.",
+        "Rewrite the fresh example using different meaningful identifier names, while keeping its output unchanged."
+      ],
+      "checklist": [
+        "I can predict the output before running.",
+        "I can trace which values change and why.",
+        "I can intentionally cause and explain a mistake.",
+        "I can solve a modified version without copying."
+      ],
+      "minutes": 45
+    },
+    {
+      "slug": "debug",
+      "chapter": "Syntax errors and diagnostic thinking",
+      "objective": "A good programmer learns to read an error rather than restarting everything.",
+      "preflight": "Before running: mark every fixed Kasa keyword, underline the learner-chosen names, and write the exact output (including labels and line breaks).",
+      "newExample": {
+        "title": "Apply the rule in a fresh situation",
+        "code": "ma nwoma = 3\nma price = 12\nma pen = 2\nma pen_price = 5\nma total = nwoma * price + pen * pen_price\nka \"Total GHS: \" + nsɛm(total)\n",
+        "output": "Total GHS: 46\n",
+        "purpose": "Trace 36 + 10 and print the exact label required by an exercise.",
+        "coach": "Check intermediate calculations before checking output wording and punctuation.",
+        "transfer": "Change the book quantity to four and predict the new labeled total."
+      },
+      "debugging": {
+        "incorrect": "ka unknown",
+        "explanation": "Declare a name with ma first, or correct the spelling. Read the reported location and category."
+      },
+      "mastery": [
+        "Explain the syntax pattern Read line and location; identify SyntaxError, TypeError, IndexError or runtime errors. without reading the worked answer.",
+        "Write and fix an unknown-name error, a type error and a missing awiei error. Keep notes describing each fix.",
+        "Rewrite the fresh example using different meaningful identifier names, while keeping its output unchanged."
+      ],
+      "checklist": [
+        "I can predict the output before running.",
+        "I can trace which values change and why.",
+        "I can intentionally cause and explain a mistake.",
+        "I can solve a modified version without copying."
+      ],
+      "minutes": 50
+    }
+  ]
+}
