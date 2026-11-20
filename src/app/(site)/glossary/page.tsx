@@ -38,6 +38,15 @@ export default function Glossary() {
         {vocabulary.map(([keyword,meaning,example])=><tr key={keyword}><th scope="row"><code>{keyword}</code></th><td>{meaning}</td><td><code>{example}</code></td></tr>)}
       </tbody></table>
     </div>
+    <section className="syntax-route-info"><h2>Experimental module vocabulary (not core keywords)</h2>
+      <p>The following forms are provisional and work only when experimental modules are enabled in the full JavaScript Kasa Studio. They are not approved Twi terminology or supported native/KBC1 syntax.</p>
+      <table className="syntax-token-table"><thead><tr><th scope="col">Form</th><th scope="col">Technical meaning</th></tr></thead><tbody>
+      <tr><th scope="row"><code>fa math</code></th><td>Import the locally pinned math module using its own name.</td></tr>
+      <tr><th scope="row"><code>firi stdlib</code></th><td>Explicitly select the built-in catalog as the module source.</td></tr>
+      <tr><th scope="row"><code>: m</code></th><td>Optional alias for the imported module, in an import statement only.</td></tr>
+      <tr><th scope="row"><code>m.kasa_sum(...)</code></th><td>Call an explicitly exported function from the imported module.</td></tr>
+      </tbody></table><p><Link href="/learn/modules">Read the experimental imports lesson →</Link> · <Link href="/language-status">See platform support →</Link></p>
+    </section>
     <div className="project-rubric"><h2>Learn both concepts and language</h2>
       <p>We use a bilingual learning approach: understand the computer-science idea in simple English, recognize Kasa's Akan-inspired syntax, and use a working program to prove your understanding. Local-language explanations and future audio recordings should be reviewed with Ghanaian teachers and native speakers before publication.</p>
       <p>See the <a href="https://github.com/fosterb1/kasa_programming_language/blob/main/docs/TWI_KEYWORD_AUDIT.md" target="_blank" rel="noopener noreferrer">source-linked Kasa terminology audit</a> for evidence and words that still require linguistic review.</p>
