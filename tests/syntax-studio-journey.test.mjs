@@ -20,13 +20,9 @@ test('full Academy Studio remains own-origin with tracked native release assets'
  assert.ok(manifest.files['diagnostics.js'].sha256)
 })
 
-test('admin CMS external URL is optional and cannot replace the first-party Studio iframe', async () => {
+test('discontinued separately hosted playground banner is absent from Academy Studio', async () => {
  const page = await read('../src/app/(site)/playground/page.tsx')
- const component = await read('../src/components/ExternalPlaygroundLink.tsx')
- assert.match(page, /<ExternalPlaygroundLink \/>/)
  assert.match(page, /src="\/kasa-studio\/index\.html"/)
- assert.match(component, /normalizePlaygroundUrl\(settings\.playgroundUrl\)/)
- assert.match(component, /rel="noopener noreferrer"/)
- assert.match(component, /if \(!href\) return null/)
- assert.doesNotMatch(component, /dangerouslySetInnerHTML/)
+ assert.doesNotMatch(page, /ExternalPlaygroundLink/)
+ assert.doesNotMatch(page, /separately hosted|Netlify/)
 })
