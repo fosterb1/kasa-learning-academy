@@ -75,7 +75,16 @@ export function Playground({ sourceCode, starterInput = '', expectedOutput = '' 
     })
   }
 
+  // The small lesson runner is deliberately core-only. Full Studio alone
+  // owns the opt-in pinned module protocol; never pretend this worker has it.
+  const needsStudioModules = /^\s*(?:fa\s+(?:math|collections)(?:\s|:)|@(?:math|collections):)/m.test(code)
+
   const execute = (mode: 'run'|'check') => {
+    if (needsStudioModules) {
+      setOutput('This experimental import requires the full Kasa Studio with Experimental modules enabled.')
+      setAssessment(null)
+      return
+    }
     if (!workerRef.current || status !== 'ready') return
     modeRef.current = mode
     const requestId = ++pendingRef.current
@@ -101,6 +110,8 @@ export function Playground({ sourceCode, starterInput = '', expectedOutput = '' 
       )}</div>
       <details className="kasa-keyboard-tips"><summary>Typing on a phone or laptop</summary><p>Use these buttons on any keyboard, or install an Akan/Twi-capable input layout on your own device for regular typing. Kasa's keywords still use their real Unicode spelling; we do not silently turn English words into Kasa commands.</p></details>
     </div>
+    <p className="playground-guidance">This embedded editor runs core Kasa only. For experimental <code>fa ... firi ...</code> imports, <a href="/playground">open the full Kasa Studio</a> and enable JavaScript module mode.</p>
+    {needsStudioModules && <p role="status" className="playground-guidance"><strong>Experimental module detected.</strong> This small lesson editor cannot run module imports. <a href="/playground">Use full Kasa Studio →</a></p>}
     <div className="playground-toolbar"><span>Tip: predict the output, then run. Fix errors and retry without restarting.</span><div><button type="button" className="button button-muted" disabled={status !== 'ready'} onClick={()=>execute('check')}>Check syntax</button><button type="button" className="button button-primary" disabled={status !== 'ready'} onClick={()=>execute('run')}>▶ Run code</button><button type="button" className="small-link" onClick={()=>{setCode(sourceCode);setInput(starterInput);setAssessment(null);setDebugTip('')}}>Reset example</button><button type="button" className="small-link" onClick={boot}>Restart engine</button></div></div>
     <div className="playground-result"><div className="output-head">OUTPUT <button type="button" className="small-link" onClick={()=>setOutput('')}>Clear</button></div><pre aria-live="polite">{output}</pre></div>
     {debugTip && <p role="status" className="playground-guidance"><strong>Debugging suggestion:</strong> {debugTip}</p>}
