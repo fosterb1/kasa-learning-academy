@@ -9,7 +9,7 @@
   },
   "scripts": {
     "dev": "next dev",
-    "build": "node --test tests/studio-fa-firi-release.test.mjs tests/phase9-academy-alignment.test.mjs && node scripts/sync-studio-release.mjs && payload generate:importmap && next build",
+    "build": "node scripts/sync-studio-release.mjs && node --test tests/academy-studio.test.mjs tests/studio-fa-firi-release.test.mjs tests/phase9-academy-alignment.test.mjs && payload generate:importmap && next build",
     "start": "next start",
     "generate:types": "payload generate:types",
     "db:migrate": "payload migrate",
