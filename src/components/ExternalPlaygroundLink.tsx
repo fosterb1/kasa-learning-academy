@@ -3,7 +3,7 @@ import config from '@/payload.config'
 import {normalizePlaygroundUrl} from '@/lib/playground-url'
 
 /**
- * Optional CMS-managed external Netlify playground. Never replaces the
+ * Optional legacy CMS-managed external playground link. Never replaces the
  * bundled own-origin Kasa Studio or executes administrator-supplied HTML.
  * Publicly expose only the already-validated URL; CMS edits remain admin-only.
  */
@@ -15,7 +15,7 @@ export async function ExternalPlaygroundLink() {
   const href = normalizePlaygroundUrl(settings.playgroundUrl)
   if (!href) return null
   return <p className="academy-external-playground-link">
-   Prefer the standalone Netlify edition? <a href={href} target="_blank" rel="noopener noreferrer">Open the separately hosted Kasa playground</a>.
+   Optional separately hosted edition: <a href={href} target="_blank" rel="noopener noreferrer">Open the separately hosted Kasa playground</a>.
    The Academy&apos;s embedded Studio above remains the recommended first-party version.
   </p>
  } catch {
