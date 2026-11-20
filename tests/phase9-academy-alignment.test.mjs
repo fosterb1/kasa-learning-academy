@@ -49,7 +49,7 @@ test('installer page distinguishes previews from publicly supported downloads',a
 test('CMS lesson data is not modified by Phase 9 Academy references',async()=>{
  const seed=await read('scripts/seed.ts')
  assert.match(seed,/if \(await existing\('lessons'/)
- assert.match(seed,/if \(await existing\('challenges'/)
+ assert.match(seed,/if\s*\(\s*await existing\('challenges'/)
  const packageFile=JSON.parse(await read('package.json'))
  assert.match(packageFile.scripts.build,/phase9-academy-alignment\.test\.mjs/)
 })
