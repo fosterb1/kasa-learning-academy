@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { CourseProgressToggle } from '@/components/CourseProgressToggle'
 import {notFound} from 'next/navigation'
 import course from '@/lib/development-course.json'
 import {Playground} from '@/components/Playground'
@@ -22,6 +23,7 @@ export default async function DevelopmentLessonPage({params}:{params:Promise<{sl
    <section><h2>1. Predict, then run</h2><p>Predict the result before running the example. This editor executes Kasa only, not Git or shell commands.</p><Playground sourceCode={unit.source} expectedOutput={unit.output}/></section>
    <section><h2>2. Explain the workflow</h2><ol>{unit.trace.map((step,i)=><li key={i}>{step}</li>)}</ol><h3>Cost and reasoning</h3><p>{unit.complexity}</p></section>
    <section><h2>3. Independent practice</h2><p>{unit.task}</p><h3>Self-review checklist</h3><ul>{unit.acceptance.map((point,i)=><li key={i}>{point}</li>)}</ul><details><summary>Review question and explanation</summary><p><strong>Question:</strong> {unit.question}</p><p><strong>Explanation:</strong> {unit.answer}</p></details></section>
+   <CourseProgressToggle id={'development/'+slug}/>
    <nav className="academy-applied-next" aria-label="Previous and next software practice lesson">
     {index>0&&<Link href={'/learn/development/'+course.units[index-1].slug}>← Previous lesson</Link>}
     {index<course.units.length-1?<Link href={'/learn/development/'+course.units[index+1].slug}>Next lesson →</Link>:<Link href="/learning-path/portfolio">Explore Stage 8 →</Link>}

@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { CourseProgressToggle } from '@/components/CourseProgressToggle'
 import { notFound } from 'next/navigation'
 import course from '@/lib/applied-course.json'
 import { Playground } from '@/components/Playground'
@@ -51,7 +52,8 @@ export default async function AppliedLabPage({params}: {params: Promise<{slug:st
           <p><strong>Explanation:</strong> {unit.answer}</p>
         </details>
       </section>
-      <nav className="academy-applied-next" aria-label="Previous and next lab">
+      <CourseProgressToggle id={'applied/'+slug}/>
+   <nav className="academy-applied-next" aria-label="Previous and next lab">
         {index>0&&<Link href={'/learn/applied/'+course.units[index-1].slug}>← Previous lab</Link>}
         {index<course.units.length-1
           ?<Link href={'/learn/applied/'+course.units[index+1].slug}>Next lab →</Link>

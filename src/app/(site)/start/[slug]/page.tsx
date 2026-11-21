@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { CourseProgressToggle } from '@/components/CourseProgressToggle'
 import { notFound } from 'next/navigation'
 import { BilingualLessonEditor } from '@/components/BilingualLessonEditor'
 import course from '@/lib/beginner-course.json'
@@ -30,6 +31,7 @@ export default async function BeginnerLesson({params}:{params:Promise<{slug:stri
     <section className="beginner-review"><h2>Check your understanding</h2><p>Try answering without looking at the notes. Discuss with a friend, parent or teacher. Then reveal the explanations.</p>
       {unit.questions.map(([question,answer],i)=><details key={question}><summary>{i+1}. {question}</summary><p>{answer}</p></details>)}
     </section>
-    <div className="beginner-end"><div><strong>Learning tip</strong><p>Do not race through the chapters. If an answer surprises you, repeat the paper activity, read the example and ask what changed.</p></div><div className="beginner-nav">{previous&&<Link href={'/start/'+previous.id}>← Previous chapter</Link>}{next?<Link href={'/start/'+next.id}>Next chapter →</Link>:<Link href="/learn">Continue to Kasa lessons →</Link>}</div></div>
+    <CourseProgressToggle id={'start/'+slug}/>
+   <div className="beginner-end"><div><strong>Learning tip</strong><p>Do not race through the chapters. If an answer surprises you, repeat the paper activity, read the example and ask what changed.</p></div><div className="beginner-nav">{previous&&<Link href={'/start/'+previous.id}>← Previous chapter</Link>}{next?<Link href={'/start/'+next.id}>Next chapter →</Link>:<Link href="/learn">Continue to Kasa lessons →</Link>}</div></div>
   </main>
 }
