@@ -306,3 +306,31 @@
 .academy-external-playground-link{position:fixed;bottom:16px;right:16px;z-index:30;max-width:min(380px,calc(100vw - 32px));background:#123039;color:#f1f8f8;border:1px solid #6a969c;border-radius:10px;padding:9px 12px;font-size:12px;line-height:1.45;box-shadow:0 6px 18px #0009}
 .academy-external-playground-link a{color:#b9f5ba;text-decoration:underline;font-weight:700}
 .academy-external-playground-link a:focus-visible{outline:2px solid #fff;outline-offset:3px}
+
+
+/* Applied programming curriculum: editorial content only; no CMS migrations. */
+.academy-course-pathway{border:1px solid #cddfd0;background:#f0f7f1;padding:clamp(18px,3vw,30px);border-radius:18px;margin:26px 0 40px}
+.academy-course-pathway h2{margin:8px 0 14px}.academy-course-pathway p{line-height:1.7}
+.academy-pathway-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:18px}
+.academy-pathway-grid a{display:block;background:#fff;border:1px solid #d0e1d4;padding:17px;border-radius:12px}
+.academy-pathway-grid a:hover,.academy-applied-nav a:hover{border-color:#3b8c5b}
+.academy-pathway-grid strong,.academy-pathway-grid span{display:block}
+.academy-pathway-grid span{margin-top:7px;color:#52695c;line-height:1.6;font-size:14px}
+.academy-applied-course .page-heading{margin-bottom:24px}
+.academy-applied-nav{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:36px}
+.academy-applied-nav a{border:1px solid #d0e1d4;border-radius:999px;padding:9px 14px;background:#fff;font-size:13px;font-weight:700}
+.academy-applied-nav a span{color:#296a49;margin-right:8px}
+.academy-applied-unit{scroll-margin-top:18px;border:1px solid #d0e1d4;background:white;border-radius:18px;padding:clamp(18px,3vw,32px);margin:28px 0}
+.academy-applied-unit header h2{margin:9px 0 16px}
+.academy-applied-unit header p{line-height:1.7}
+.academy-applied-unit section{margin:28px 0}
+.academy-applied-unit h3{margin-bottom:12px}
+.academy-applied-unit h4{font-size:17px;margin:20px 0 10px}
+.academy-applied-unit li{padding:4px 0;line-height:1.65}
+.academy-applied-unit details{padding:15px;border:1px solid #cddfd0;border-radius:12px;background:#f3f8f3}
+.academy-applied-unit summary{cursor:pointer;font-weight:750;color:#17573a}
+.academy-applied-unit details p{line-height:1.6}
+.academy-applied-mode{border-left:4px solid #43865d;padding:11px 13px;background:#eff7f0}
+.academy-applied-next{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;border-top:1px solid #dae5de;padding-top:20px}
+.academy-applied-next a{text-decoration:underline;font-weight:750;color:#18623e}
+@media(max-width:650px){.academy-pathway-grid{grid-template-columns:1fr}.academy-applied-nav{flex-direction:column}.academy-applied-nav a{border-radius:12px}}
