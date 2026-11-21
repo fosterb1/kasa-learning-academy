@@ -306,3 +306,25 @@
 .academy-external-playground-link{position:fixed;bottom:16px;right:16px;z-index:30;max-width:min(380px,calc(100vw - 32px));background:#123039;color:#f1f8f8;border:1px solid #6a969c;border-radius:10px;padding:9px 12px;font-size:12px;line-height:1.45;box-shadow:0 6px 18px #0009}
 .academy-external-playground-link a{color:#b9f5ba;text-decoration:underline;font-weight:700}
 .academy-external-playground-link a:focus-visible{outline:2px solid #fff;outline-offset:3px}
+
+
+/* Read-only course roadmap: does not alter the existing CMS or lesson videos. */
+.academy-roadmap-quicklinks{display:flex;gap:10px;flex-wrap:wrap;margin:24px 0 32px}
+.academy-roadmap-quicklinks a{padding:10px 13px;border:1px solid #cbdccd;background:#fff;border-radius:9px;font-weight:700;font-size:13px}
+.academy-roadmap-quicklinks a:hover,.academy-roadmap-quicklinks a:focus-visible{border-color:#26704b;text-decoration:underline}
+.academy-roadmap-list{display:grid;gap:20px;margin-bottom:32px}
+.academy-roadmap-stage{display:grid;grid-template-columns:64px minmax(0,1fr);gap:20px;border:1px solid var(--line);border-radius:18px;padding:24px;background:#fff;scroll-margin-top:22px}
+.academy-roadmap-index{background:#e8f3e8;color:#174d35;font-family:Outfit,sans-serif;font-size:24px;font-weight:800;border-radius:12px;text-align:center;padding:12px 4px;align-self:start}
+.academy-roadmap-heading{display:flex;align-items:start;justify-content:space-between;flex-wrap:wrap;gap:15px;margin-bottom:18px}
+.academy-roadmap-heading h2{font-size:clamp(23px,3vw,30px);margin-top:6px}
+.academy-roadmap-content p,.academy-roadmap-content li{line-height:1.75}
+.academy-roadmap-content h3{font-size:19px;margin:18px 0 6px}
+.academy-roadmap-status{border:1px solid #bed6c4;background:#f1f8f3;padding:7px 10px;border-radius:7px;font-weight:750;font-size:12px}
+.academy-roadmap-status-planned{background:#f6f5f0;border-color:#dbd7c9}
+.academy-roadmap-status-experimental,.academy-roadmap-status-review{background:#fff8e8;border-color:#eddfb6}
+.academy-roadmap-video-note{color:#50665a}
+.academy-roadmap-planned{background:#f6f5f0;border-radius:8px;padding:12px}
+.academy-roadmap-promo{margin:24px 0;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;background:#e8f3e8;border:1px solid #cbdccd;border-radius:16px;padding:24px}
+.academy-roadmap-promo h2{font-size:clamp(24px,3vw,32px);margin:8px 0}
+.academy-roadmap-promo p{max-width:630px;line-height:1.7}
+@media(max-width:650px){.academy-roadmap-stage{grid-template-columns:1fr;padding:17px}.academy-roadmap-index{width:55px}.academy-roadmap-heading{display:block}.academy-roadmap-status{display:inline-block;margin-top:12px}}
