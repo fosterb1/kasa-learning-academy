@@ -45,8 +45,8 @@
         {
           "id": "algorithms-upcoming",
           "title": "Problem Solving and Algorithms",
-          "href": null,
-          "description": "Searching, sorting, tracing and complexity — course in preparation",
+          "href": "/learn/algorithms",
+          "description": "Five core-Kasa lessons: tracing, linear search, maximum, bubble sort and algorithm cost.",
           "moduleSlugs": []
         }
       ]
