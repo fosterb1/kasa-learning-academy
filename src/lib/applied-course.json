@@ -1,0 +1,128 @@
+{
+  "version": 1,
+  "status": "editorial_course_not_cms_seed",
+  "title": "Kasa Applied Programming: Ghana-first data projects",
+  "description": "Work through five practical coding labs. Core Kasa exercises run locally; newer data helpers are marked as experimental.",
+  "units": [
+    {
+      "slug": "shop-receipt",
+      "stage": "Apply the basics",
+      "title": "Build a market receipt",
+      "minutes": 35,
+      "goal": "Calculate quantities, line totals and a final receipt using integer pesewas.",
+      "concept": "Currency values should be integers in minor units. Labels and numeric results are separate output lines until we explicitly convert numbers to text.",
+      "source": "ma rice_price = 1200\nma rice_qty = 3\nma soap_price = 850\nma soap_qty = 2\nma total_pesewas = rice_price * rice_qty + soap_price * soap_qty\nka \"TOTAL PESEWAS\"\nka total_pesewas\n",
+      "output": "TOTAL PESEWAS\n5300\n",
+      "trace": [
+        "Three bags of rice cost 3 × 1200 = 3600 pesewas.",
+        "Two bars of soap cost 2 × 850 = 1700 pesewas.",
+        "The receipt totals 5300 pesewas, equivalent to GHS 53.00."
+      ],
+      "task": "Change rice_qty to 4 and predict the new amount before running. Add a separate transport fee of 200 pesewas.",
+      "acceptance": [
+        "Total is computed from quantities and unit prices, not entered as a fixed number.",
+        "The currency unit is explained; no unsafe floating-point cash calculation.",
+        "Predict and record output before pressing Run."
+      ],
+      "check": "What happens to the total if the quantity of soap increases by one?",
+      "answer": "The total increases by 850 pesewas, the price of one soap.",
+      "mode": "Core Kasa — runnable in the embedded lesson editor."
+    },
+    {
+      "slug": "classroom-marks",
+      "stage": "Apply the basics",
+      "title": "Analyse student marks",
+      "minutes": 40,
+      "goal": "Use a list, loop and conditions to compute a total, average and pass decision.",
+      "concept": "Loops are reusable reasoning tools for collecting a total. Averages require a non-empty list to avoid division by zero.",
+      "source": "ma marks = [50, 70, 80]\nma total = 0\nma i = 0\nbere_a i < tentɛn(marks)\n    ma total = total + marks[i]\n    ma i = i + 1\nawiei\nma average = total / tentɛn(marks)\nka total\nka average\nka average >= 50\n",
+      "output": "200\n66.66666666666667\nnokware\n",
+      "trace": [
+        "The accumulator starts at zero and sums 50, 70 and 80.",
+        "There are three marks. Average is 200 divided by 3.",
+        "The final Boolean uses an explicitly stated hypothetical threshold of 50."
+      ],
+      "task": "Replace the third mark with 30. Recalculate the output, then describe what changes. Write a condition to handle an empty list before dividing.",
+      "acceptance": [
+        "Loop index stays within the list's valid indices.",
+        "Empty-list case is considered explicitly.",
+        "Pass rule is labelled as an example, not a universal school policy."
+      ],
+      "check": "Why should an empty list be checked before computing the average?",
+      "answer": "Because dividing by the number of entries would divide by zero when there are no marks.",
+      "mode": "Core Kasa — runnable in the embedded lesson editor."
+    },
+    {
+      "slug": "inventory-decision",
+      "stage": "Use data for decisions",
+      "title": "Inventory reorder decisions",
+      "minutes": 35,
+      "goal": "Calculate closing stock and trigger a reorder using a clear boundary.",
+      "concept": "Closing units are beginning units plus receipts minus sales. Reordering at or below a threshold is different from reordering only below it.",
+      "source": "ma opening = 20\nma received = 10\nma sold = 23\nma closing = opening + received - sold\nka closing\nsɛ closing <= 10 a\n    ka \"REORDER\"\nanyɛ_saa_a\n    ka \"STOCK OK\"\nawiei\n",
+      "output": "7\nREORDER\n",
+      "trace": [
+        "Opening plus received stock is 30 units.",
+        "Subtracting 23 sold units leaves 7.",
+        "Seven is at or below the threshold of 10, so the reorder branch runs."
+      ],
+      "task": "Test closing stock of 9, 10 and 11. What extra validation should stop an impossible sale greater than available stock?",
+      "acceptance": [
+        "The <= boundary is tested at 10.",
+        "Inventory is tracked in whole units, not mixed with money.",
+        "A negative closing balance is flagged as invalid rather than accepted silently."
+      ],
+      "check": "If closing stock is exactly 10, should the example reorder?",
+      "answer": "Yes. The example uses <= 10, so exactly 10 triggers REORDER.",
+      "mode": "Core Kasa — runnable in the embedded lesson editor."
+    },
+    {
+      "slug": "tables-roadmap",
+      "stage": "Preview experimental data tools",
+      "title": "From lists to tables",
+      "minutes": 30,
+      "goal": "Understand rows, columns and the distinction between core list code and experimental helpers.",
+      "concept": "A table can be represented as a list of lists. Kasa's G1.4 table helpers are source-only, not shipped as a pinned Studio import. Start with direct list indexing in the ordinary editor.",
+      "source": "ma sales = [[101, 25], [102, 40], [103, -5]]\nka sales[0][0]\nka sales[1][1]\nma total = 0\nma i = 0\nbere_a i < tentɛn(sales)\n    ma total = total + sales[i][1]\n    ma i = i + 1\nawiei\nka total\n",
+      "output": "101\n40\n60\n",
+      "trace": [
+        "Row 0, column 0 contains product code 101.",
+        "Row 1, column 1 contains the amount 40.",
+        "The second column sums to 60, including the negative adjustment."
+      ],
+      "task": "Add a fourth row and update the expected total. What should happen if one row has no second column?",
+      "acceptance": [
+        "Rows and columns are both zero-based.",
+        "A short row is identified before indexing column 1.",
+        "The experimental table library is described as source-only; no fa tables import is suggested."
+      ],
+      "check": "Is fa tables firi stdlib a supported import in the Academy Studio?",
+      "answer": "No. G1.4 table helpers are source-only experimental functions, not part of the pinned G1 import catalog.",
+      "mode": "Core list example runs here; source-only G1.4 helpers are not importable."
+    },
+    {
+      "slug": "records-validation",
+      "stage": "Preview experimental data tools",
+      "title": "Named fields and validation",
+      "minutes": 35,
+      "goal": "Explain schema order, required fields and why validating input prevents inaccurate business reports.",
+      "concept": "G1.5 positional records use a separate ordered list of field names. G1.6 typed validation runs in host-side Python/JavaScript adapters, not as a Kasa builtin or Studio mode.",
+      "source": "ma fields = [\"id\", \"name\", \"amount\"]\nma record = [101, \"Ama\", 2500]\nka fields[1]\nka record[1]\nka tentɛn(fields) == tentɛn(record)\nka record[2] >= 0\n",
+      "output": "name\nAma\nnokware\nnokware\n",
+      "trace": [
+        "The schema says position 1 represents the name field.",
+        "The record's position 1 stores Ama.",
+        "The widths match; amount 2500 minor units is nonnegative."
+      ],
+      "task": "Create a second record containing hwee for name. Explain why field presence must not be confused with truthiness and why an external validator should check the record.",
+      "acceptance": [
+        "Schema field order and record position are aligned.",
+        "Required null values are identified as invalid inputs.",
+        "No JSON import, decimal validation or production safety claim is made."
+      ],
+      "check": "Can a learner call G1.6 host validation from ordinary Kasa source?",
+      "answer": "No. It is currently a separate Python/JavaScript host adapter, not an importable language builtin.",
+      "mode": "Core list example runs here; record and typed validation helpers remain experimental."
+    }
+  ]
+}
