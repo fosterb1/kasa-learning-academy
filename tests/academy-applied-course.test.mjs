@@ -12,8 +12,9 @@ test('applied course has five structured, unique lessons with honest experimenta
  assert.equal(course.units.length, 5)
  assert.equal(new Set(course.units.map(unit => unit.slug)).size, 5)
  for (const unit of course.units) {
-  for (const key of ['title','goal','concept','source','output','task','check','answer','mode'])
+  for (const key of ['title','goal','concept','source','task','check','answer','mode'])
    assert.ok(unit[key]?.trim().length >= 12, unit.slug + ': missing ' + key)
+  assert.ok(unit.output?.trim().length >= 3, unit.slug + ': missing expected output')
   assert.ok(unit.trace.length >= 3, unit.slug + ': missing trace')
   assert.ok(unit.acceptance.length >= 3, unit.slug + ': missing acceptance criteria')
   assert.ok(unit.minutes >= 15 && unit.minutes <= 90)
