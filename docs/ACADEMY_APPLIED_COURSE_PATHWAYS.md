@@ -20,14 +20,13 @@ Payload/Postgres lesson documents, seed new CMS content or refresh Studio assets
 
 - A four-stage learning-pathway panel on `/learn`:
   foundations → core syntax → applied labs → independent projects.
-- New `/learn/applied` guided course containing five editorial labs:
+- New `/learn/applied` course overview and five individual `/learn/applied/[slug]` lab pages:
   **market receipts**, **student marks**, **inventory reorder**,
   **lists as tables**, and **positional records / validation**.
 - Each lab provides a learning outcome, core-Kasa source program, expected
   output, step-by-step trace, independent assignment, acceptance checklist,
   review question and explanation, and previous/next navigation.
-- Embedded `Playground` runs the five **core Kasa** examples in the
-  existing first-party JavaScript worker, without claiming G1.4/G1.5
+- Each lab page mounts only **one** embedded `Playground`, running its **core Kasa** example in the existing first-party JavaScript worker, avoiding unnecessary simultaneous workers and repeated editor IDs. This does not claim G1.4/G1.5
   source-only helper imports are available in normal lessons.
 - Links from home, top navigation and `/learn` to the applied course.
 - Responsive, keyboard-friendly CSS.
@@ -82,8 +81,9 @@ the local Studio manifest. Inspect the manifest diff before any commit.
 Manual UI checks after local build:
 
 1. Open `/learn` and follow the four learning-path stages.
-2. Open `/learn/applied`. Run all five programs, verifying their displayed
-   outputs. Change one value in each independent assignment.
+2. Open `/learn/applied`, follow each of the five dedicated lab pages,
+   and run the program on that page, verifying its displayed output.
+   Change one value in each independent assignment.
 3. Inspect mobile layout, in-page links, keyboard focus and screen reader
    section headings.
 4. Verify existing published `/learn/[slug]` lessons, video/transcripts,
