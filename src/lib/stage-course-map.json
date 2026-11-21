@@ -102,8 +102,8 @@
         {
           "id": "software-practices-upcoming",
           "title": "Software Development Practices",
-          "href": null,
-          "description": "Testing, documentation and version control — course in preparation",
+          "href": "/learn/development",
+          "description": "Five practical lessons on debugging, test design, refactoring, Git workflow and reproducible project documentation.",
           "moduleSlugs": []
         }
       ]
