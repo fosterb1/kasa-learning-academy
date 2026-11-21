@@ -81,7 +81,7 @@
       "status": "review",
       "level": "Intermediate",
       "duration": "5 guided labs",
-      "route": "/learn/applied",
+      "route": null,
       "prerequisites": [
         "syntax"
       ],
@@ -90,7 +90,7 @@
         "Explain the assumptions and limitations of each program"
       ],
       "assessment": "Finish the five practice labs and explain output checks",
-      "videoPolicy": "Labs are currently editorial pages with working code, not CMS video fields"
+      "videoPolicy": "Five labs passed independent tests in draft Academy PR #11; the route is not published on main until that PR is merged."
     },
     {
       "id": "modules",
