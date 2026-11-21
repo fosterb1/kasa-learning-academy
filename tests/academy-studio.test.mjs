@@ -1,6 +1,6 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
-import {readFile,stat} from 'node:fs/promises'
+import {readFile,stat,readdir} from 'node:fs/promises'
 import {createHash} from 'node:crypto'
 
 const studio = new URL('../public/kasa-studio/', import.meta.url)
@@ -43,4 +43,25 @@ test('approved release manifest matches all bundled first-party assets byte-for-
  assert.ok(manifest.files['native/kasa-native.wasm'])
  assert.ok(manifest.files['native/kasa-native.js'])
  assert.ok(manifest.files['diagnostics.js'])
+})
+
+
+test('Studio manifest covers every deployed file and build never silently refreshes hashes',async()=>{
+ const manifest=JSON.parse(await readFile(new URL('release-manifest.json',studio),'utf8'))
+ async function walk(url,prefix=''){
+  const entries=await readdir(url,{withFileTypes:true})
+  const names=[]
+  for(const entry of entries){
+   const name=prefix+entry.name
+   if(name==='release-manifest.json') continue
+   if(entry.isDirectory()) names.push(...await walk(new URL(entry.name+'/',url),name+'/'))
+   else if(entry.isFile()) names.push(name)
+  }
+  return names
+ }
+ const actual=(await walk(studio)).sort()
+ assert.deepEqual(Object.keys(manifest.files).sort(),actual,'Every shipped Studio asset must be pinned')
+ assert.equal(manifest.release,'academy-studio-pinned-modules-20261121')
+ const pkg=JSON.parse(await readFile(new URL('../package.json',import.meta.url),'utf8'))
+ assert.doesNotMatch(pkg.scripts.build,/sync-studio-release\.mjs/,'Build must not quietly approve changed binaries')
 })
