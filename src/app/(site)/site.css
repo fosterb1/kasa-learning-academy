@@ -306,3 +306,26 @@
 .academy-external-playground-link{position:fixed;bottom:16px;right:16px;z-index:30;max-width:min(380px,calc(100vw - 32px));background:#123039;color:#f1f8f8;border:1px solid #6a969c;border-radius:10px;padding:9px 12px;font-size:12px;line-height:1.45;box-shadow:0 6px 18px #0009}
 .academy-external-playground-link a{color:#b9f5ba;text-decoration:underline;font-weight:700}
 .academy-external-playground-link a:focus-visible{outline:2px solid #fff;outline-offset:3px}
+
+
+/* Academy learner dashboard: local-only progress, no new CMS tables. */
+.learning-progress-panel{max-width:1020px;margin:0 auto 56px;border:1px solid #d5e4d9;border-radius:20px;background:#fff;padding:clamp(18px,3vw,32px);box-shadow:0 10px 36px #102e1a0a}
+.learning-progress-heading{display:flex;gap:24px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.learning-progress-heading h2{font-size:clamp(22px,3vw,32px);margin:8px 0}
+.learning-progress-heading p,.learning-progress-note{color:#4c6255;line-height:1.6}
+.learning-progress-summary{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:22px}
+.learning-progress-summary p{background:#f1f7f0;border-radius:13px;padding:14px;margin:0;font-size:13px;color:#3b5643}
+.learning-progress-summary strong{display:block;font-size:25px;color:#145839;font-variant-numeric:tabular-nums}
+.learning-progress-track{height:12px;margin:19px 0 24px;background:#e3eee5;border-radius:999px;overflow:hidden}
+.learning-progress-track span{display:block;height:100%;background:#278351;transition:width .2s ease}
+.learning-progress-search-label{display:block;font-size:14px;font-weight:750;margin:10px 0}
+.learning-progress-search{display:block;width:100%;padding:12px 14px;border:1px solid #a6bfae;border-radius:10px;background:#fff;color:#19372a;font:inherit}
+.learning-progress-search:focus-visible,.learning-progress-item:focus-visible{outline:3px solid #278351;outline-offset:3px}
+.learning-progress-list{display:grid;gap:9px;margin-top:15px}
+.learning-progress-item{display:grid;grid-template-columns:24px minmax(0,1fr) auto;align-items:center;gap:12px;padding:13px 15px;border:1px solid #d8e7dd;border-radius:12px;color:#204934;text-decoration:none}
+.learning-progress-item:hover{background:#f4f9f4}
+.learning-progress-item strong,.learning-progress-item small{display:block}
+.learning-progress-item small{font-size:12px;color:#52685a;margin-top:5px}
+.learning-progress-item>span:last-child{font-size:12px;font-weight:750;color:#266748}
+.learning-progress-note{font-size:12px;margin:18px 0 0}
+@media(max-width:650px){.learning-progress-summary{grid-template-columns:1fr}.learning-progress-item{grid-template-columns:22px minmax(0,1fr)}.learning-progress-item>span:last-child{grid-column:2}.learning-progress-panel{padding:16px}}

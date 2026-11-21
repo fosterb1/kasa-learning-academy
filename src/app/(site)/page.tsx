@@ -32,7 +32,7 @@ export default async function Home() {
         <span className="eyebrow">AKWAABA · WELCOME TO KASA</span>
         <h1>Programming starts with <em>your own words.</em></h1>
         <p>Learn to build real programs using Twi-first syntax. Start with a single line, practice in your browser, and work toward real projects. No fee, no account, no barriers.</p>
-        <div className="hero-actions"><Link className="button button-primary" href="/start">Start from zero <span aria-hidden="true">→</span></Link><Link className="button button-outline" href="/learn">Explore all Kasa lessons</Link><Link className="button button-outline" href="/playground" target="_blank" rel="noopener noreferrer">Open full playground ↗</Link></div>
+        <div className="hero-actions"><Link className="button button-primary" href="/start">Start from zero <span aria-hidden="true">→</span></Link><Link className="button button-outline" href="/learn">Explore all Kasa lessons</Link><Link className="button button-outline" href="/my-learning">My learning progress</Link><Link className="button button-outline" href="/playground" target="_blank" rel="noopener noreferrer">Open full playground ↗</Link></div>
         <div className="mini-stat"><span><b>{allModules.length}</b> learning modules</span><span><b>{allLessons.length}</b> lessons</span><span><b>{allChallenges.length}</b> challenges</span></div>
       </div>
       <div className="hero-terminal" aria-label="Example Kasa program and its output">
