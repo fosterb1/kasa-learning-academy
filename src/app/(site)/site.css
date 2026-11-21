@@ -358,3 +358,14 @@
 
 .academy-pathway-stage-card{display:flex;flex-direction:column;gap:9px;border:1px solid #cbdccd;background:#fff;border-radius:13px;padding:20px}
 .academy-pathway-stage-card strong{font-size:17px}.academy-pathway-stage-card span{color:#50665a;line-height:1.5}.academy-pathway-stage-card a,.academy-roadmap-shortcuts a{text-decoration:underline;color:#175c3b;font-weight:800}.academy-roadmap-shortcuts{margin-top:19px}.academy-cms-catalog-heading{margin-top:45px}
+
+
+/* Visual hierarchy: one introduction, pathway cards, then the lesson library. */
+.academy-learn-intro{margin-bottom:18px}
+.academy-learn-intro h1{max-width:700px}
+.academy-learn-intro p{max-width:660px}
+.academy-course-pathway{margin-top:18px}
+.academy-cms-catalog-heading{margin-top:40px}
+.site-footer{gap:18px}
+.site-footer>span:last-child{display:flex;flex-wrap:wrap;gap:12px 18px;align-items:center}
+@media(max-width:740px){.academy-learn-intro{margin-bottom:12px}.academy-cms-catalog-heading{margin-top:30px}}
