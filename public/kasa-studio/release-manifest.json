@@ -1,8 +1,8 @@
 {
   "files": {
     "app.js": {
-      "bytes": 13990,
-      "sha256": "bd6bf8042b537edd73201a0627e90b3f2ec2048f5329f245a54bac86baff2560"
+      "bytes": 15188,
+      "sha256": "cb4067fe8561b50de6a0ef1910ca7aebc0c4bcd669fa711186e0a90bc796dc64"
     },
     "diagnostics.js": {
       "bytes": 5446,
@@ -17,12 +17,16 @@
       "sha256": "5c64d9fcf26db29cdbcd63d251aba0c5c8fe5039caa0d1152475b4cb4e6d80fe"
     },
     "index.html": {
-      "bytes": 8418,
-      "sha256": "8d7c84fdb9230b415a1dbb39ca8b3694fac5742b4e86d61f638d2c866fc38e7d"
+      "bytes": 9129,
+      "sha256": "bd9716ce82a3e081d5c0782bcdf18417307a152433044e1da8a3b467a6fcdba0"
+    },
+    "kasa-pinned-modules.js": {
+      "bytes": 1562,
+      "sha256": "de4a0be2be4e03b1294d3e9aaff11fb78ffac24225630ac4160631f474fa5e11"
     },
     "kasa-runtime.js": {
-      "bytes": 27520,
-      "sha256": "4bd70e267f41e3a503094be57cda3b17e767c42cf7e81c44a424a788408691a1"
+      "bytes": 34059,
+      "sha256": "061690cab1b49986264e700436313f52fd2cc0ba4de8b356c2870424ebd16e82"
     },
     "manifest.webmanifest": {
       "bytes": 536,
@@ -37,19 +41,19 @@
       "sha256": "539fe094ff979473adcf1d77efda1d2d0c15d54667fbc67a4b3d9974d20993e6"
     },
     "style.css": {
-      "bytes": 11400,
-      "sha256": "54107902e5188188043ea896217f1936376e42eb4766dbd06abbc01ec450b706"
+      "bytes": 12150,
+      "sha256": "bcffeb8a6111310f430754a39af4018da143ef79c26100a4ff0e3089a61a9699"
     },
     "sw.js": {
-      "bytes": 1678,
-      "sha256": "347e70c5d13bc8f5c8cfeb111fd279382ecfe50d75bf07a48cfe7d4ca9d80eae"
+      "bytes": 1702,
+      "sha256": "67e9043961dcaa67b9cb1a87af47f5360fc5a40fa5d5124f8962d83ada53b391"
     },
     "worker.js": {
-      "bytes": 3494,
-      "sha256": "875423ffb118db56b40baad724013a050adf64a233a62bf4bd12c2a018795f4c"
+      "bytes": 4847,
+      "sha256": "ca23109d1cc748c5c970aea85d75b16ccef15161dd21c48eb9aed6631ace26ac"
     }
   },
   "format": "kasa-studio-release-v1",
-  "release": "academy-4c1-diagnostics",
+  "release": "academy-studio-pinned-modules-20261121",
   "source_repo": "fosterb1/kasa_programming_language"
 }
