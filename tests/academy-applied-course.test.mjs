@@ -33,11 +33,13 @@ for (const unit of course.units) {
 
 test('applied course page links working embedded editor and clear learning stages', async () => {
  const page = await read('src/app/(site)/learn/applied/page.tsx')
+ const lab = await read('src/app/(site)/learn/applied/[slug]/page.tsx')
  const index = await read('src/app/(site)/learn/page.tsx')
  const layout = await read('src/app/(site)/layout.tsx')
- assert.match(page,/Playground sourceCode=\{unit.source\} expectedOutput=\{unit.output\}/)
- assert.match(page,/Independent assignment/)
- assert.match(page,/Review question and model explanation/)
+ assert.match(lab,/Playground sourceCode=\{unit.source\} expectedOutput=\{unit.output\}/)
+ assert.match(lab,/generateStaticParams/)
+ assert.match(lab,/Independent assignment/)
+ assert.match(lab,/Review question and model explanation/)
  assert.match(index,/href="\/learn\/applied"/)
  assert.match(index,/href="\/start"/)
  assert.match(index,/href="\/projects"/)
@@ -46,7 +48,8 @@ test('applied course page links working embedded editor and clear learning stage
 
 test('existing CMS lessons, video transcripts and Studio remain outside this editorial content', async () => {
  const page = await read('src/app/(site)/learn/applied/page.tsx')
- assert.doesNotMatch(page,/getPayload|db\.update|db\.create|youtubeVideoId|transcriptTwi|transcriptEnglish/)
+ const lab = await read('src/app/(site)/learn/applied/[slug]/page.tsx')
+ assert.doesNotMatch(lab,/getPayload|db\.update|db\.create|youtubeVideoId|transcriptTwi|transcriptEnglish/)
  const manifest = JSON.parse(await read('src/lib/applied-course.json'))
  assert.ok(manifest.units.every(unit => !unit.source.includes('fa tables firi')))
  assert.ok(manifest.units.every(unit => !unit.source.includes('fa records firi')))
