@@ -37,10 +37,10 @@ for(const course of courses){
   assert.match(page,/generateStaticParams/)
   assert.ok(page.includes(course.file),course.name+' route does not load its course data')
   assert.ok(page.includes(course.editor),course.name+' route does not show editor')
-  const prefix=course.route+'/'
+  // The dynamic route must enumerate all editorial lessons, not a hard-coded sample.
+  assert.match(page,/course\.units\.map/)
   for(const index of [0,Math.floor(units.length/2),units.length-1]){
-   const slug=units[index][course.slugKey]
-   assert.ok(prefix+slug,course.name+' missing lesson URL')
+   assert.ok(units[index][course.slugKey]?.length>0,course.name+' missing lesson slug')
   }
  })
 }
