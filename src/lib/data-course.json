@@ -1,0 +1,133 @@
+{
+  "version": 1,
+  "status": "editorial_course_not_cms_seed",
+  "title": "Data Structures and Data Processing in Kasa",
+  "description": "Five guided, text-first lessons on nested lists, positional records, data validation, aggregates and filtered summaries using only supported core Kasa. Tables and typed records remain concepts or experimental host-side prototypes, not native Kasa builtins.",
+  "units": [
+    {
+      "slug": "nested-lists",
+      "title": "Organize rows with nested lists",
+      "minutes": 35,
+      "level": "Nested data",
+      "goal": "Read two-dimensional list data by row and column positions.",
+      "concept": "A nested list stores one list inside another. Each row here has exactly two numeric entries, and index 0 selects the first column. This is a teaching representation, not a native Kasa table type.",
+      "source": "ma rows = [[12, 8], [10, 6], [7, 5]]\nma i = 0\nbere_a i < tentɛn(rows)\n    ma total = rows[i][0] + rows[i][1]\n    ka total\n    ma i = i + 1\nawiei\n",
+      "output": "20\n16\n12\n",
+      "trace": [
+        "Start with a list containing three rows, each with two numbers.",
+        "At row index 0, add 12 and 8, then print 20.",
+        "Repeat for rows 1 and 2 to print 16 and 12; the loop stops at index 3."
+      ],
+      "task": "Add a fourth row [6, 4] and predict the extra output. Explain why a missing column would make positional indexing unsafe.",
+      "acceptance": [
+        "Produces correct sums for each row.",
+        "Identifies row and column indices correctly.",
+        "Explains the two-column assumption and bounds risks."
+      ],
+      "question": "What is rows[1][0] in this dataset?",
+      "answer": "10. Index 1 selects the second row, and index 0 selects its first element.",
+      "complexity": "One loop over n two-column rows takes O(n) time, with constant work per row.",
+      "mode": "Core Kasa nested lists; no native table API."
+    },
+    {
+      "slug": "positional-records",
+      "title": "Represent a record using a list",
+      "minutes": 35,
+      "level": "Data modeling",
+      "goal": "Use a clearly documented field order to model simple structured information.",
+      "concept": "We model a record as [name, quantity, unit price]. Every consumer must agree on the positions; Kasa core currently has no general dictionary or built-in typed record object. Real record schemas and field-name access remain separate experimental research.",
+      "source": "ma item = [\"Akua\", 12, 8]\nma total = item[1] * item[2]\nka item[0]\nka total\n",
+      "output": "Akua\n96\n",
+      "trace": [
+        "Index 0 contains the name Akua; index 1 is quantity 12; index 2 is unit price 8.",
+        "Multiply positions 1 and 2 to calculate 96.",
+        "Print the name and total. Changing positions without updating the program breaks the meaning."
+      ],
+      "task": "Change the record to [\"Kojo\", 5, 9] and predict both output lines. Write down the three-field schema in plain language.",
+      "acceptance": [
+        "Explains the intended meaning of all three positions.",
+        "Calculates the total from quantities rather than hardcoding it.",
+        "Distinguishes this list convention from a native typed record feature."
+      ],
+      "question": "What happens if quantity and name positions are accidentally swapped?",
+      "answer": "The positional contract is broken. Code may calculate incorrectly or produce a type error; core lists do not enforce named fields.",
+      "complexity": "Fixed-position access and a single multiplication take O(1) time for this one record.",
+      "mode": "Core Kasa list representation; typed records are not core builtins."
+    },
+    {
+      "slug": "validate-values",
+      "title": "Validate values before using them",
+      "minutes": 40,
+      "level": "Data quality",
+      "goal": "Reject negative counts and count accepted versus rejected values before computing business metrics.",
+      "concept": "Data processing must state its rules. Here, nonnegative numbers are accepted and negatives rejected. This is a domain check only: it is not a general-purpose type checker, schema validator, or untrusted-input security guarantee.",
+      "source": "ma scores = [10, -3, 20, 0, 15]\nma valid = 0\nma rejected = 0\nma i = 0\nbere_a i < tentɛn(scores)\n    sɛ scores[i] >= 0 a\n        ma valid = valid + 1\n    anyɛ_saa_a\n        ma rejected = rejected + 1\n    awiei\n    ma i = i + 1\nawiei\nka valid\nka rejected\n",
+      "output": "4\n1\n",
+      "trace": [
+        "Start with five numeric scores and two counters at zero.",
+        "Count 10, 20, 0 and 15 as valid; treat -3 as rejected.",
+        "Print 4 valid and 1 rejected. Other validation rules would need to be specified separately."
+      ],
+      "task": "Replace -3 with -1 and 0 with -2; predict the new counts. Explain why a negative score might be rejected, but a negative account balance may be valid.",
+      "acceptance": [
+        "Counts accepted and rejected data correctly.",
+        "Documents the nonnegative-only rule and its limits.",
+        "Explains that this lesson does not validate data types or JSON structures."
+      ],
+      "question": "Why is a validation rule not automatically suitable for every dataset?",
+      "answer": "Different domains have different valid ranges. Negative quantities might be invalid, while negative temperature or balances can be legitimate.",
+      "complexity": "A single pass over n values performs O(n) comparisons and uses O(1) additional counters.",
+      "mode": "Core Kasa numeric range check; no typed validation builtin."
+    },
+    {
+      "slug": "aggregate-summary",
+      "title": "Calculate a total and average safely",
+      "minutes": 40,
+      "level": "Summaries",
+      "goal": "Aggregate numeric values and explain the empty-list division guard.",
+      "concept": "A sum is built by visiting each item. Mean equals sum divided by count. This worked example uses a nonempty list; an independent solution should guard against an empty list before division. Kasa's numeric display may include .0 for a floating result.",
+      "source": "ma sales = [12, 18, 10, 20]\nma total = 0\nma i = 0\nbere_a i < tentɛn(sales)\n    ma total = total + sales[i]\n    ma i = i + 1\nawiei\nma average = total / tentɛn(sales)\nka total\nka average\n",
+      "output": "60\n15.0\n",
+      "trace": [
+        "Add 12, 18, 10 and 20 to get 60.",
+        "Count four observations, then divide 60 by 4 to get 15.0.",
+        "Print the total and average. Zero observations require a guard before division."
+      ],
+      "task": "Replace sales with [2, 5, 8]. Predict the total and mean, then add an if guard for an empty list before dividing by its length.",
+      "acceptance": [
+        "Calculates the correct total and mean for varying nonempty datasets.",
+        "Guards division when there are no observations.",
+        "Explains why these are descriptive summaries, not a full statistics package."
+      ],
+      "question": "What should your program do when the input list is empty?",
+      "answer": "It should handle the missing observations explicitly and avoid dividing by zero. A mean is not defined for zero observations.",
+      "complexity": "One pass computes a sum in O(n) time and O(1) extra working space.",
+      "mode": "Core Kasa list loops and arithmetic; no statistics package."
+    },
+    {
+      "slug": "filtered-summary",
+      "title": "Filter and summarize stock levels",
+      "minutes": 40,
+      "level": "Data reporting",
+      "goal": "Count positive stock entries and total their quantities in one pass.",
+      "concept": "Filtering means keeping only values that satisfy a condition. This lesson counts strictly positive stock entries, ignoring zero quantities. It does not build a filtered list or provide a native query/table engine.",
+      "source": "ma quantities = [0, 4, 2, 0, 7]\nma nonzero = 0\nma total = 0\nma i = 0\nbere_a i < tentɛn(quantities)\n    sɛ quantities[i] > 0 a\n        ma nonzero = nonzero + 1\n        ma total = total + quantities[i]\n    awiei\n    ma i = i + 1\nawiei\nka nonzero\nka total\n",
+      "output": "3\n13\n",
+      "trace": [
+        "Start with five stock quantities and two summary counters.",
+        "Skip zeros, but count and add 4, 2 and 7.",
+        "Print 3 positive stock entries and a combined quantity of 13."
+      ],
+      "task": "Replace the last quantity 7 with 0 and predict both totals. Explain why a negative value should be handled by a validation policy instead of silently treated as stock.",
+      "acceptance": [
+        "Produces correct counts and sums for positive quantities.",
+        "Explains the exact filter condition and its consequences.",
+        "Does not misrepresent this as built-in CSV, JSON or table querying."
+      ],
+      "question": "Does filtering a list automatically change the original values?",
+      "answer": "No. This example only counts and totals matching values. It does not mutate the original list.",
+      "complexity": "One pass over n quantities runs in O(n) time using O(1) additional counters.",
+      "mode": "Core Kasa filtering with loops; tables/CSV/JSON not provided."
+    }
+  ]
+}
