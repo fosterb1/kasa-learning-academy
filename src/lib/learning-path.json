@@ -115,20 +115,21 @@
       "id": "development",
       "number": 7,
       "title": "Software development practices",
-      "status": "planned",
+      "status": "available",
       "level": "Advanced",
-      "duration": "Curriculum in design",
-      "route": null,
+      "duration": "5 guided lessons",
+      "route": "/learn/development",
       "prerequisites": [
         "problem-solving",
-        "data"
+        "data",
+        "applied"
       ],
       "outcomes": [
         "Write tests and communicate expected program behavior",
         "Document and organize reproducible projects"
       ],
       "assessment": "Submit an explained test plan and revision history",
-      "videoPolicy": "Future content requires reviewed, published CMS video associations"
+      "videoPolicy": "Five editorial software-practice lessons use core Kasa examples; real Git and project documentation workflows are external tools and activities. No existing CMS media is changed."
     },
     {
       "id": "portfolio",
