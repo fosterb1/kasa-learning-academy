@@ -1,0 +1,133 @@
+{
+  "version": 1,
+  "status": "editorial_course_not_cms_seed",
+  "title": "Problem Solving and Algorithms in Kasa",
+  "description": "Five guided algorithm labs using core Kasa: tracing, searching, max-value scanning, sorting, and cost analysis. All lessons are text-first and do not change CMS video or transcript records.",
+  "units": [
+    {
+      "slug": "trace-steps",
+      "title": "Trace an algorithm step by step",
+      "minutes": 30,
+      "level": "Start here",
+      "goal": "Break a problem into inputs, operations and outputs, then trace each step.",
+      "concept": "An algorithm is a finite, clear set of instructions. A trace records how variables change; it is not guesswork.",
+      "source": "ma basket = [12, 8, 5]\nma total = 0\nma i = 0\nbere_a i < tentɛn(basket)\n    ma total = total + basket[i]\n    ma i = i + 1\nawiei\nka total\n",
+      "output": "25\n",
+      "trace": [
+        "Start with total = 0 and i = 0.",
+        "Add 12, then 8, then 5 while moving to the next list position.",
+        "After index 2, i becomes 3; the loop condition is false and the total 25 is printed."
+      ],
+      "task": "Predict the total for [12, 8, 5, 10] before running. Draw a table with one row per loop iteration.",
+      "acceptance": [
+        "Records each change to total and i.",
+        "Explains why the loop stops without accessing an invalid index.",
+        "Keeps the computed total rather than hardcoding 35."
+      ],
+      "question": "How many loop iterations run when the list contains three values?",
+      "answer": "Three iterations. The valid indices are 0, 1 and 2.",
+      "complexity": "One step per list item gives linear O(n) work.",
+      "mode": "Core Kasa — runnable in the Academy lesson editor."
+    },
+    {
+      "slug": "linear-search",
+      "title": "Find an item with linear search",
+      "minutes": 40,
+      "level": "Searching",
+      "goal": "Search a list without assuming its values are sorted.",
+      "concept": "Linear search inspects items in sequence until a match is found or the collection ends. A Boolean indicates whether we found a match.",
+      "source": "ma items = [14, 22, 9, 31]\nma wanted = 9\nma found = atoro\nma i = 0\nbere_a i < tentɛn(items)\n    sɛ items[i] == wanted a\n        ma found = nokware\n    awiei\n    ma i = i + 1\nawiei\nka found\n",
+      "output": "nokware\n",
+      "trace": [
+        "Start with found = atoro and wanted = 9.",
+        "Compare 14, then 22, then 9. At 9, set found to nokware.",
+        "This basic demonstration continues through the remaining item instead of stopping at the first match, then prints nokware."
+      ],
+      "task": "Try wanted = 7 and predict the output. Modify the algorithm so it stops early with gyae once a match is found.",
+      "acceptance": [
+        "Returns false when the list does not contain the target.",
+        "Tests both a first-position match and a missing match.",
+        "Explains that unsorted lists can require scanning all n values."
+      ],
+      "question": "Does linear search require the list to be sorted?",
+      "answer": "No. Linear search works on unsorted input.",
+      "complexity": "In the worst case the search inspects n items, so time is O(n).",
+      "mode": "Core Kasa — runnable in the Academy lesson editor."
+    },
+    {
+      "slug": "maximum-value",
+      "title": "Find the largest value safely",
+      "minutes": 35,
+      "level": "Problem decomposition",
+      "goal": "Compute the maximum of a non-empty list while accounting for empty input.",
+      "concept": "Initialize the maximum from the first real value, rather than incorrectly assuming all numbers are positive. The worked example assumes a non-empty list; add an explicit empty-list guard in your independent assignment.",
+      "source": "ma scores = [-8, -2, -15, -4]\nma largest = scores[0]\nma i = 1\nbere_a i < tentɛn(scores)\n    sɛ scores[i] > largest a\n        ma largest = scores[i]\n    awiei\n    ma i = i + 1\nawiei\nka largest\n",
+      "output": "-2\n",
+      "trace": [
+        "Initialize largest to the first score, -8.",
+        "Compare -2 and replace largest; -15 is smaller, and so is -4.",
+        "The result is -2, which is the greatest value even though all numbers are negative."
+      ],
+      "task": "Predict the result for [4, 16, 7, 12]. Add a check that avoids indexing position zero when the list is empty.",
+      "acceptance": [
+        "Handles an all-negative input correctly.",
+        "Recognizes that scores[0] fails on an empty list.",
+        "Does not assume a fixed number of scores."
+      ],
+      "question": "Why not initialize largest to 0?",
+      "answer": "A list containing only negative values would incorrectly report 0, a value that is not in the input.",
+      "complexity": "One pass through the list takes O(n) time and constant additional memory.",
+      "mode": "Core Kasa — runnable in the Academy lesson editor."
+    },
+    {
+      "slug": "bubble-sort",
+      "title": "Sort a list using comparisons",
+      "minutes": 45,
+      "level": "Sorting",
+      "goal": "Understand how repeated adjacent comparisons can order values.",
+      "concept": "Bubble sort swaps adjacent out-of-order elements. This simple teaching algorithm is not the best general-purpose choice for large datasets.",
+      "source": "ma prices = [8, 3, 6, 1]\nma n = tentɛn(prices)\nma pass = 0\nbere_a pass < n\n    ma j = 0\n    bere_a j + 1 < n\n        sɛ prices[j] > prices[j + 1] a\n            ma temp = prices[j]\n            ma prices[j] = prices[j + 1]\n            ma prices[j + 1] = temp\n        awiei\n        ma j = j + 1\n    awiei\n    ma pass = pass + 1\nawiei\nka prices[0]\nka prices[1]\nka prices[2]\nka prices[3]\n",
+      "output": "1\n3\n6\n8\n",
+      "trace": [
+        "First pass moves larger values toward the right by swapping adjacent pairs.",
+        "Further passes remove remaining inversions until values are ordered.",
+        "Printing indices 0 through 3 shows 1, 3, 6 and 8."
+      ],
+      "task": "Change the initial list to [5, 2, 5, 1]. Predict the sorted output. Explain how duplicate values behave and how a no-swaps flag could avoid unnecessary passes. Change the four print positions only after changing list length.",
+      "acceptance": [
+        "Explains the adjacent comparison and swap.",
+        "Demonstrates sorted output for duplicate values.",
+        "Identifies the redundant passes and the O(n²) worst-case cost."
+      ],
+      "question": "Why does bubble sort scale poorly on large lists?",
+      "answer": "It repeatedly compares pairs across multiple passes, doing quadratic O(n²) work in typical worst-case analysis.",
+      "complexity": "Two nested passes give O(n²) time; in-place swaps use O(1) additional space.",
+      "mode": "Core Kasa — runnable in the Academy lesson editor."
+    },
+    {
+      "slug": "count-operations",
+      "title": "Compare algorithm costs",
+      "minutes": 35,
+      "level": "Reason about efficiency",
+      "goal": "Count iterations and explain why input size affects runtime.",
+      "concept": "Big-O expresses how work grows with input size, not an exact runtime in seconds. Comparing one loop to nested loops makes that visible.",
+      "source": "ma n = 4\nma linear = 0\nma i = 0\nbere_a i < n\n    ma linear = linear + 1\n    ma i = i + 1\nawiei\nma pairs = 0\nma a = 0\nbere_a a < n\n    ma b = 0\n    bere_a b < n\n        ma pairs = pairs + 1\n        ma b = b + 1\n    awiei\n    ma a = a + 1\nawiei\nka linear\nka pairs\n",
+      "output": "4\n16\n",
+      "trace": [
+        "The single loop increments linear once per item: 4 times.",
+        "The nested loops increment pairs four times for each of four outer iterations: 16 times.",
+        "For input size n, these counts grow as n and n × n."
+      ],
+      "task": "Set n to 2 and then 8. Predict the two counts before running. Explain why doubling n quadruples the nested-loop count.",
+      "acceptance": [
+        "Predicts n and n² counts accurately.",
+        "Distinguishes growth rate from exact wall-clock speed.",
+        "Recognizes the difference between a constant and an input-dependent loop bound."
+      ],
+      "question": "If n doubles, what happens to n² operations?",
+      "answer": "The count increases by a factor of four: (2n)² = 4n².",
+      "complexity": "Single loop: O(n). Nested loops: O(n²).",
+      "mode": "Core Kasa — runnable in the Academy lesson editor."
+    }
+  ]
+}

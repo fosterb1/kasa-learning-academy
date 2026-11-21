@@ -42,10 +42,10 @@
       "id": "problem-solving",
       "number": 3,
       "title": "Problem solving and algorithms",
-      "status": "planned",
+      "status": "available",
       "level": "Intermediate",
-      "duration": "Curriculum in design",
-      "route": null,
+      "duration": "5 guided lessons",
+      "route": "/learn/algorithms",
       "prerequisites": [
         "syntax"
       ],
@@ -54,7 +54,7 @@
         "Explain searching, sorting and algorithmic complexity"
       ],
       "assessment": "Implement and explain a basic search or sorting task",
-      "videoPolicy": "Video slots will be CMS-managed when this course is authored"
+      "videoPolicy": "Five text-first algorithm lessons are available as standalone editorial pages; no CMS video or transcript records are overwritten."
     },
     {
       "id": "data",
