@@ -35,14 +35,14 @@
       "minutes": 40,
       "goal": "Use a list, loop and conditions to compute a total, average and pass decision.",
       "concept": "Loops are reusable reasoning tools for collecting a total. Averages require a non-empty list to avoid division by zero.",
-      "source": "ma marks = [50, 70, 80]\nma total = 0\nma i = 0\nbere_a i < tentɛn(marks)\n    ma total = total + marks[i]\n    ma i = i + 1\nawiei\nma average = total / tentɛn(marks)\nka total\nka average\nka average >= 50\n",
-      "output": "200\n66.66666666666667\nnokware\n",
+      "source": "ma marks = [50, 70, 90]\nma total = 0\nma i = 0\nbere_a i < tentɛn(marks)\n    ma total = total + marks[i]\n    ma i = i + 1\nawiei\nma average = total / tentɛn(marks)\nka total\nka average\nka average >= 50\n",
+      "output": "210\n70.0\nnokware\n",
       "trace": [
-        "The accumulator starts at zero and sums 50, 70 and 80.",
-        "There are three marks. Average is 200 divided by 3.",
+        "The accumulator starts at zero and sums 50, 70 and 90.",
+        "There are three marks. Average is 210 divided by 3, giving 70.",
         "The final Boolean uses an explicitly stated hypothetical threshold of 50."
       ],
-      "task": "Replace the third mark with 30. Recalculate the output, then describe what changes. Write a condition to handle an empty list before dividing.",
+      "task": "Replace the third mark with 60. Recalculate the output, then describe what changes. Write a condition to handle an empty list before dividing.",
       "acceptance": [
         "Loop index stays within the list's valid indices.",
         "Empty-list case is considered explicitly.",
