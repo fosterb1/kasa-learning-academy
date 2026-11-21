@@ -90,3 +90,30 @@ Manual UI checks after local build:
    `/admin`, `/playground`, and `/projects` are unchanged.
 
 **Merge only after owner verification. No Vercel/Netlify deployment.**
+
+## Owner Cloud Shell verification — November 21, 2026
+
+Owner-supplied Cloud Shell output identifies branch
+`dev/academy-course-pathways-2026` at commit `ce0a86f` and reports:
+
+- **Focused applied course:** 8 passed, 0 failed, 0 skipped. All five
+  executable lab fixtures passed in the existing JS Kasa runtime.
+- **Full Academy smoke:** 170 tests, 169 passed, 1 failed, 0 skipped.
+  The sole failing test is the pre-existing Studio release-manifest
+  integrity comparison: `app.js` has **15,188 actual bytes** versus
+  **13,990 recorded bytes** in
+  `public/kasa-studio/release-manifest.json`.
+- The failure does **not** indicate disappearing YouTube video URLs,
+  deleted CMS lesson data, broken lab output, or a malfunction of the
+  new Applied Course. Such behavior requires separate database/published-
+  version and deployed-site checks.
+- The Studio release manifest currently carries the older
+  `academy-4c1-diagnostics` label. Main-branch Academy and compiler
+  copies of Studio `app.js` are not text-identical. A blind hash
+  regeneration would establish *internal consistency*, not the
+  provenance or approval of that combined release.
+
+**Decision:** PR #11 remains unmerged pending either a separately
+reviewed Studio release repair and complete green smoke run or an
+explicitly documented owner-approved exception to this pre-existing
+integrity check. No production deployment or CMS write is implied.
