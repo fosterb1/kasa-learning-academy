@@ -20,7 +20,7 @@ export default function SiteLayout({ children }: { children: ReactNode }) {
         <Link href="/start" className="header-cta">Start learning <span aria-hidden="true">↗</span></Link>
       </header>
       <main id="main" className="main-content">{children}</main>
-      <footer className="site-footer"><span>© {new Date().getUTCFullYear()} Kasa Learning Academy · Free to learn, built for curious minds.</span><span><Link href="https://github.com/fosterb1/kasa_programming_language" target="_blank">Kasa language ↗</Link><Link href="/learn/syntax">Syntax</Link><Link href="/learn/applied">Applied labs</Link><Link href="/guides">Guides</Link><Link href="/announcements">Updates</Link><Link href="/admin">Admin</Link></span></footer>
+      <footer className="site-footer"><span>© {new Date().getUTCFullYear()} Kasa Learning Academy · Free to learn, built for curious minds.</span><span><Link href="https://github.com/fosterb1/kasa_programming_language" target="_blank">Kasa language ↗</Link><Link href="/learn/syntax">Syntax</Link><Link href="/learn/applied">Applied labs</Link><Link href="/guides">Guides</Link><Link href="/announcements">Updates</Link><Link href="/my-learning">My learning</Link><Link href="/admin">Admin</Link></span></footer>
     </div>
   </body></html>
 }
