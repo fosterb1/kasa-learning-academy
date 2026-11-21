@@ -35,11 +35,11 @@
       "minutes": 40,
       "goal": "Use a list, loop and conditions to compute a total, average and pass decision.",
       "concept": "Loops are reusable reasoning tools for collecting a total. Averages require a non-empty list to avoid division by zero.",
-      "source": "ma marks = [50, 70, 90]\nma total = 0\nma i = 0\nbere_a i < tentɛn(marks)\n    ma total = total + marks[i]\n    ma i = i + 1\nawiei\nma average = total / tentɛn(marks)\nka total\nka average\nka average >= 50\n",
-      "output": "210\n70.0\nnokware\n",
+      "source": "ma marks = [50, 70, 90]\nma total = 0\nma i = 0\nbere_a i < tentɛn(marks)\n    ma total = total + marks[i]\n    ma i = i + 1\nawiei\nma average = total / tentɛn(marks)\nka total\nka average >= 50\n",
+      "output": "210\nnokware\n",
       "trace": [
         "The accumulator starts at zero and sums 50, 70 and 90.",
-        "There are three marks. Average is 210 divided by 3, giving 70.",
+        "There are three marks. Average is 210 divided by 3, giving 70 (stored in average).",
         "The final Boolean uses an explicitly stated hypothetical threshold of 50."
       ],
       "task": "Replace the third mark with 60. Recalculate the output, then describe what changes. Write a condition to handle an empty list before dividing.",
