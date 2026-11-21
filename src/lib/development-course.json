@@ -1,0 +1,133 @@
+{
+  "version": 1,
+  "status": "editorial_course_not_cms_seed",
+  "title": "Software Development Practices in Kasa",
+  "description": "Five text-first lessons teaching reliable debugging, test design, refactoring, Git workflow and project documentation. Executable code uses only core Kasa; Git and README activities remain external practices, not interpreter features.",
+  "units": [
+    {
+      "slug": "debug-trace",
+      "title": "Debug a program with a trace",
+      "minutes": 35,
+      "level": "Debugging",
+      "goal": "Locate and correct a logic error by tracing values before changing code.",
+      "concept": "Debugging starts with a reproducible failure and a prediction. This example sums stock quantities using a loop; record the index and running total at each step. A later exercise introduces a wrong loop bound.",
+      "source": "ma stock = [4, 6, 3]\nma total = 0\nma i = 0\nbere_a i < tentɛn(stock)\n    ma total = total + stock[i]\n    ma i = i + 1\nawiei\nka total\n",
+      "output": "13\n",
+      "trace": [
+        "Define expected output 13 before running the sample.",
+        "Record total as 4, then 10, then 13 while i advances.",
+        "After three iterations i is 3, and the loop correctly stops."
+      ],
+      "task": "Deliberately change i < tentɛn(stock) to i <= tentɛn(stock). Record the resulting error and repair the bound. Explain which input exposed the bug.",
+      "acceptance": [
+        "Reproduces the failure before fixing it.",
+        "Uses a trace or observed error rather than guessing.",
+        "Restores the correct loop guard without changing sample values."
+      ],
+      "question": "Why is changing the expected output a bad fix for an indexing bug?",
+      "answer": "It conceals the defect instead of correcting the invalid index access.",
+      "complexity": "Tracing each of n input items costs O(n) time.",
+      "mode": "Core Kasa debugging; no special debugger required."
+    },
+    {
+      "slug": "test-cases",
+      "title": "Design meaningful test cases",
+      "minutes": 40,
+      "level": "Testing",
+      "goal": "Specify normal, boundary and invalid-input cases before trusting output.",
+      "concept": "Testing checks behavior against expected results. Exact output comparisons are one useful test, but a single example does not prove correctness for all inputs. The sample handles empty lists by returning a count of zero.",
+      "source": "ma scores = [5, 9, 2]\nma count = 0\nma i = 0\nbere_a i < tentɛn(scores)\n    sɛ scores[i] >= 5 a\n        ma count = count + 1\n    awiei\n    ma i = i + 1\nawiei\nka count\n",
+      "output": "2\n",
+      "trace": [
+        "Define the rule: count scores greater than or equal to 5.",
+        "Check 5 (yes), 9 (yes) and 2 (no).",
+        "Confirm the expected count 2; then test zero-length and all-below-threshold inputs."
+      ],
+      "task": "Run with [] and [1, 3, 4], expecting 0 for each. Then try [5, 5] expecting 2. Write a three-row test matrix with expected and actual results.",
+      "acceptance": [
+        "Tests an empty list and a boundary value of 5.",
+        "Records actual results and compares with expectations.",
+        "Recognizes that passing examples is not proof of universal correctness."
+      ],
+      "question": "What is a boundary test for the condition scores[i] >= 5?",
+      "answer": "A score equal to 5, because it sits exactly on the acceptance boundary.",
+      "complexity": "One pass through n scores costs O(n) time.",
+      "mode": "Core Kasa runtime examples; manual test-matrix workflow."
+    },
+    {
+      "slug": "refactor-function",
+      "title": "Refactor repeated logic into a function",
+      "minutes": 40,
+      "level": "Maintainability",
+      "goal": "Make repeated calculation logic reusable without changing behavior.",
+      "concept": "A refactor changes structure while preserving behavior. A small named function can make intent clearer, but the best refactor is checked against the same inputs and expected outputs.",
+      "source": "dwumadie total_price(quantity, unit_price)\n    sanma quantity * unit_price\nawiei\nma first = total_price(3, 8)\nma second = total_price(2, 5)\nka first\nka second\n",
+      "output": "24\n10\n",
+      "trace": [
+        "The function accepts quantity and unit price.",
+        "total_price(3, 8) returns 24, while total_price(2, 5) returns 10.",
+        "Two calls reuse one rule; the output remains independently checkable."
+      ],
+      "task": "Rename the function and add a third call with quantity 0. Verify that the first two outputs have not changed.",
+      "acceptance": [
+        "Uses a named function for repeated work.",
+        "Retains expected output for the original two cases.",
+        "Tests a zero-quantity case rather than assuming it works."
+      ],
+      "question": "How do you know a refactor preserved behavior?",
+      "answer": "Run the same inputs before and after the change and compare the outputs and relevant error behavior.",
+      "complexity": "Each multiplication is O(1); two calls use constant work.",
+      "mode": "Core Kasa functions; no module system required."
+    },
+    {
+      "slug": "version-control",
+      "title": "Plan changes with version control",
+      "minutes": 35,
+      "level": "Git workflow",
+      "goal": "Describe a safe Git branch, commit, test and review workflow for Kasa projects.",
+      "concept": "Git commands run in a terminal, not in the Kasa code editor. The runnable exercise models a checklist as ordinary Kasa Boolean values. A real workflow requires an external Git installation and a repository.",
+      "source": "ma tested = nokware\nma reviewed = nokware\nma documented = nokware\nsɛ tested ne reviewed ne documented a\n    ka \"Ready for review\"\nanyɛ_saa_a\n    ka \"Finish checks first\"\nawiei\n",
+      "output": "Ready for review\n",
+      "trace": [
+        "Model three independent review gates as Boolean values.",
+        "All three are true, so the first branch runs.",
+        "Set reviewed to atoro and confirm the alternative message; these variables do not call Git."
+      ],
+      "task": "Change reviewed to atoro and predict the result. Separately, outline these terminal commands: git switch -c feature/name, git add, git commit, git status. Explain why checks precede merging.",
+      "acceptance": [
+        "Distinguishes Kasa sample logic from real Git commands.",
+        "Explains the purpose of a branch, commit and review.",
+        "Demonstrates that an incomplete gate prevents the ready message."
+      ],
+      "question": "Does this Kasa program create a Git commit?",
+      "answer": "No. It only simulates a release checklist; Git is a separate tool run outside the Academy editor.",
+      "complexity": "Checking three Boolean gates takes O(1) time.",
+      "mode": "Core Kasa checklist demo; terminal Git commands are conceptual."
+    },
+    {
+      "slug": "document-project",
+      "title": "Document and verify a small project",
+      "minutes": 45,
+      "level": "Reproducibility",
+      "goal": "Write a short project README, state assumptions and check a concrete output.",
+      "concept": "A reproducible project specifies inputs, commands, expected outputs and limitations. The Kasa example computes a reorder decision using an explicit threshold. Documentation is created separately as a README, not generated automatically by this program.",
+      "source": "ma available = 4\nma reorder_limit = 6\nsɛ available < reorder_limit a\n    ka \"Reorder stock\"\nanyɛ_saa_a\n    ka \"Stock sufficient\"\nawiei\n",
+      "output": "Reorder stock\n",
+      "trace": [
+        "The program accepts available quantity 4 and reorder limit 6.",
+        "Because 4 is less than 6, it prints Reorder stock.",
+        "Document that equality (6 versus 6) means Stock sufficient; test it explicitly."
+      ],
+      "task": "Write a README covering purpose, input assumptions, how to run the source and outputs for available=4 and available=6. Then modify the program to verify both cases.",
+      "acceptance": [
+        "Documents run steps and known limitations.",
+        "Tests a below-threshold and an equal-threshold case.",
+        "Makes no claim of automatically storing inventory or writing external files."
+      ],
+      "question": "Why should a README include exact expected output?",
+      "answer": "It helps another person reproduce the result and notice when behavior changes.",
+      "complexity": "One comparison and branch takes O(1) time.",
+      "mode": "Core Kasa threshold example; README is a separate project artifact."
+    }
+  ]
+}
