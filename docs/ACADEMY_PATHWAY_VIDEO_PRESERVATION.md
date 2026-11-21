@@ -52,3 +52,7 @@ The owner supplied terminal output after checking out the pathway branch:
 - The static video-preservation checks do **not** prove that video URLs remain attached in the deployed CMS; the opt-in read-only database audit has not yet been run against staging/production.
 
 **Decision:** Leave this PR draft/unmerged; resolve the separately reviewed Studio asset provenance and verify rendered learning-path/video behavior before release. No CMS migrations, seeding, publish actions or deployment authorized by these test results.
+
+## Reconciliation with Applied Course PR #11
+
+The eight-stage pathway is now visible **directly on /learn**, while the five existing CMS module groups remain in their existing catalog area and all five Applied Course labs remain accessible on /learn/applied. Stage 5 is available and links to the merged applied course. No schema migration or CMS content update is included. Re-run the roadmap and applied tests and full smoke suite before merge.

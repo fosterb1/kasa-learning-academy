@@ -78,10 +78,10 @@
       "id": "applied",
       "number": 5,
       "title": "Applied Kasa programming",
-      "status": "review",
+      "status": "available",
       "level": "Intermediate",
       "duration": "5 guided labs",
-      "route": null,
+      "route": "/learn/applied",
       "prerequisites": [
         "syntax"
       ],
@@ -90,7 +90,7 @@
         "Explain the assumptions and limitations of each program"
       ],
       "assessment": "Finish the five practice labs and explain output checks",
-      "videoPolicy": "Five labs passed independent tests in draft Academy PR #11; the route is not published on main until that PR is merged."
+      "videoPolicy": "Five applied labs are available as editorial pages; no CMS lesson videos or transcripts are moved or replaced."
     },
     {
       "id": "modules",
