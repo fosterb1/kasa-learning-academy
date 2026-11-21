@@ -78,3 +78,56 @@ Manual UX validation on a suitable local dev instance:
 
 Review before merging PR. **No Vercel or Netlify deployment is
 authorized by these source changes.**
+
+## Cloud Shell gate finding (2026-11-21): known existing Studio manifest drift
+
+The owner ran the Academy branch at `92653b84a6c010365587e2ddae59c636a78520d8`:
+
+- `node --test tests/academy-learning-progress.test.mjs`: **4 pass / 0 fail**
+- `npm run test:smoke`: **165 pass / 1 fail**. Existing
+  `tests/academy-studio.test.mjs` identified a Studio `app.js`
+  byte-size mismatch: **15,188 actual versus 13,990 in the release
+  manifest**. This is not a failure in the new My Learning tests.
+- `npm run build` invoked the existing
+  `scripts/sync-studio-release.mjs` and successfully regenerated
+  Studio asset hashes; its 11 focused pre-build tests then passed.
+  The build stopped at **`payload: command not found`**, which indicates
+  dependencies have not been installed in this new Cloud Shell clone.
+- After that build, `git status --short` displayed only
+  `M public/kasa-studio/release-manifest.json`.
+
+**Do not blindly commit newly generated hashes:** refreshing a release
+manifest verifies internal file/hash agreement but does not establish that
+the deployed Studio files are the correct, approved publisher assets.
+Before approving the manifest change, inspect `git diff -- public/kasa-studio/release-manifest.json`
+and compare any changed Studio files and hashes to the reviewed publisher
+release. The manifest currently carries the older
+`academy-4c1-diagnostics` release name. A regenerated hash is not by
+itself evidence of a new reviewed release.
+
+To resume tests in this **existing** cloned Academy directory:
+
+```bash
+cd ~/kasa_programming_language/kasa-learning-academy
+git status --short
+git diff -- public/kasa-studio/release-manifest.json
+node --version
+npm install
+node --test tests/academy-learning-progress.test.mjs
+npm run test:smoke
+npm run build
+git rev-parse HEAD
+git status --short
+```
+
+Review the drift before running `npm run build`, because that command
+**rewrites the release manifest as part of its pre-build process**.
+If the installed Payload build requires database credentials, set up
+the documented development-only `.env.local` and local PostgreSQL,
+without exposing production credentials or triggering migrations
+against production. `npm install` does not itself approve or commit
+a lockfile; review the resulting `package-lock.json` if generated.
+
+**PR stays draft and unmerged** pending dependency setup, end-to-end
+build, Studio release asset provenance review, and a manual learner UX
+check. This checkpoint makes no change to published content or hosting.
