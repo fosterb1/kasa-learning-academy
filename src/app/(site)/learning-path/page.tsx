@@ -32,7 +32,7 @@ export default function LearningPathPage() {
      <ul>{stage.outcomes.map(outcome=><li key={outcome}>{outcome}</li>)}</ul>
      <p><strong>Practice milestone:</strong> {stage.assessment}</p>
      <p className="academy-roadmap-video-note"><strong>Media:</strong> {stage.videoPolicy}</p>
-     {stage.route ? <Link className="button button-primary" href={stage.route}>{stage.status==='experimental'?'Explore experimental lesson':stage.status==='review'?'Preview draft course':'Explore this stage'} →</Link> : <p className="academy-roadmap-planned">This course is not yet published. Continue with the available stages while we prepare its lessons and assessments.</p>}
+     {stage.route ? <Link className="button button-primary" href={'/learning-path/'+stage.id}>View stage courses and lessons →</Link> : <p className="academy-roadmap-planned">Course material is in preparation. <Link href={'/learning-path/'+stage.id}>View stage plan →</Link></p>}
     </div>
    </section>)}
   </div>
