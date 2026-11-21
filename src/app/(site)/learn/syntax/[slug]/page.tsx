@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { CourseProgressToggle } from '@/components/CourseProgressToggle'
 import {notFound} from 'next/navigation'
 import course from '@/lib/syntax-course.json'
 import workbook from '@/lib/syntax-workbook.json'
@@ -29,6 +30,7 @@ export default async function SyntaxChapter({params}:{params:Promise<{slug:strin
  <SyntaxDeepPractice key={slug} unit={workbookUnit}/>
  <section className="syntax-practice"><h2>Learn from an incorrect example</h2><p>A strong programmer recognizes invalid or misleading instructions. Study this example, try to predict the problem, and read the correction.</p><pre><code>{unit.invalid}</code></pre><p><strong>Why it is incorrect:</strong> {unit.fix}</p></section>
  <section className="syntax-practice"><h2>Your turn: build something</h2><p>{unit.practice}</p><h3>Investigation: try, break, fix</h3><p>{unit.experiment}</p><h3>Think deeper</h3><p>{unit.challenge}</p><h3>Remember this syntax rule</h3><p>{unit.caution}</p><h3>How this helps with other languages</h3><p>{unit.bridge}</p></section>
- <div className="beginner-end"><div><strong>Before moving on</strong><p>Can you read the syntax pattern, write a valid example without copying, predict its output and explain an error? If not, practice the rule again.</p></div><div className="beginner-nav">{prev&&<Link href={'/learn/syntax/'+prev.slug}>← Previous rule</Link>}{next?<Link href={'/learn/syntax/'+next.slug}>Next syntax rule →</Link>:<Link href="/learn">Return to learning path →</Link>}</div></div>
+ <CourseProgressToggle id={'syntax/'+slug}/>
+   <div className="beginner-end"><div><strong>Before moving on</strong><p>Can you read the syntax pattern, write a valid example without copying, predict its output and explain an error? If not, practice the rule again.</p></div><div className="beginner-nav">{prev&&<Link href={'/learn/syntax/'+prev.slug}>← Previous rule</Link>}{next?<Link href={'/learn/syntax/'+next.slug}>Next syntax rule →</Link>:<Link href="/learn">Return to learning path →</Link>}</div></div>
  </main>
 }
