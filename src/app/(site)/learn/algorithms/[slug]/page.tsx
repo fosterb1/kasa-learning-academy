@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { CourseProgressToggle } from '@/components/CourseProgressToggle'
 import {notFound} from 'next/navigation'
 import course from '@/lib/algorithms-course.json'
 import {Playground} from '@/components/Playground'
@@ -22,6 +23,7 @@ export default async function AlgorithmLessonPage({params}:{params:Promise<{slug
    <section><h2>1. Predict, then run</h2><p>Read the program before pressing Run. Predict its output and compare what Kasa actually prints.</p><Playground sourceCode={unit.source} expectedOutput={unit.output}/></section>
    <section><h2>2. Trace the algorithm</h2><ol>{unit.trace.map((step,i)=><li key={i}>{step}</li>)}</ol><h3>Algorithm cost</h3><p>{unit.complexity}</p></section>
    <section><h2>3. Independent exercise</h2><p>{unit.task}</p><h3>Self-review checklist</h3><ul>{unit.acceptance.map((point,i)=><li key={i}>{point}</li>)}</ul><details><summary>Review question and explanation</summary><p><strong>Question:</strong> {unit.question}</p><p><strong>Explanation:</strong> {unit.answer}</p></details></section>
+   <CourseProgressToggle id={'algorithms/'+slug}/>
    <nav className="academy-applied-next" aria-label="Previous and next algorithm">
     {index>0&&<Link href={'/learn/algorithms/'+course.units[index-1].slug}>← Previous lesson</Link>}
     {index<course.units.length-1?<Link href={'/learn/algorithms/'+course.units[index+1].slug}>Next lesson →</Link>:<Link href="/learning-path/data">Explore Stage 4 →</Link>}
