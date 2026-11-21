@@ -1,0 +1,151 @@
+{
+  "version": 1,
+  "kind": "editorial-learning-path-readonly",
+  "title": "Kasa Academy learning pathway",
+  "description": "Eight stages from first program to independent projects. Availability is explicit; prerequisites are recommendations, not account-based access restrictions.",
+  "stages": [
+    {
+      "id": "foundations",
+      "number": 1,
+      "title": "Computing foundations",
+      "status": "available",
+      "level": "Beginner",
+      "duration": "18 chapters",
+      "route": "/start",
+      "prerequisites": [],
+      "outcomes": [
+        "Explain instructions and algorithms using everyday examples",
+        "Read, predict and run first Kasa programs"
+      ],
+      "assessment": "Complete chapter practice and explain a small program",
+      "videoPolicy": "Existing beginner chapters are readable without requiring recordings"
+    },
+    {
+      "id": "syntax",
+      "number": 2,
+      "title": "Kasa language fundamentals",
+      "status": "available",
+      "level": "Beginner",
+      "duration": "16 chapters",
+      "route": "/learn/syntax",
+      "prerequisites": [
+        "foundations"
+      ],
+      "outcomes": [
+        "Use Kasa variables, decisions, loops, functions and lists",
+        "Debug common syntax and type errors"
+      ],
+      "assessment": "Trace a working program and correct two deliberate mistakes",
+      "videoPolicy": "Text-first chapters remain usable without video"
+    },
+    {
+      "id": "problem-solving",
+      "number": 3,
+      "title": "Problem solving and algorithms",
+      "status": "planned",
+      "level": "Intermediate",
+      "duration": "Curriculum in design",
+      "route": null,
+      "prerequisites": [
+        "syntax"
+      ],
+      "outcomes": [
+        "Decompose problems into testable steps",
+        "Explain searching, sorting and algorithmic complexity"
+      ],
+      "assessment": "Implement and explain a basic search or sorting task",
+      "videoPolicy": "Video slots will be CMS-managed when this course is authored"
+    },
+    {
+      "id": "data",
+      "number": 4,
+      "title": "Data structures and data processing",
+      "status": "planned",
+      "level": "Intermediate",
+      "duration": "Curriculum in design",
+      "route": null,
+      "prerequisites": [
+        "syntax"
+      ],
+      "outcomes": [
+        "Model nested lists and validate inputs",
+        "Compute descriptive measures with core Kasa"
+      ],
+      "assessment": "Build an error-aware data summary",
+      "videoPolicy": "Experimental tables and typed records taught as concepts, not builtins"
+    },
+    {
+      "id": "applied",
+      "number": 5,
+      "title": "Applied Kasa programming",
+      "status": "review",
+      "level": "Intermediate",
+      "duration": "5 guided labs",
+      "route": "/learn/applied",
+      "prerequisites": [
+        "syntax"
+      ],
+      "outcomes": [
+        "Compute receipts, marks and inventory decisions",
+        "Explain the assumptions and limitations of each program"
+      ],
+      "assessment": "Finish the five practice labs and explain output checks",
+      "videoPolicy": "Labs are currently editorial pages with working code, not CMS video fields"
+    },
+    {
+      "id": "modules",
+      "number": 6,
+      "title": "Modules and reusable programs",
+      "status": "experimental",
+      "level": "Intermediate",
+      "duration": "1 experimental lesson",
+      "route": "/learn/modules",
+      "prerequisites": [
+        "syntax"
+      ],
+      "outcomes": [
+        "Distinguish core code from opt-in Studio JS imports",
+        "Use only pinned module exports in supported environments"
+      ],
+      "assessment": "Run one Studio module exercise and explain native limitations",
+      "videoPolicy": "Do not advertise unsupported imports or general-purpose package loading"
+    },
+    {
+      "id": "development",
+      "number": 7,
+      "title": "Software development practices",
+      "status": "planned",
+      "level": "Advanced",
+      "duration": "Curriculum in design",
+      "route": null,
+      "prerequisites": [
+        "problem-solving",
+        "data"
+      ],
+      "outcomes": [
+        "Write tests and communicate expected program behavior",
+        "Document and organize reproducible projects"
+      ],
+      "assessment": "Submit an explained test plan and revision history",
+      "videoPolicy": "Future content requires reviewed, published CMS video associations"
+    },
+    {
+      "id": "portfolio",
+      "number": 8,
+      "title": "Independent projects and portfolio",
+      "status": "available",
+      "level": "Advanced",
+      "duration": "Project catalog",
+      "route": "/projects",
+      "prerequisites": [
+        "applied"
+      ],
+      "outcomes": [
+        "Design a complete Kasa project from a real problem",
+        "Document inputs, outputs and limitations"
+      ],
+      "assessment": "Complete a project and explain its evidence",
+      "videoPolicy": "Existing project exercises do not require videos"
+    }
+  ]
+}
