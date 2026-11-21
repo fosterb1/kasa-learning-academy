@@ -60,19 +60,20 @@
       "id": "data",
       "number": 4,
       "title": "Data structures and data processing",
-      "status": "planned",
+      "status": "available",
       "level": "Intermediate",
-      "duration": "Curriculum in design",
-      "route": null,
+      "duration": "5 guided lessons",
+      "route": "/learn/data",
       "prerequisites": [
-        "syntax"
+        "syntax",
+        "problem-solving"
       ],
       "outcomes": [
         "Model nested lists and validate inputs",
         "Compute descriptive measures with core Kasa"
       ],
       "assessment": "Build an error-aware data summary",
-      "videoPolicy": "Experimental tables and typed records taught as concepts, not builtins"
+      "videoPolicy": "Five text-first core Kasa data lessons are editorial pages; typed records, tables, CSV and JSON remain separate experimental or unsupported features. No CMS video records are changed."
     },
     {
       "id": "applied",

@@ -57,8 +57,8 @@
         {
           "id": "data-upcoming",
           "title": "Data Structures and Data Processing",
-          "href": null,
-          "description": "Data modeling and validation — course in preparation",
+          "href": "/learn/data",
+          "description": "Five runnable core-Kasa lessons on nested lists, positional data, numeric validation, summaries and filtering.",
           "moduleSlugs": []
         }
       ]
