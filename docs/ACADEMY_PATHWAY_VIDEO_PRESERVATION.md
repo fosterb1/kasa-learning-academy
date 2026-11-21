@@ -40,3 +40,15 @@ git status --short
 ```
 
 The full smoke suite has a known, separate Studio release-integrity failure. Capture its output and don't represent the suite as green. No deployment and no merge until owner reports results and verifies UI. Test the live videos against published CMS records in staging before any future course migration.
+
+## Cloud Shell test results — November 21, 2026
+
+The owner supplied terminal output after checking out the pathway branch:
+
+- `node --test tests/academy-learning-path-safety.test.mjs`: **5 passed, 0 failed**.
+- `npm run test:smoke`: **167 tests; 166 passed, 1 failed**.
+- Only failing check: `tests/academy-studio.test.mjs` release-manifest asset integrity. `public/kasa-studio/app.js` is **15,188 bytes**, while the committed release manifest records **13,990 bytes**.
+- This Studio integrity issue predates PR #12 and is outside the roadmap/video audit changes. The full test suite is **not green**.
+- The static video-preservation checks do **not** prove that video URLs remain attached in the deployed CMS; the opt-in read-only database audit has not yet been run against staging/production.
+
+**Decision:** Leave this PR draft/unmerged; resolve the separately reviewed Studio asset provenance and verify rendered learning-path/video behavior before release. No CMS migrations, seeding, publish actions or deployment authorized by these test results.
