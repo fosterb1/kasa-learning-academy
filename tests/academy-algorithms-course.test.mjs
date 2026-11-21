@@ -14,8 +14,11 @@ test('algorithm curriculum has five structured, unique lessons and clear learnin
  assert.equal(course.units.length,5)
  assert.equal(new Set(course.units.map(unit=>unit.slug)).size,5)
  for(const unit of course.units){
-  for(const key of ['title','goal','concept','source','output','task','question','answer','complexity','mode'])
+  for(const key of ['title','goal','concept','source','task','question','answer','complexity','mode'])
    assert.ok(unit[key]?.trim().length>=8,unit.slug+': missing '+key)
+  // Algorithm outputs may legitimately be short (e.g. '25\\n'). Runtime tests below verify exact output.
+  assert.equal(typeof unit.output,'string',unit.slug+': expected output must be text')
+  assert.ok(unit.output.trim().length>0,unit.slug+': missing output')
   assert.ok(unit.trace.length>=3,unit.slug+': needs worked trace')
   assert.ok(unit.acceptance.length>=3,unit.slug+': needs acceptance checklist')
   assert.ok(unit.minutes>=20&&unit.minutes<=90)
