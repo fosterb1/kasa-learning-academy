@@ -358,3 +358,35 @@
 
 .academy-pathway-stage-card{display:flex;flex-direction:column;gap:9px;border:1px solid #cbdccd;background:#fff;border-radius:13px;padding:20px}
 .academy-pathway-stage-card strong{font-size:17px}.academy-pathway-stage-card span{color:#50665a;line-height:1.5}.academy-pathway-stage-card a,.academy-roadmap-shortcuts a{text-decoration:underline;color:#175c3b;font-weight:800}.academy-roadmap-shortcuts{margin-top:19px}.academy-cms-catalog-heading{margin-top:45px}
+
+
+/* Stage-first learning navigation: existing CMS lesson records remain untouched. */
+.academy-learn-intro{margin-bottom:20px}
+.academy-learn-intro h1{max-width:760px}
+.academy-course-pathway{margin:24px 0 34px}
+.academy-pathway-stage-card a{display:inline-block;margin-top:auto}
+.academy-lesson-library-details{margin:32px 0;border:1px solid var(--line);border-radius:16px;background:#fff;padding:22px;scroll-margin-top:30px}
+.academy-lesson-library-details>summary{display:flex;flex-direction:column;gap:8px;cursor:pointer;list-style:revert;font-weight:600}
+.academy-lesson-library-details>summary strong{font-size:clamp(21px,3vw,29px)}
+.academy-lesson-library-details>summary span{color:var(--muted);font-weight:400}
+.academy-lesson-library-details[open]>summary{margin-bottom:22px}
+.academy-stage-detail{padding-bottom:50px}
+.academy-stage-courses{margin:30px 0}
+.academy-stage-courses>h2{margin-bottom:18px}
+.academy-stage-course{background:white;border:1px solid var(--line);border-radius:16px;padding:clamp(17px,3vw,26px);margin:18px 0}
+.academy-stage-course-head{display:flex;align-items:flex-start;justify-content:space-between;gap:22px;flex-wrap:wrap}
+.academy-stage-course-head h3{font-size:clamp(20px,2.8vw,25px);margin:0 0 7px}
+.academy-stage-course-head p{max-width:650px}
+.academy-stage-module{border-top:1px solid var(--line);padding-top:16px;margin-top:20px}
+.academy-stage-module h4{font-size:19px;margin:0 0 7px}
+.academy-stage-lesson-list{list-style:none;padding:0;margin:15px 0;display:grid;gap:8px}
+.academy-stage-lesson-list li{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;background:#f5f8f4;border:1px solid #e1e9df;border-radius:9px;padding:13px}
+.academy-stage-lesson-list a{font-weight:750;text-decoration:underline;color:#1c613f}
+.academy-stage-lesson-list span{color:var(--muted);font-size:12px}
+.academy-stage-unassigned{color:var(--muted)}
+@media(max-width:640px){.academy-lesson-library-details{padding:15px}.academy-stage-course-head .button{width:100%;text-align:center}}
+
+/* Reconciled PR #15: compact navigation with accessible footer resources. */
+.site-footer{gap:18px}
+.site-footer>span:last-child{display:flex;flex-wrap:wrap;gap:12px 18px;align-items:center}
+@media(max-width:740px){.academy-learn-intro{margin-bottom:12px}}

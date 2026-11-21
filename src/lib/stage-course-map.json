@@ -1,0 +1,124 @@
+{
+  "version": 1,
+  "kind": "editorial-stage-course-module-crosswalk",
+  "note": "Read-only course navigation. Existing CMS module-to-lesson relationships remain authoritative; this file does not change records, publishing, videos, or transcripts.",
+  "stages": [
+    {
+      "id": "foundations",
+      "courses": [
+        {
+          "id": "computing-foundations",
+          "title": "Computing Foundations",
+          "href": "/start",
+          "description": "18 zero-experience chapters",
+          "moduleSlugs": []
+        }
+      ]
+    },
+    {
+      "id": "syntax",
+      "courses": [
+        {
+          "id": "kasa-syntax",
+          "title": "Kasa Syntax & Fundamentals",
+          "href": "/learn/syntax",
+          "description": "16 guided language chapters",
+          "moduleSlugs": []
+        },
+        {
+          "id": "published-basics",
+          "title": "Published Kasa Lesson Collection",
+          "href": null,
+          "description": "Original CMS lesson topics with their existing video and transcript associations",
+          "moduleSlugs": [
+            "getting-started",
+            "core-foundations",
+            "control-flow",
+            "data-and-input"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "problem-solving",
+      "courses": [
+        {
+          "id": "algorithms-upcoming",
+          "title": "Problem Solving and Algorithms",
+          "href": null,
+          "description": "Searching, sorting, tracing and complexity — course in preparation",
+          "moduleSlugs": []
+        }
+      ]
+    },
+    {
+      "id": "data",
+      "courses": [
+        {
+          "id": "data-upcoming",
+          "title": "Data Structures and Data Processing",
+          "href": null,
+          "description": "Data modeling and validation — course in preparation",
+          "moduleSlugs": []
+        }
+      ]
+    },
+    {
+      "id": "applied",
+      "courses": [
+        {
+          "id": "applied-labs",
+          "title": "Applied Kasa Programming",
+          "href": "/learn/applied",
+          "description": "Five hands-on labs",
+          "moduleSlugs": []
+        },
+        {
+          "id": "original-project-lessons",
+          "title": "Original Project Lessons",
+          "href": null,
+          "description": "Published CMS project lessons in their original module",
+          "moduleSlugs": [
+            "build-real-projects"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "modules",
+      "courses": [
+        {
+          "id": "pinned-modules",
+          "title": "Experimental Module Imports",
+          "href": "/learn/modules",
+          "description": "Opt-in pinned math and collections helpers in supported Studio JS mode",
+          "moduleSlugs": []
+        }
+      ]
+    },
+    {
+      "id": "development",
+      "courses": [
+        {
+          "id": "software-practices-upcoming",
+          "title": "Software Development Practices",
+          "href": null,
+          "description": "Testing, documentation and version control — course in preparation",
+          "moduleSlugs": []
+        }
+      ]
+    },
+    {
+      "id": "portfolio",
+      "courses": [
+        {
+          "id": "project-portfolio",
+          "title": "Independent Projects",
+          "href": "/projects",
+          "description": "Practice real-world tasks using Kasa",
+          "moduleSlugs": []
+        }
+      ]
+    }
+  ]
+}
