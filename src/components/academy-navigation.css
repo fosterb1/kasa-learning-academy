@@ -41,3 +41,6 @@
  .academy-mega-group a{padding:9px 4px}
 }
 @media(prefers-reduced-motion:reduce){.academy-chevron{transition:none}}
+
+/* Studio remains distraction-free, matching the original header-hidden behavior. */
+.site-shell:has(.academy-native-playground) > .academy-header{display:none}
