@@ -78,12 +78,14 @@ test('progress page includes all editorial catalogs and published CMS lessons',a
  assert.doesNotMatch(page,/overrideAccess:\s*true|getPayload|db\.create|db\.update/)
 })
 
-test('five-link navigation stays uncluttered; progress appears in footer and courses',async()=>{
+test('mega-navigation exposes progress without crowding the main header',async()=>{
  const layout=await read('src/app/(site)/layout.tsx')
- const nav=layout.match(/<nav className="primary-nav"[\s\S]*?<\/nav>/)?.[0]
- assert.ok(nav)
- assert.equal((nav.match(/<Link /g)||[]).length,5)
- assert.match(layout,/href="\/my-learning"/)
+ const nav=await read('src/components/AcademyNavigation.tsx')
+ assert.match(layout,/<AcademyNavigation \/>/)
+ assert.match(nav,/className="academy-primary-nav"/)
+ assert.match(nav,/href="\/my-learning"/)
+ assert.match(nav,/className="academy-mobile-nav-toggle"/)
+ assert.match(nav,/aria-expanded=\{open\}/)
  const learn=await read('src/app/(site)/learn/page.tsx')
  assert.match(learn,/href="\/my-learning"/)
  assert.match(learn,/roadmap.stages.map/)
