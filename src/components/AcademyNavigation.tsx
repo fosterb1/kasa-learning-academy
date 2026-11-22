@@ -77,7 +77,7 @@ export function AcademyNavigation() {
   }, [open])
 
   return (
-    <header className="academy-header" ref={navRef}>
+    <header className="academy-header" ref={navRef} onMouseLeave={() => { if (window.matchMedia("(hover: hover) and (min-width: 851px)").matches) setOpen(false) }}>
       <div className="academy-header-inner">
         <Link href="/" className="logo-link" aria-label="Kasa Academy home" onClick={() => setOpen(false)}>
           <span className="logo-mark">K</span>
@@ -90,6 +90,7 @@ export function AcademyNavigation() {
             aria-haspopup="true"
             aria-expanded={open}
             aria-controls="academy-mega-menu"
+            onMouseEnter={() => { if (window.matchMedia("(hover: hover) and (min-width: 851px)").matches) setOpen(true) }}
             onClick={() => setOpen(value => !value)}
           >
             Explore <span className="academy-chevron" aria-hidden="true">⌄</span>
