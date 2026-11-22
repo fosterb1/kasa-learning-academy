@@ -30,3 +30,25 @@ Keep local Cloud Shell settings (e.g. `next.config.mjs` allowedDevOrigins) and `
 ## Non-goals
 - Public signups, reset email sending, certificate issuance, graded course completion and cross-device progress are not yet available.
 - No edits to existing CMS users, lessons, video or transcripts, seed data, Studio runtime or native Kasa language.
+
+## Database-backed auth integration (development only)
+
+The initial database schema and learner tables were independently applied in the Cloud Shell **development** database on 2026-11-22, with four migrations marked as ran (the previous local CMS content was not preserved when the database disappeared). The migration SQL is committed in this PR, but production has **not** been migrated.
+
+Once the branch contains the latest auth integration script and Node 24 is selected, run:
+
+```bash
+cd ~/kasa_programming_language/kasa-learning-academy
+git switch g2-learner-auth-foundation
+git pull --ff-only origin g2-learner-auth-foundation
+npx payload migrate:status
+G2_ALLOW_DEV_AUTH_TEST=yes npm run test:g2-auth
+npm run test:smoke
+npm run build
+```
+
+Safety: `test:g2-auth` refuses any remote database, database other than `kasa_academy_dev`, user other than `kasa_dev`, production NODE_ENV, or missing explicit `G2_ALLOW_DEV_AUTH_TEST=yes`. It creates two ephemeral @example.invalid accounts with random passwords, verifies their email tokens through Payload locally, exercises login and owner-only restrictions, and removes its own fixtures in a `finally` block. The script must **not** be run in production or against a shared database.
+
+The command tests Payload's **Local API** access boundary and verified-login behavior. It is not yet a browser/cookie integration test, CSRF test, production email-delivery test or proof that public registration is safe. No real learner credentials or reset tokens should be printed or pasted into chat.
+
+Before enabling registration, add separate route-specific throttling, email delivery with a verified sender, email normalization, password reset/recovery and browser session tests.
