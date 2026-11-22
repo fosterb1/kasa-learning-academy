@@ -4,32 +4,32 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   await db.execute(sql`
    CREATE TYPE "public"."enum_learners_preferred_language" AS ENUM('twi', 'english', 'bilingual');
   CREATE TABLE "learners_sessions" (
-  	"_order" integer NOT NULL,
-  	"_parent_id" integer NOT NULL,
-  	"id" varchar PRIMARY KEY NOT NULL,
-  	"created_at" timestamp(3) with time zone,
-  	"expires_at" timestamp(3) with time zone NOT NULL
+    "_order" integer NOT NULL,
+    "_parent_id" integer NOT NULL,
+    "id" varchar PRIMARY KEY NOT NULL,
+    "created_at" timestamp(3) with time zone,
+    "expires_at" timestamp(3) with time zone NOT NULL
   );
-  
+
   CREATE TABLE "learners" (
-  	"id" serial PRIMARY KEY NOT NULL,
-  	"display_name" varchar NOT NULL,
-  	"bio" varchar,
-  	"preferred_language" "enum_learners_preferred_language" DEFAULT 'bilingual',
-  	"updated_at" timestamp(3) with time zone DEFAULT now() NOT NULL,
-  	"created_at" timestamp(3) with time zone DEFAULT now() NOT NULL,
-  	"email" varchar NOT NULL,
-  	"reset_password_token" varchar,
-  	"reset_password_expiration" timestamp(3) with time zone,
-  	"salt" varchar,
-  	"hash" varchar,
-  	"reset_password_requested_at" timestamp(3) with time zone,
-  	"_verified" boolean,
-  	"_verificationtoken" varchar,
-  	"login_attempts" numeric DEFAULT 0,
-  	"lock_until" timestamp(3) with time zone
+    "id" serial PRIMARY KEY NOT NULL,
+    "display_name" varchar NOT NULL,
+    "bio" varchar,
+    "preferred_language" "enum_learners_preferred_language" DEFAULT 'bilingual',
+    "updated_at" timestamp(3) with time zone DEFAULT now() NOT NULL,
+    "created_at" timestamp(3) with time zone DEFAULT now() NOT NULL,
+    "email" varchar NOT NULL,
+    "reset_password_token" varchar,
+    "reset_password_expiration" timestamp(3) with time zone,
+    "salt" varchar,
+    "hash" varchar,
+    "reset_password_requested_at" timestamp(3) with time zone,
+    "_verified" boolean,
+    "_verificationtoken" varchar,
+    "login_attempts" numeric DEFAULT 0,
+    "lock_until" timestamp(3) with time zone
   );
-  
+
   ALTER TABLE "payload_locked_documents_rels" ADD COLUMN "learners_id" integer;
   ALTER TABLE "payload_preferences_rels" ADD COLUMN "learners_id" integer;
   ALTER TABLE "learners_sessions" ADD CONSTRAINT "learners_sessions_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."learners"("id") ON DELETE cascade ON UPDATE no action;
@@ -51,9 +51,9 @@ export async function down({ db, payload, req }: MigrateDownArgs): Promise<void>
   DROP TABLE "learners_sessions" CASCADE;
   DROP TABLE "learners" CASCADE;
   ALTER TABLE "payload_locked_documents_rels" DROP CONSTRAINT "payload_locked_documents_rels_learners_fk";
-  
+
   ALTER TABLE "payload_preferences_rels" DROP CONSTRAINT "payload_preferences_rels_learners_fk";
-  
+
   DROP INDEX "payload_locked_documents_rels_learners_id_idx";
   DROP INDEX "payload_preferences_rels_learners_id_idx";
   ALTER TABLE "payload_locked_documents_rels" DROP COLUMN "learners_id";
