@@ -24,11 +24,13 @@ async function existing(collection: 'modules'|'lessons'|'challenges'|'guides'|'a
   return r.docs[0]
 }
 
-const moduleIds = new Map<string, number|string>()
+// The PostgreSQL-backed Payload Modules collection uses numeric IDs.
+const moduleIds = new Map<string, number>()
 for (const [i, m] of curriculum.modules.entries()) {
   const slug = slugify(m.id)
   let record = await existing('modules',slug)
   if (!record) record = await payload.create({collection:'modules',overrideAccess:true,data:{title:m.id,slug,subtitle:m.subtitle,description:m.description,order:i}})
+  if (typeof record.id !== 'number') throw new Error('Expected numeric module ID for '+m.id)
   moduleIds.set(m.id, record.id)
 }
 let createdLessons=0

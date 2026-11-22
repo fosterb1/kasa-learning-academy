@@ -27,7 +27,7 @@ test('eight-stage roadmap declares ordered unique stages, prerequisites and avai
 test('student route distinguishes future work and preserves existing CMS catalog', async () => {
  const page=await read('src/app/(site)/learning-path/page.tsx')
  const catalog=await read('src/app/(site)/learn/page.tsx')
- const layout=await read('src/app/(site)/layout.tsx')
+ const nav=await read('src/components/AcademyNavigation.tsx')
  assert.match(page,/roadmap.stages/)
  assert.match(page,/stage.route \?/)
  assert.match(page,/stage.prerequisites/)
@@ -35,7 +35,7 @@ test('student route distinguishes future work and preserves existing CMS catalog
  assert.match(page,/View stage plan/)
  assert.match(catalog,/href="\/learn\/syntax"/)
  assert.match(catalog,/href="\/learning-path"/)
- assert.match(layout,/href="\/learning-path"/)
+ assert.match(nav,/href="\/learning-path"/)
  assert.match(catalog,/youtubeVideoId\(lesson.videoUrl\)/)
 })
 
@@ -76,7 +76,7 @@ test('no migration, seed or studio asset touched by this read-only roadmap', asy
 
 test('eight-stage catalog and five applied labs coexist without replacing CMS modules',async()=>{
  const catalog=await read('src/app/(site)/learn/page.tsx')
- const layout=await read('src/app/(site)/layout.tsx')
+ const nav=await read('src/components/AcademyNavigation.tsx')
  const labs=JSON.parse(await read('src/lib/applied-course.json'))
  assert.equal(roadmap.stages.length,8)
  assert.equal(roadmap.stages.find(s=>s.id==='applied').status,'available')
@@ -85,6 +85,6 @@ test('eight-stage catalog and five applied labs coexist without replacing CMS mo
  assert.match(catalog,/roadmap.stages.map/)
  assert.match(catalog,/groups.map\(g=>/)
  assert.match(catalog,/youtubeVideoId\(lesson.videoUrl\)/)
- assert.match(layout,/href="\/learning-path"/)
- assert.match(layout,/href="\/learn\/applied"/)
+ assert.match(nav,/href="\/learning-path"/)
+ assert.match(nav,/href: '\/learn\/applied'/)
 })

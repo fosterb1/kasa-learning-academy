@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { AcademyNavigation } from '@/components/AcademyNavigation'
 import type { ReactNode } from 'react'
 import './site.css'
 
@@ -12,13 +13,7 @@ export const metadata: Metadata = {
 export default function SiteLayout({ children }: { children: ReactNode }) {
   return <html lang="en"><body>
     <div className="site-shell">
-      <header className="site-header">
-        <Link href="/" className="logo-link" aria-label="Kasa Academy home"><span className="logo-mark">K</span><span><strong>Kasa</strong><small>Learning Academy</small></span></Link>
-        <nav className="primary-nav" aria-label="Main navigation">
-          <Link href="/start">Start</Link><Link href="/learn">Courses</Link><Link href="/learning-path">Learning path</Link><Link href="/practice">Practice</Link><Link href="/playground">Studio</Link>
-        </nav>
-        <Link href="/start" className="header-cta">Start learning <span aria-hidden="true">↗</span></Link>
-      </header>
+      <AcademyNavigation />
       <main id="main" className="main-content">{children}</main>
       <footer className="site-footer"><span>© {new Date().getUTCFullYear()} Kasa Learning Academy · Free to learn, built for curious minds.</span><span><Link href="https://github.com/fosterb1/kasa_programming_language" target="_blank">Kasa language ↗</Link><Link href="/learn/syntax">Syntax</Link><Link href="/learn/applied">Applied labs</Link><Link href="/guides">Guides</Link><Link href="/announcements">Updates</Link><Link href="/my-learning">My learning</Link><Link href="/admin">Admin</Link></span></footer>
     </div>
