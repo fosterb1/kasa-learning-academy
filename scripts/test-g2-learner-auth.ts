@@ -25,7 +25,7 @@ const db = await getPayload({ config })
 const suffix = randomBytes(9).toString('hex')
 const password = randomBytes(32).toString('hex')
 const emails = [`g2-integration-a-${suffix}@example.invalid`, `g2-integration-b-${suffix}@example.invalid`]
-const ids: number[] = []
+const ids: Array<string | number> = []
 let failed = false
 
 async function mustReject(label: string, action: () => Promise<unknown>) {
@@ -81,6 +81,7 @@ try {
   console.log('PASS: verified learners can log in')
 
   const [alice, bob] = logins.map(x => x.user)
+  if (!alice || !bob) throw new Error('Both learners must authenticate')
   assert.equal(alice.collection, 'learners')
   assert.equal(bob.collection, 'learners')
   assert.notEqual(alice.id, bob.id)
