@@ -44,19 +44,21 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   CREATE INDEX "payload_preferences_rels_learners_id_idx" ON "payload_preferences_rels" USING btree ("learners_id");`)
 }
 
-export async function down({ db, payload, req }: MigrateDownArgs): Promise<void> {
+export async function down({ db }: MigrateDownArgs): Promise<void> {
   await db.execute(sql`
-   ALTER TABLE "learners_sessions" DISABLE ROW LEVEL SECURITY;
-  ALTER TABLE "learners" DISABLE ROW LEVEL SECURITY;
-  DROP TABLE "learners_sessions" CASCADE;
-  DROP TABLE "learners" CASCADE;
-  ALTER TABLE "payload_locked_documents_rels" DROP CONSTRAINT "payload_locked_documents_rels_learners_fk";
+    ALTER TABLE "payload_locked_documents_rels"
+      DROP CONSTRAINT "payload_locked_documents_rels_learners_fk";
+    ALTER TABLE "payload_preferences_rels"
+      DROP CONSTRAINT "payload_preferences_rels_learners_fk";
 
-  ALTER TABLE "payload_preferences_rels" DROP CONSTRAINT "payload_preferences_rels_learners_fk";
+    DROP INDEX "payload_locked_documents_rels_learners_id_idx";
+    DROP INDEX "payload_preferences_rels_learners_id_idx";
 
-  DROP INDEX "payload_locked_documents_rels_learners_id_idx";
-  DROP INDEX "payload_preferences_rels_learners_id_idx";
-  ALTER TABLE "payload_locked_documents_rels" DROP COLUMN "learners_id";
-  ALTER TABLE "payload_preferences_rels" DROP COLUMN "learners_id";
-  DROP TYPE "public"."enum_learners_preferred_language";`)
+    ALTER TABLE "payload_locked_documents_rels" DROP COLUMN "learners_id";
+    ALTER TABLE "payload_preferences_rels" DROP COLUMN "learners_id";
+
+    DROP TABLE "learners_sessions";
+    DROP TABLE "learners";
+    DROP TYPE "public"."enum_learners_preferred_language";
+  `)
 }
