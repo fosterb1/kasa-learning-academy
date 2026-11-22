@@ -10,7 +10,9 @@ export const Learners: CollectionConfig = {
   auth: {
     verify: {
       generateEmailSubject: () => 'Verify your Kasa Academy learner account',
-      generateEmailHTML: ({ token }) => {
+      generateEmailHTML: (args) => {
+        const token = args?.token
+        if (!token) throw new Error('Missing verification email token')
         const base = (process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000').replace(/\/$/, '')
         const url = base + '/verify-email?token=' + encodeURIComponent(token)
         return '<p>Akwaaba! Verify your Kasa Academy email to activate your learner account.</p><p><a href="' + url + '">Verify email</a></p>'
@@ -21,7 +23,9 @@ export const Learners: CollectionConfig = {
       expiration: 30 * 60 * 1000,
       minRequestInterval: 60 * 1000,
       generateEmailSubject: () => 'Reset your Kasa Academy learner password',
-      generateEmailHTML: ({ token }) => {
+      generateEmailHTML: (args) => {
+        const token = args?.token
+        if (!token) throw new Error('Missing password reset email token')
         const base = (process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000').replace(/\/$/, '')
         const url = base + '/reset-password?token=' + encodeURIComponent(token)
         return '<p>Someone requested a Kasa Academy learner password reset.</p>' +
