@@ -91,7 +91,7 @@ export function AcademyNavigation() {
             aria-expanded={open}
             aria-controls="academy-mega-menu"
             onMouseEnter={() => { if (window.matchMedia("(hover: hover) and (min-width: 851px)").matches) setOpen(true) }}
-            onClick={() => setOpen(value => !value)}
+            onClick={() => setOpen(value => window.matchMedia("(hover: hover) and (min-width: 851px)").matches ? true : !value)}
           >
             Explore <span className="academy-chevron" aria-hidden="true">⌄</span>
           </button>
