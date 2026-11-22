@@ -4,15 +4,19 @@ import {readFile} from 'node:fs/promises'
 
 const read=path=>readFile(new URL('../'+path,import.meta.url),'utf8')
 
-test('primary navigation is concise and secondary resources remain accessible',async()=>{
+test('mega navigation keeps primary routes and secondary resources discoverable',async()=>{
  const layout=await read('src/app/(site)/layout.tsx')
- const nav=layout.match(/<nav className="primary-nav"[\s\S]*?<\/nav>/)?.[0]
- assert.ok(nav,'primary navigation missing')
- assert.equal((nav.match(/<Link /g)||[]).length,5,'primary nav should have five destinations')
- for(const href of ['/start','/learn','/learning-path','/practice','/playground'])
-  assert.ok(nav.includes('href="'+href+'"'),'primary route missing: '+href)
+ const nav=await read('src/components/AcademyNavigation.tsx')
+ assert.match(layout,/<AcademyNavigation \/>/,'shared navigation is mounted')
+ assert.match(nav,/className="academy-primary-nav"/,'primary navigation missing')
+ assert.match(nav,/className="academy-mega-grid"/,'mega-menu groups missing')
+ assert.match(nav,/aria-expanded=\{open\}/,'menu must expose expanded state')
+ for(const href of ['/start','/learn','/learning-path','/practice','/playground','/my-learning'])
+  assert.ok(nav.includes("href: '"+href+"'")||nav.includes('href="'+href+'"'),'primary route missing: '+href)
  for(const href of ['/learn/syntax','/learn/applied','/guides','/announcements','/admin'])
-  assert.ok(layout.includes('href="'+href+'"'),'secondary route missing: '+href)
+  assert.ok(nav.includes("href: '"+href+"'")||layout.includes('href="'+href+'"'),'secondary route missing: '+href)
+ for(const title of ['Learning paths','Practice & build','Resources','Your journey'])
+  assert.ok(nav.includes("title: '"+title+"'"),'navigation group missing: '+title)
 })
 
 test('eight stages lead the learning page and existing CMS lessons remain browsable',async()=>{
