@@ -4,6 +4,7 @@ import { buildConfig } from 'payload'
 import { postgresAdapter } from '@payloadcms/db-postgres'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import { Users } from '@/collections/Users'
+import { Learners } from '@/collections/Learners'
 import { Modules } from '@/collections/Modules'
 import { Lessons } from '@/collections/Lessons'
 import { Challenges } from '@/collections/Challenges'
@@ -18,7 +19,7 @@ export default buildConfig({
   serverURL: process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000',
   admin: { user: Users.slug, importMap: { baseDir: path.resolve(dirname) }, meta: { titleSuffix: ' | Kasa Academy CMS' } },
   editor: lexicalEditor(),
-  collections: [Users, Modules, Lessons, Challenges, Guides, Announcements],
+  collections: [Users, Learners, Modules, Lessons, Challenges, Guides, Announcements],
   globals: [PlaygroundSettings],
   db: postgresAdapter({ pool: { connectionString: process.env.DATABASE_URL || '' } }),
   typescript: { outputFile: path.resolve(dirname, 'payload-types.ts') },
