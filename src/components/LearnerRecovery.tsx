@@ -18,8 +18,8 @@ async function postJSON(path: string, data: Record<string, string>) {
 
 /**
  * The backend deliberately does not disclose whether a learner email exists.
- * Transactional mail is not configured in this foundation, so this is a
- * development-only workflow until delivery + global throttling are ready.
+ * Delivery requires a configured transactional email adapter. This
+ * development flow must not misreport HTTP errors as successful requests.
  */
 export function LearnerForgotPassword() {
   const [email, setEmail] = useState('')
@@ -36,6 +36,9 @@ export function LearnerForgotPassword() {
       const response = await postJSON('/api/learners/forgot-password', { email: email.trim().toLowerCase() })
       if (response.status === 429) {
         setMessage('Too many requests. Please try again later.')
+      } else if (!response.ok) {
+        // Preserve a generic message without confirming account existence.
+        setMessage('We could not process your request. Please try again later.')
       } else {
         // Do not reveal whether the email address exists.
         setSubmitted(true)
@@ -51,7 +54,7 @@ export function LearnerForgotPassword() {
     <span className="eyebrow">ACCOUNT RECOVERY</span>
     <h1>Reset your password</h1>
     {submitted
-      ? <p role="status">If an account exists for that email, password reset instructions will be sent when email delivery is configured.</p>
+      ? <p role="status">If an account exists for that email, check your inbox for password-reset instructions.</p>
       : <>
         <p>Enter your learner email address to request a reset link.</p>
         <form onSubmit={submit}>
@@ -66,7 +69,7 @@ export function LearnerForgotPassword() {
       </>}
     {message && <p role="alert" className="learner-auth-message">{message}</p>}
     <p><Link href="/login">Return to learner login →</Link></p>
-    <small>Email delivery is currently in development and may not reach your inbox.</small>
+    <small>If you do not receive an email, check Spam and try again later. Contact the Academy administrator if the problem continues.</small>
   </div>
 }
 
