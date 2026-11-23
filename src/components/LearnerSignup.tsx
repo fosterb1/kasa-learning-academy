@@ -34,7 +34,7 @@ export function LearnerSignup() {
         body: JSON.stringify({ displayName: displayName.trim(), email: email.trim(), password, preferredLanguage }),
       })
       if (response.status === 503) {
-        setMessage('Account creation is not open yet. You can still use the free Academy lessons without an account.')
+        setMessage('Registration is currently unavailable or verification email is not configured. You can still use the free Academy lessons without an account.')
       } else if (response.status === 400) {
         setMessage('Check your name, email, and password. Passwords must have at least 12 characters.')
       } else if (!response.ok) {
