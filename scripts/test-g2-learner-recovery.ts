@@ -76,19 +76,19 @@ try {
   console.log('PASS: recovery token issued without logging it')
 
   await mustReject('invalid recovery token rejected', () => payload.resetPassword({
-    collection: 'learners',
+    collection: 'learners', overrideAccess: false,
     data: { token: randomBytes(24).toString('hex'), password: replacementPassword },
   }))
 
   const result = await payload.resetPassword({
-    collection: 'learners',
+    collection: 'learners', overrideAccess: false,
     data: { token: resetToken, password: replacementPassword },
   })
   assert.ok(result.user, 'reset did not return a user')
   console.log('PASS: password reset completed')
 
   await mustReject('reset token cannot be reused', () => payload.resetPassword({
-    collection: 'learners',
+    collection: 'learners', overrideAccess: false,
     data: { token: resetToken, password: replacementPassword },
   }))
   await mustReject('old password rejected after reset', () => payload.login({
