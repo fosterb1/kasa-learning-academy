@@ -21,3 +21,15 @@ test('existing unverified account only and no verification token logging', () =>
   assert.doesNotMatch(file, /payload\.(?:create|update|delete)\(/)
   assert.doesNotMatch(file, /console\.log\([^)]*(?:token|verifyUrl)/)
 })
+
+test('resend email validator accepts ordinary addresses and rejects malformed recipients', () => {
+  const line = file.split('\n').find(line => line.includes('.test(targetEmail)'))
+  assert.ok(line, 'email validation expression missing')
+  const regexLiteral = line.match(/\/\^.*?\$\/(?=\.test\(targetEmail\))/)?.[0]
+  assert.ok(regexLiteral, 'email validation regex missing')
+  const expression = new RegExp(regexLiteral.slice(1, -1))
+  assert.equal(expression.test('student@example.com'), true)
+  assert.equal(expression.test('infinitycarsservices73@gmail.com'), true)
+  assert.equal(expression.test('bad-email'), false)
+  assert.equal(expression.test('a b@example.com'), false)
+})
