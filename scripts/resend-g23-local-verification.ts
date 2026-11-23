@@ -27,7 +27,7 @@ if (process.env.NODE_ENV === 'production' ||
     !process.env.PAYLOAD_SECRET || process.env.PAYLOAD_SECRET.length < 32) {
   fail('Refusing resend: explicit local-only database, site, email adapter and consent gates are required.')
 }
-if (!/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(targetEmail) || targetEmail.length > 254) {
+if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(targetEmail) || targetEmail.length > 254) {
   fail('Set G23_RESEND_TO to one existing test learner email.')
 }
 
