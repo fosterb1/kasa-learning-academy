@@ -25,6 +25,9 @@ export async function POST(request: Request) {
   if (!localRegistrationEnabled(request)) {
     return Response.json({ message: 'Registration is not open.' }, { status: 503 })
   }
+  if (!process.env.RESEND_API_KEY?.trim() || !process.env.RESEND_FROM_ADDRESS?.trim()) {
+    return Response.json({ message: 'Registration email is not configured.' }, { status: 503 })
+  }
   const target = new URL(request.url)
   const origin = request.headers.get('origin')
   if (!origin || origin !== target.origin) {
