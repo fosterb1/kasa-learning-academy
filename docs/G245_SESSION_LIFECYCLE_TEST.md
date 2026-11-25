@@ -1,6 +1,14 @@
 # G2.4.5 — Session revocation and reset-token lifecycle (local-only)
 
-Status: **test harness committed; awaiting Windows execution.**
+Status: **Windows local integration PASSED (maintainer-reported, 2026-11-25).**
+
+Validation evidence:
+- `tsc --noEmit`: no errors reported.
+- `tests/g24-session-reset-probe.test.mjs`: 4 passed, 0 failed.
+- `scripts/test-g24-session-reset.ts`: disposable session authenticated; password reset with no email; reset token reuse denied; old password denied; pre-reset JWT revoked; new password and JWT accepted; disposable learner deleted.
+- This confirms **local Payload token revocation after password reset**, not browser cookie/logout behavior or expired-reset-token enforcement.
+- The test ran with G24 local rate limiter unset as intended. No public signup, production environment, or paid mail was involved.
+
 
 The independent local integration probe in `scripts/test-g24-session-reset.ts` creates one disposable learner with a random `example.invalid` address. It suppresses both signup verification email and forgot-password email using Payload's `disableVerificationEmail: true` and `disableEmail: true`. No Resend request is intentionally made.
 
