@@ -35,7 +35,13 @@ export default buildConfig({
   editor: lexicalEditor(),
   collections: [Users, Learners, Modules, Lessons, Challenges, Guides, Announcements],
   globals: [PlaygroundSettings],
-  db: postgresAdapter({ pool: { connectionString: process.env.DATABASE_URL || '' } }),
+  // G2.4 has a composite-key operational security table. Drizzle's development
+  // schema push can fail while introspecting composite PKs. Use explicit migrations
+  // instead of automatic schema mutation; do not alter the existing data.
+  db: postgresAdapter({
+    push: false,
+    pool: { connectionString: process.env.DATABASE_URL || '' },
+  }),
   typescript: { outputFile: path.resolve(dirname, 'payload-types.ts') },
   cors: [process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'],
   csrf: [process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'],
