@@ -1,4 +1,5 @@
-import type { CollectionConfig } from 'payload'
+import { APIError, type CollectionConfig } from 'payload'
+import { checkLocalAuthRateLimit, type AuthLimitPurpose } from '@/lib/auth-rate-limit'
 
 /**
  * Student identities are intentionally distinct from CMS administrators.
@@ -35,6 +36,35 @@ export const Learners: CollectionConfig = {
     },
     maxLoginAttempts: 5,
     lockTime: 15 * 60 * 1000,
+  },
+  // G2.4.3: opt-in *local-only* throttling at the Payload operation boundary.
+  // Unlike beforeLogin, beforeOperation includes failed credential attempts.
+  // Not production-ready: no trusted-IP rate limit or proxy policy yet.
+  hooks: {
+    beforeOperation: [async ({ args, operation }) => {
+      if (process.env.G24_ENABLE_LOCAL_RATE_LIMIT !== 'yes') return args
+      const purposes: Record<string, AuthLimitPurpose> = {
+        login: 'login',
+        forgotPassword: 'forgot-password',
+        resetPassword: 'reset-password',
+      }
+      const purpose = purposes[operation]
+      if (!purpose) return args
+
+      // Auth arguments are operation-specific. Never persist or log the raw
+      // reset token: the rate limiter HMACs this identifier immediately.
+      const data = (args as { data?: unknown }).data
+      const fields = data && typeof data === 'object' && !Array.isArray(data)
+        ? data as Record<string, unknown>
+        : {}
+      const identifier = purpose === 'reset-password' ? fields.token : fields.email
+      const account = typeof identifier === 'string' ? identifier : undefined
+      const decision = await checkLocalAuthRateLimit({ purpose, account })
+      if (!decision.allowed) {
+        throw new APIError('Too many requests or authentication temporarily unavailable.', 429)
+      }
+      return args
+    }],
   },
   admin: { useAsTitle: 'email', group: 'Learner Accounts', hidden: true },
   access: {
