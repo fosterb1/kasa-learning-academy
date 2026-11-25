@@ -22,3 +22,8 @@ test('limiter remains local-only and explicitly gated', async () => {
   assert.match(limiter, /kasa_academy_dev/)
   assert.match(limiter, /'signup' \| 'login' \| 'forgot-password'/)
 })
+
+test('Payload does not auto-push schemas while a composite primary-key limiter table exists', async () => {
+  const config = await read('src/payload.config.ts')
+  assert.match(config, /push:\s*false/)
+})
