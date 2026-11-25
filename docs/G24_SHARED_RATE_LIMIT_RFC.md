@@ -60,3 +60,31 @@ Select a supported Payload endpoint wrapper/hook or narrow, reviewed Next.js req
 ## Exit conditions
 
 A reviewable migration, server module, endpoint wiring, multi-process integration test on `kasa_academy_dev`, real-browser smoke tests, and documented no-cost infrastructure assessment. Do not claim rate limiting is implemented or merge this RFC as production security.
+
+## Implementation checkpoint — November 25, 2026
+
+Initial **local-only, unwired** code has been committed:
+- `src/migrations/20261125_000001.ts`: additive counter table; registered in migration index.
+- `src/lib/auth-rate-limit.ts`: HMAC bucket derivation + atomic SQL upsert, denies on missing configuration/DB failure.
+- `tests/g24-rate-limit-source.test.mjs`: source-level security regression checks.
+- `scripts/test-g24-rate-limit.ts`: real local DB concurrency probe using disposable fake account identifiers.
+
+This is **not yet a security control for real learner endpoints**, because it has not been wired into Payload or executed against the maintainer's local DB. Known gaps: integrate all five endpoints, validate trusted-client-IP lookup behind real proxy, verify adapter query return types, ensure pruning, add end-to-end rate-limit abuse tests, review fairness/availability, and avoid leaking token URLs to access logs.
+
+### Controlled PowerShell test sequence
+
+Stop `next dev` to avoid local hot-reload/schema interference. Work on `dev/g2-4-auth-security-hardening`.
+
+```powershell
+git pull --ff-only origin dev/g2-4-auth-security-hardening
+node --test tests/g24-rate-limit-source.test.mjs
+.\node_modules\.bin\tsc.cmd --noEmit
+# Run only on known dedicated local DB; this creates the new security counter table.
+npm.cmd run db:migrate
+$env:G24_ENABLE_LOCAL_RATE_LIMIT = "yes"
+$env:G24_RATE_LIMIT_SECRET = [Convert]::ToHexString([Security.Cryptography.RandomNumberGenerator]::GetBytes(32))
+node --env-file=.env.local --import tsx scripts/test-g24-rate-limit.ts
+Remove-Item Env:G24_ENABLE_LOCAL_RATE_LIMIT,Env:G24_RATE_LIMIT_SECRET -ErrorAction SilentlyContinue
+```
+
+Never share the generated secret. This test makes **local DB writes**, has no outbound email traffic, and does not send load to Vercel or Resend. The terminal integration result is necessary; source-level tests alone do not establish concurrency safety. If migration or TypeScript fails, stop and report exact error rather than modifying production schemas.
