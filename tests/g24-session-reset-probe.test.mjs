@@ -33,3 +33,11 @@ test('fixture cleanup cannot be skipped when an assertion fails', async () => {
   assert.match(source, /await payload\.delete\(\{ collection: 'learners', id, overrideAccess: true \}\)/)
   assert.doesNotMatch(source, /fetch\(|\/api\/learner-registration/)
 })
+
+test('both Payload resetPassword invocations explicitly set overrideAccess false', async () => {
+  const source = await read('scripts/test-g24-session-reset.ts')
+  const invocations = [...source.matchAll(/payload\.resetPassword\(\{/g)]
+  const guarded = [...source.matchAll(/payload\.resetPassword\(\{\s*collection: 'learners',\s*overrideAccess: false,/g)]
+  assert.equal(invocations.length, 2)
+  assert.equal(guarded.length, 2)
+})
