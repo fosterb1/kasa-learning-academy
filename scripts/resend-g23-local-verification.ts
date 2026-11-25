@@ -42,9 +42,9 @@ const lookup = await payload.find({
 if (lookup.docs.length !== 1) fail('Expected exactly one local learner record; no email sent.')
 const learner = lookup.docs[0]
 if (learner._verified === true) fail('Account is already verified; no email sent.')
-const token = learner._verificationToken
-if (typeof token !== 'string' || !token) {
-  fail('No existing verification token is available. No email sent; token was not regenerated.')
+const token = typeof learner._verificationToken === 'string' ? learner._verificationToken : ''
+if (!token) {
+  throw new Error('No existing verification token is available. No email sent; token was not regenerated.')
 }
 
 const verifyUrl = new URL('/verify-email', site)
