@@ -69,6 +69,7 @@ try {
   assert(typeof resetToken === 'string' && resetToken, 'No recovery token issued')
   const reset = await payload.resetPassword({
     collection: 'learners',
+    overrideAccess: false,
     data: { token: resetToken, password: newPassword },
   })
   assert(reset.user, 'Reset operation did not return learner')
@@ -76,6 +77,7 @@ try {
 
   await mustFail('reset token reuse', () => payload.resetPassword({
     collection: 'learners',
+    overrideAccess: false,
     data: { token: resetToken, password: newPassword },
   }))
   console.log('PASS: reset token cannot be reused')
