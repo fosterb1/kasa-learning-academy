@@ -1,5 +1,6 @@
 import { getPayload } from 'payload'
 import config from '@/payload.config'
+import { checkLocalAuthRateLimit } from '@/lib/auth-rate-limit'
 
 export const runtime = 'nodejs'
 
@@ -65,6 +66,19 @@ export async function POST(request: Request) {
       typeof password !== 'string' || password.length < 12 || password.length > 128 ||
       !['twi', 'english', 'bilingual'].includes(String(language))) {
     return Response.json({ message: 'Invalid registration fields.' }, { status: 400 })
+  }
+  // G2.4 local-only security gate: no database write or verification email may
+  // occur unless the shared PostgreSQL counter permits this attempt. No forwarded
+  // headers are trusted as IP identities. A separate review must add network limits.
+  if (process.env.G24_ENABLE_LOCAL_RATE_LIMIT !== 'yes') {
+    return Response.json({ message: 'Registration temporarily unavailable.' }, { status: 503 })
+  }
+  const decision = await checkLocalAuthRateLimit({ purpose: 'signup', account: email })
+  if (!decision.allowed) {
+    return Response.json(
+      { message: 'Too many requests or registration temporarily unavailable.' },
+      { status: 429, headers: { 'Retry-After': String(decision.retryAfterSeconds) } },
+    )
   }
   try {
     const payload = await getPayload({ config })
