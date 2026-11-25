@@ -35,6 +35,8 @@ export function LearnerSignup() {
       })
       if (response.status === 503) {
         setMessage('Registration is currently unavailable or verification email is not configured. You can still use the free Academy lessons without an account.')
+      } else if (response.status === 429) {
+        setMessage('Too many registration attempts or a temporary security restriction. Please try again later.')
       } else if (response.status === 400) {
         setMessage('Check your name, email, and password. Passwords must have at least 12 characters.')
       } else if (!response.ok) {
