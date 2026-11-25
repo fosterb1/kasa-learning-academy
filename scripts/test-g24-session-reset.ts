@@ -103,5 +103,4 @@ try {
     await payload.delete({ collection: 'learners', id, overrideAccess: true })
     console.log('PASS: disposable learner deleted')
   }
-  await payload.db.destroy?.()
 }
