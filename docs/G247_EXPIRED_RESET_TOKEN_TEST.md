@@ -1,6 +1,12 @@
 # G2.4.7 — Expired reset-token local verification
 
-**Status:** implementation and static regression checks committed; live Windows integration not yet run.
+**Status:** **Local Windows integration PASSED** (maintainer-reported, 2026-11-26).
+
+Validation evidence:
+- Full Academy smoke test: **291/291 passing**.
+- `scripts/test-g247-expired-reset.ts` reported: temporary learner created and verified without mail; fresh reset token had future expiration; fixture-specific expiry moved to past; expired token rejected; original password unchanged and accepted; fixture learner deleted.
+- This establishes expired-token rejection under the local Payload and PostgreSQL configuration. It does **not** establish production readiness, complete coverage of logging and network abuse protection, or a deployed environment.
+
 
 The probe `scripts/test-g247-expired-reset.ts` uses one randomly named disposable learner in a dedicated local PostgreSQL database. It issues a reset token through Payload with `disableEmail: true`, checks that expiry was initially in the future, and then changes **only that disposable learner's** `reset_password_expiration` column to one minute in the past using a parameterized SQL UPDATE restricted to that learner id. It checks that Payload refuses the expired token and that the original password still works. Cleanup deletes the fixture in `finally`.
 
