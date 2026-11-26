@@ -74,7 +74,17 @@ try {
 
   const logout = await call('/api/learners/logout', 'POST', cookie, {})
   assert(logout.ok, `Logout endpoint rejected request: ${logout.status}`)
-  assert(/max-age=0|expires=thu, 01 jan 1970/i.test(logout.setCookie),
+  // Observe cookies without printing any cookie values. Valid deletion can use
+  // Max-Age=0, a negative Max-Age, or an Expires date in the past.
+  const cookieDirectives = logout.setCookie.split(';').map(x => x.trim())
+  const age = cookieDirectives.find(x => /^max-age\s*=/i.test(x))
+  const expires = cookieDirectives.find(x => /^expires\s*=/i.test(x))
+  const maxAgeValue = age ? Number(age.split('=').slice(1).join('=').trim()) : NaN
+  const expirationDate = expires ? Date.parse(expires.slice(expires.indexOf('=') + 1).trim()) : NaN
+  const cookieExpired = (Number.isFinite(maxAgeValue) && maxAgeValue <= 0) ||
+    (Number.isFinite(expirationDate) && expirationDate < Date.now())
+  const cookieName = cookie.split('=')[0]
+  const clearsSameName = new RegExp('(?:^|,\\s*)' + cookieName.replace(/[.*+?^${}()|[\\]\\]/g, '\\  assert(/max-age=0|expires=thu, 01 jan 1970/i.test(logout.setCookie),
     'Logout did not visibly expire a cookie')
   console.log('PASS: logout endpoint clears a cookie')
 
@@ -88,7 +98,35 @@ try {
   } else {
     console.log('PASS: pre-logout cookie rejected after logout')
   }
-  console.log('G2.4.6 LOCAL HTTP LOGOUT: COMPLETE (review server-side cookie replay observation)')
+  console.log('G2.4.6 LOCAL HTTP LOGOUT: COMPLETE (review server-side cookie replay observation)')') + '=', 'i').test(logout.setCookie)
+  console.log('Logout HTTP status:', logout.status)
+  console.log('Logout cookie metadata:', JSON.stringify({
+    setCookiePresent: Boolean(logout.setCookie),
+    sameCookieName: clearsSameName,
+    expirationDirectivePresent: Boolean(age || expires),
+    cookieExpired,
+  }))
+
+  const after = await call('/api/learners/me', 'GET')
+  const afterAuthenticated = userMatches(after.json)
+  console.log(afterAuthenticated
+    ? 'FAIL: no-cookie request authenticated unexpectedly'
+    : 'PASS: request without session cookie is anonymous')
+
+  // Important: Node fetch does not store cookies. Explicitly replay the
+  // original cookie to check server-side invalidation independently.
+  const replay = await call('/api/learners/me', 'GET', cookie)
+  const replayAuthenticated = userMatches(replay.json)
+  console.log(replayAuthenticated
+    ? 'SECURITY OBSERVATION: pre-logout cookie is STILL accepted by server'
+    : 'PASS: pre-logout cookie rejected after logout')
+
+  assert(!afterAuthenticated, 'No-cookie request unexpectedly authenticated')
+  assert(clearsSameName && cookieExpired,
+    'Logout did not provide an expiring Set-Cookie for the learner cookie')
+  assert(!replayAuthenticated,
+    'SECURITY GAP: server still accepts old session after logout')
+  console.log('G2.4.6 LOCAL HTTP LOGOUT: PASS (cookie cleared and old session invalidated)')
 } finally {
   if (id !== undefined) {
     await payload.delete({ collection: 'learners', id, overrideAccess: true })
