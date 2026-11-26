@@ -4,6 +4,7 @@ import { useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import './learner-account.css'
+import { useFragmentAuthToken } from '@/lib/use-fragment-auth-token'
 
 async function postJSON(path: string, data: Record<string, string>) {
   const response = await fetch(path, {
@@ -73,7 +74,8 @@ export function LearnerForgotPassword() {
   </div>
 }
 
-export function LearnerResetPassword({ token }: { token: string }) {
+export function LearnerResetPassword() {
+  const token = useFragmentAuthToken()
   const router = useRouter()
   const [password, setPassword] = useState('')
   const [confirm, setConfirm] = useState('')
