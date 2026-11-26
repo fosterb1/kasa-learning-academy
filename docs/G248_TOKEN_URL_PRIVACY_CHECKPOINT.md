@@ -49,3 +49,29 @@ No new migration, paid infrastructure, production deployment, public registratio
 - Proxy/IP throttling and DB outage classification.
 - Verify-email brute-force limits under a distinct nonce and local loopback only.
 - Account enumeration consistency and production email delivery.
+
+## Follow-up: disposable HTTP integration gate (not yet run)
+
+Added `scripts/test-g248-token-flow-http.ts` and `tests/g248-token-flow-http-probe.test.mjs` to validate live localhost API behavior without sending any email. The probe creates one random `example.invalid` learner, verifies it via token-in-POST-body HTTP, resets its password via token-in-POST-body HTTP, checks the original password fails and the new one works, verifies token landing page referrer/cache headers, and deletes the fixture in `finally`. No token-bearing URLs or raw token values are printed.
+
+**Prerequisites:** dedicated local database `kasa_academy_dev`, `kasa_dev` role, matching local secrets and G24 rate limiter enabled in **both** the test's environment and an already running local Next.js development server. No Neon, Resend, other paid services, or schema migration.
+
+With the development server running in its own terminal:
+
+```powershell
+cd C:\Users\User\kasa-learning-academy
+git pull --ff-only origin dev/g2-4-auth-security-hardening
+.\node_modules\.bin\tsc.cmd --noEmit
+node --test tests/g248-token-flow-http-probe.test.mjs
+npm.cmd run test:smoke
+$env:G24_ALLOW_LOCAL_HTTP_TEST = 'yes'
+$env:G24_ENABLE_LOCAL_RATE_LIMIT = 'yes'
+try {
+  node --env-file=.env.local --import tsx scripts/test-g248-token-flow-http.ts
+} finally {
+  Remove-Item Env:G24_ALLOW_LOCAL_HTTP_TEST -ErrorAction SilentlyContinue
+  Remove-Item Env:G24_ENABLE_LOCAL_RATE_LIMIT -ErrorAction SilentlyContinue
+}
+```
+
+This proves **HTTP-level** token-in-body flows, not browser hydration or automatic URL-fragment removal. That browser check still needs a real local browser session. Do not print or share token values or reset URLs. For the test only, confirm `G24_RATE_LIMIT_SECRET` is configured locally and never paste it into chat. The Next.js server must be restarted if its rate limiter was previously disabled.
