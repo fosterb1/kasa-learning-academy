@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import './learner-account.css'
+import { useFragmentAuthToken } from '@/lib/use-fragment-auth-token'
 
 type Learner = {
   id: number | string
@@ -139,14 +140,15 @@ export function LearnerProfile() {
   </div>
 }
 
-export function LearnerVerify({ token }: {token:string}) {
+export function LearnerVerify() {
+  const token = useFragmentAuthToken()
   const [message,setMessage]=useState('')
   const [busy,setBusy]=useState(false)
   async function submit(){
     if (busy || !token) return
     setBusy(true)
     try {
-      const {ok} = await jsonRequest('/api/learners/verify/' + encodeURIComponent(token), { method:'POST',body:'{}' })
+      const {ok} = await jsonRequest('/api/learner-verify-token', { method:'POST',body:JSON.stringify({ token }) })
       setMessage(ok ? 'Email verified. You may now sign in.' : 'This verification link is invalid or expired.')
     } catch {setMessage('Unable to verify. Please retry.')}
     finally {setBusy(false)}
