@@ -35,9 +35,11 @@ test('learner frontend uses Payload auth and never localStorage for credentials'
   const login = await read('src/app/(site)/login/page.tsx')
   const profile = await read('src/app/(site)/profile/page.tsx')
   const verify = await read('src/app/(site)/verify-email/page.tsx')
-  for (const path of ['/api/learners/login','/api/learners/me','/api/learners/logout','/api/learners/verify/']) {
+  for (const path of ['/api/learners/login','/api/learners/me','/api/learners/logout','/api/learner-verify-token']) {
     assert.ok(app.includes(path), 'missing auth route: ' + path)
   }
+  assert.doesNotMatch(app, /\/api\/learners\/verify\//)
+  assert.match(app, /JSON\.stringify\(\{ token \}\)/)
   assert.match(app, /method: 'PATCH'/)
   assert.match(app, /credentials: 'same-origin'/)
   assert.doesNotMatch(app, /localStorage|sessionStorage|document\.cookie/)
