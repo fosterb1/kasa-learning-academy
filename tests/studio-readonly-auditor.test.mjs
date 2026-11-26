@@ -40,3 +40,9 @@ test('CRLF normalization only diagnoses drift and never approves mismatched raw 
   assert.match(source, /summary\.lineEndingConverted/)
   assert.doesNotMatch(source, /\bwriteFile\b|\bappendFile\b/)
 })
+
+test('Studio tracked release bytes are exempt from platform newline conversion', async () => {
+  const attrs = await read('.gitattributes')
+  assert.match(attrs, /^public\/kasa-studio\/\*\* -text\s*$/m)
+  assert.doesNotMatch(attrs, /public\/kasa-studio\/\*\*\s+text=auto/)
+})
