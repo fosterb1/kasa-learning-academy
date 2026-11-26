@@ -48,3 +48,26 @@ git status --short
 ```
 
 Expected if the hypothesis is correct: four source checks pass; audit reports **`lineEndingConverted: 10`, `mismatched: 0`, `matched: 3`**, still exits 1; clean worktree remains unchanged. If even one mismatch remains genuinely different after LF normalization, stop and investigate content. For correct cross-platform asset bytes in a future release, review targeted `.gitattributes` rules and fresh checkouts **separately**; do not normalize by rewriting files or rehashing the Windows checkout.
+
+## Checkout-byte preservation fix — 2026-11-26
+
+The maintainer confirmed **4/4** auditor regression checks passed, and the updated audit reported **3 raw matches, 10 exact CRLF-only differences, 0 unexplained mismatches, 0 missing, 0 untracked**. Worktree remained clean. This identifies the issue as Windows checkout newline conversion, not manifest corruption.
+
+Added `.gitattributes` with `public/kasa-studio/** -text`. Git must now preserve tracked Studio release bytes as stored in Git, on Windows as well as macOS/Linux. This leaves `public/kasa-studio/release-manifest.json`, native binaries, and all Studio source content unchanged on the branch.
+
+**Existing Windows worktrees may retain previously materialized CRLF files after a git switch.** For testing, use a **fresh worktree** rather than editing files or regenerating the manifest:
+
+```powershell
+cd C:\Users\User\kasa-learning-academy
+git fetch origin
+git worktree add --detach ..\kasa-academy-studio-bytecheck origin/review/studio-integrity-auditor-20261126
+cd ..\kasa-academy-studio-bytecheck
+git check-attr text -- public/kasa-studio/app.js public/kasa-studio/native/kasa-native.wasm
+node --test tests/studio-readonly-auditor.test.mjs
+node scripts/audit-studio-release.mjs
+git status --short
+```
+
+Expected: `git check-attr` reports `text: unset`, tests **5/5**, audit **13 matched, 0 mismatched, 0 lineEndingConverted, 0 missing, 0 untracked**, and clean status. If any value differs, **do not merge**, and share a sanitized report. Avoid `npm run build` or `scripts/sync-studio-release.mjs`; neither is needed.
+
+This is a local verification gate, not yet a completed cross-platform release audit. The review branch remains unmerged.
