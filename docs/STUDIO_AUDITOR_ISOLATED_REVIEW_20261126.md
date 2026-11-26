@@ -71,3 +71,14 @@ git status --short
 Expected: `git check-attr` reports `text: unset`, tests **5/5**, audit **13 matched, 0 mismatched, 0 lineEndingConverted, 0 missing, 0 untracked**, and clean status. If any value differs, **do not merge**, and share a sanitized report. Avoid `npm run build` or `scripts/sync-studio-release.mjs`; neither is needed.
 
 This is a local verification gate, not yet a completed cross-platform release audit. The review branch remains unmerged.
+
+## Final fresh-Windows-worktree evidence — 2026-11-26
+
+Maintainer executed the review from a **fresh** `kasa-academy-studio-bytecheck` worktree after the targeted `.gitattributes` rule was committed:
+
+- `git check-attr text` reported `text: unset` for both `public/kasa-studio/app.js` and `native/kasa-native.wasm`.
+- `node --test tests/studio-readonly-auditor.test.mjs`: **5 passed, 0 failed**.
+- `node scripts/audit-studio-release.mjs`: **13 matched, 0 mismatched, 0 lineEndingConverted, 0 missing, 0 untracked**.
+- `git status --short`: empty.
+
+This validates byte-for-byte agreement with the **existing** reviewed manifest on this Windows checkout. It does not independently establish the release provenance, binary safety, or behavior of the runtime. No release manifest, Studio asset, or production deployment was changed.
