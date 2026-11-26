@@ -50,7 +50,7 @@ No new migration, paid infrastructure, production deployment, public registratio
 - Verify-email brute-force limits under a distinct nonce and local loopback only.
 - Account enumeration consistency and production email delivery.
 
-## Follow-up: disposable HTTP integration gate (not yet run)
+## Follow-up: disposable HTTP integration gate (maintainer reports PASS, 2026-11-26)
 
 Added `scripts/test-g248-token-flow-http.ts` and `tests/g248-token-flow-http-probe.test.mjs` to validate live localhost API behavior without sending any email. The probe creates one random `example.invalid` learner, verifies it via token-in-POST-body HTTP, resets its password via token-in-POST-body HTTP, checks the original password fails and the new one works, verifies token landing page referrer/cache headers, and deletes the fixture in `finally`. No token-bearing URLs or raw token values are printed.
 
@@ -75,3 +75,9 @@ try {
 ```
 
 This proves **HTTP-level** token-in-body flows, not browser hydration or automatic URL-fragment removal. That browser check still needs a real local browser session. Do not print or share token values or reset URLs. For the test only, confirm `G24_RATE_LIMIT_SECRET` is configured locally and never paste it into chat. The Next.js server must be restarted if its rate limiter was previously disabled.
+
+## Latest local verification report — 2026-11-26
+
+The maintainer reported **ALL PASS** after correcting the missing local `G24_RATE_LIMIT_SECRET` configuration and rerunning the G2.4.8 HTTP integration. This is a reported outcome; the final post-fix terminal transcript and precise HTTP statuses were not supplied in the latest message. The immediately preceding captured run had TypeScript and all 298 smoke tests passing, but its HTTP integration was blocked before execution because the rate-limit secret was missing. The subsequent report indicates that blocker was resolved and the test succeeded.
+
+**Still open:** Actual browser hydration/fragment removal test with a fresh link, trusted network/IP rate limits, account-enumeration review, and the production-release security gate. No production merge or deployment authorized.
