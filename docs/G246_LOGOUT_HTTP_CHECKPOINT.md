@@ -1,6 +1,10 @@
 # G2.4.6 — HTTP logout behavior checkpoint
 
-**Status:** code committed to development branch; local TypeScript, source tests, and HTTP integration are NOT yet executed.
+**Status:** Local HTTP integration **PASSED** (maintainer-reported, 2026-11-26).
+
+Results: TypeScript `tsc --noEmit` succeeded; targeted logout-probe tests 2/2 passed; the reported latest Academy smoke suite passed 288/288. Disposable learner login authenticated, logout returned HTTP 200, matching cookie-expiration metadata was present (same cookie name and expired cookie), anonymous request after logout had no learner session, and replay of the original cookie was rejected. The test deleted its disposable learner. No token/cookie values were shared.
+
+The earlier failure `Logout did not visibly expire a cookie` came from a too-strict fixed-date assertion. The revised probe recognizes either Max-Age or a past Expires value and independently checks old-cookie replay. This evidence covers local Payload HTTP logout, not arbitrary browsers, distributed deployments, or production. 
 
 ## What we measure
 
