@@ -1,6 +1,6 @@
 # G2.4.9 — Experimental local network-abuse counter
 
-**Status:** code and source regression tests committed, local Windows execution **pending**.
+**Status:** maintainer reported **ALL PASS** for G2.4.9 local Windows tests on 2026-11-26. Exact test counts and terminal output were not provided in this confirmation. Real traffic network enforcement and trusted-proxy integration remain pending.
 
 ## Implemented
 
