@@ -1,6 +1,6 @@
 import { LearnerVerify } from '@/components/LearnerAccount'
-export const metadata = { title: 'Verify learner email' }
-export default async function VerifyEmailPage({ searchParams }: { searchParams: Promise<{ token?: string }> }) {
- const { token } = await searchParams
- return <LearnerVerify token={typeof token === 'string' ? token : ''} />
+export const metadata = { title: 'Verify learner email', robots: { index: false, follow: false } }
+// Tokens are browser-only URL fragments, never server searchParams.
+export default function VerifyEmailPage() {
+  return <LearnerVerify />
 }
