@@ -15,7 +15,7 @@ export const Learners: CollectionConfig = {
         const token = args?.token
         if (!token) throw new Error('Missing verification email token')
         const base = (process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000').replace(/\/$/, '')
-        const url = base + '/verify-email?token=' + encodeURIComponent(token)
+        const url = base + '/verify-email#token=' + encodeURIComponent(token)
         return '<p>Akwaaba! Verify your Kasa Academy email to activate your learner account.</p><p><a href="' + url + '">Verify email</a></p>'
       },
     },
@@ -28,7 +28,7 @@ export const Learners: CollectionConfig = {
         const token = args?.token
         if (!token) throw new Error('Missing password reset email token')
         const base = (process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000').replace(/\/$/, '')
-        const url = base + '/reset-password?token=' + encodeURIComponent(token)
+        const url = base + '/reset-password#token=' + encodeURIComponent(token)
         return '<p>Someone requested a Kasa Academy learner password reset.</p>' +
           '<p>If this was you, use this link within 30 minutes: <a href="' + url + '">Reset password</a></p>' +
           '<p>If you did not request this, you may ignore the message.</p>'
