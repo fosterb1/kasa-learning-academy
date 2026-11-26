@@ -1,0 +1,5 @@
+# Kasa Studio's release assets are content-addressed. Preserve the exact bytes
+# from Git on every platform, regardless of core.autocrlf configuration.
+# Do not let Windows convert reviewed LF text bundles into CRLF during checkout.
+# Includes native WASM and PNG files; these are already binary.
+public/kasa-studio/** -text
