@@ -1,4 +1,5 @@
 import { createHmac } from 'node:crypto'
+import { isIP } from 'node:net'
 import { getPayload } from 'payload'
 import { sql } from '@payloadcms/db-postgres'
 import config from '@/payload.config'
@@ -18,6 +19,15 @@ const settings: Record<AuthLimitPurpose, { windowSeconds: number; max: number }>
   'forgot-password': { windowSeconds: 3600, max: 5 },
   'reset-password': { windowSeconds: 900, max: 10 },
   'verify-email': { windowSeconds: 900, max: 10 },
+}
+// Conservative experimental source-wide thresholds. Higher than account limits
+// to avoid trivially blocking a shared classroom; not production calibrated.
+const networkSettings: Record<AuthLimitPurpose, number> = {
+  signup: 25,
+  login: 40,
+  'forgot-password': 20,
+  'reset-password': 30,
+  'verify-email': 30,
 }
 const deny: AuthLimitDecision = { allowed: false, retryAfterSeconds: 60 }
 
@@ -44,13 +54,18 @@ export async function checkLocalAuthRateLimit(identity: AuthLimitIdentity): Prom
   const secret = process.env.G24_RATE_LIMIT_SECRET
   if (!secret || secret.length < 32 || secret === process.env.PAYLOAD_SECRET) return deny
   const canonical = identity.account?.trim().toLowerCase()
+  // Callers must supply a verified client address; NEVER derive it from
+  // X-Forwarded-For, X-Real-IP, CF-Connecting-IP or other user-controlled headers.
+  // Validate rather than normalize an arbitrary string into a shared counter.
   const ip = identity.trustedClientIp?.trim()
-  if ((!canonical && !ip) || (canonical && canonical.length > 254) || (ip && ip.length > 64)) return deny
+  if ((!canonical && !ip) || (canonical && canonical.length > 254) ||
+    (ip && (!isIP(ip) || ip.length > 64))) return deny
   const { windowSeconds, max } = settings[identity.purpose]
   const keys = [
-    canonical ? digest(identity.purpose, 'account', canonical, secret) : null,
-    ip ? digest(identity.purpose, 'ip', ip, secret) : null,
-  ].filter((key): key is string => Boolean(key)).sort()
+    canonical ? { key: digest(identity.purpose, 'account', canonical, secret), max } : null,
+    ip ? { key: digest(identity.purpose, 'ip', ip, secret), max: networkSettings[identity.purpose] } : null,
+  ].filter((entry): entry is { key: string; max: number } => Boolean(entry))
+    .sort((a, b) => a.key.localeCompare(b.key))
   try {
     const payload = await getPayload({ config })
     // Payload Postgres adapter exposes its Drizzle driver; absent driver must deny.
@@ -60,7 +75,7 @@ export async function checkLocalAuthRateLimit(identity: AuthLimitIdentity): Prom
     let retryAfterSeconds = 0
     // Each counter increment is an atomic PostgreSQL upsert. Multiple independent
     // processes cannot overwrite one another; rejected attempts are still counted.
-    for (const key of keys) {
+    for (const { key, max: bucketMax } of keys) {
       const rows = await db.execute(sql`
         INSERT INTO kasa_auth_rate_limits (bucket_key, window_start, attempts, expires_at)
         VALUES (
@@ -76,7 +91,7 @@ export async function checkLocalAuthRateLimit(identity: AuthLimitIdentity): Prom
       `) as { rows?: Array<{ attempts: number; retry_seconds: number }> } | Array<{ attempts: number; retry_seconds: number }>
       const record = Array.isArray(rows) ? rows[0] : rows.rows?.[0]
       if (!record || !Number.isFinite(Number(record.attempts))) return deny
-      if (Number(record.attempts) > max) {
+      if (Number(record.attempts) > bucketMax) {
         permitted = false
         retryAfterSeconds = Math.max(retryAfterSeconds, Number(record.retry_seconds) || 60)
       }
