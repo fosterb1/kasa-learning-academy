@@ -45,8 +45,22 @@ for (const name of allNames) {
   const data = await readFile(path.join(base,name))
   const current = {bytes:data.length,sha256:createHash('sha256').update(data).digest('hex')}
   if (!record) results.push({file:name,status:'untracked-file',current})
-  else if (record.bytes !== current.bytes || record.sha256 !== current.sha256)
-    results.push({file:name,status:'integrity-mismatch',recorded:record,current})
+  else if (record.bytes !== current.bytes || record.sha256 !== current.sha256) {
+    // Windows Git checkouts may expand each LF into CRLF on text assets.
+    // Diagnose that exact transformation by hashing an in-memory LF copy.
+    // NEVER rewrite the file, update the manifest, or treat the raw mismatch
+    // as a verified release asset: actual served bytes are still different.
+    const normalized = Buffer.from(data.toString('utf8').replace(/\r\n/g, '\n'), 'utf8')
+    const normalizedSha = createHash('sha256').update(normalized).digest('hex')
+    const crlfOnly = !name.endsWith('.wasm') && !name.endsWith('.png') &&
+      normalized.length === record.bytes && normalizedSha === record.sha256
+    results.push({
+      file:name,
+      status: crlfOnly ? 'line-ending-conversion' : 'integrity-mismatch',
+      recorded:record,
+      current,
+    })
+  }
   else results.push({file:name,status:'verified',current})
 }
 const summary = {
@@ -54,9 +68,10 @@ const summary = {
   sourceRepo:manifest.source_repo,
   matched:results.filter(x=>x.status==='verified').length,
   mismatched:results.filter(x=>x.status==='integrity-mismatch').length,
+  lineEndingConverted:results.filter(x=>x.status==='line-ending-conversion').length,
   missing:results.filter(x=>x.status==='manifest-entry-but-file-missing').length,
   untracked:results.filter(x=>x.status==='untracked-file').length,
   results,
 }
 console.log(JSON.stringify(summary,null,2))
-if(summary.mismatched || summary.missing || summary.untracked) process.exitCode=1
+if(summary.mismatched || summary.lineEndingConverted || summary.missing || summary.untracked) process.exitCode=1
