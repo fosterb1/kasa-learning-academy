@@ -29,3 +29,22 @@ Expected: 3 static checks pass; audit prints `mismatched: 0`, `missing: 0`, `unt
 **Note:** Creating this worktree on a branch name directly from `origin/...` results in a detached HEAD by default; that's intentional for read-only review. If the worktree already exists, inspect rather than deleting it.
 
 After verification, we can decide whether to submit a narrowly scoped pull request. Do not merge the old review branch, and do not interpret hash equality as independent proof of the binaries' authenticity or functional correctness.
+
+## Windows audit finding — 2026-11-26
+
+Maintainer's read-only audit in a clean Windows worktree reported **3 matched, 10 raw SHA-256 mismatches, 0 missing, 0 untracked**, with a clean git status. All 10 text-file byte deltas exactly matched their GitHub LF line counts, strongly indicating Git autocrlf checkout conversion. The native WASM binary and two PNG icons matched their original hashes.
+
+The auditor now **diagnoses but does not forgive** this transformation: if converting a file's CRLF bytes to LF **in memory** matches both the recorded byte size and SHA-256, that file is reported as `line-ending-conversion` and counted in `lineEndingConverted`. The audit **still exits with code 1** whenever any raw asset differs. No manifest rewrite, file mutation, or relaxed production release acceptance occurs.
+
+### Re-run safely in the separate review worktree
+
+```powershell
+cd C:\Users\User\kasa-academy-studio-review
+git fetch origin
+git switch --detach origin/review/studio-integrity-auditor-20261126
+node --test tests/studio-readonly-auditor.test.mjs
+node scripts/audit-studio-release.mjs
+git status --short
+```
+
+Expected if the hypothesis is correct: four source checks pass; audit reports **`lineEndingConverted: 10`, `mismatched: 0`, `matched: 3`**, still exits 1; clean worktree remains unchanged. If even one mismatch remains genuinely different after LF normalization, stop and investigate content. For correct cross-platform asset bytes in a future release, review targeted `.gitattributes` rules and fresh checkouts **separately**; do not normalize by rewriting files or rehashing the Windows checkout.
