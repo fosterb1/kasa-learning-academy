@@ -9,7 +9,7 @@ test('Studio auditor performs reads and hashes without writing release assets', 
   assert.match(source, /readFile/)
   assert.match(source, /readdir/)
   assert.match(source, /createHash\('sha256'\)/)
-  assert.match(source, /summary\.mismatched \|\| summary\.missing \|\| summary\.untracked/)
+  assert.match(source, /summary\.mismatched \|\| summary\.lineEndingConverted \|\| summary\.missing \|\| summary\.untracked/)
   assert.doesNotMatch(source, /\bwriteFile\b|\bappendFile\b|\brename\b|\bunlink\b|\bcopyFile\b|\bexec\b|\bspawn\b/)
 })
 
@@ -30,4 +30,13 @@ test('audit is not wired to a release or deployment command', async () => {
   const pkg = JSON.parse(await read('package.json'))
   assert.doesNotMatch(pkg.scripts.build, /audit-studio-release/)
   assert.doesNotMatch(pkg.scripts.dev, /audit-studio-release/)
+})
+
+test('CRLF normalization only diagnoses drift and never approves mismatched raw assets', async () => {
+  const source = await read('scripts/audit-studio-release.mjs')
+  assert.match(source, /line-ending-conversion/)
+  assert.match(source, /normalizedSha === record\.sha256/)
+  assert.match(source, /normalized\.length === record\.bytes/)
+  assert.match(source, /summary\.lineEndingConverted/)
+  assert.doesNotMatch(source, /\bwriteFile\b|\bappendFile\b/)
 })
