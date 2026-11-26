@@ -1,6 +1,6 @@
 # G2.4.8 — One-time token URL privacy checkpoint
 
-**Status:** committed to development branch; Windows TypeScript, regression, smoke and live browser flows **not yet verified**.
+**Status:** maintainer reported **PASS** for revised local automated checks (2026-11-26). Exact count and full output not supplied in this confirmation. **Live browser reset and verification flows remain unverified.**
 
 ## Changes
 
