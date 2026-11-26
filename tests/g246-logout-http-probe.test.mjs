@@ -19,7 +19,7 @@ test('probe tests login cookie, authenticated me, logout, signed-out me and old-
   assert.match(s, /\/api\/learners\/me/)
   assert.match(s, /\/api\/learners\/logout/)
   assert.match(s, /const replay = await call/)
-  assert.match(s, /SECURITY OBSERVATION: pre-logout cookie is STILL accepted/)
+  assert.match(s, /SECURITY OBSERVATION: original cookie is STILL accepted/)
   assert.match(s, /finally \{/)
   assert.match(s, /await payload\.delete\(/)
   assert.doesNotMatch(s, /console\.log\((email|password|cookie|record\._verificationToken)/)
