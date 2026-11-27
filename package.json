@@ -18,7 +18,8 @@
     "bootstrap:admin": "node --env-file=.env.local --import tsx scripts/bootstrap-admin.ts",
     "seed": "node --env-file=.env.local --import tsx scripts/seed.ts",
     "test:smoke": "node --test tests/*.test.mjs",
-    "test:g2-auth": "node --env-file=.env.local --import tsx scripts/test-g2-learner-auth.ts"
+    "test:g2-auth": "node --env-file=.env.local --import tsx scripts/test-g2-learner-auth.ts",
+    "test:g2-recovery": "node --env-file=.env.local --import tsx scripts/test-g2-learner-recovery.ts"
   },
   "dependencies": {
     "@payloadcms/db-postgres": "3.93.0",

@@ -60,6 +60,7 @@ export function LearnerLogin() {
       <button className="button button-primary" disabled={busy}>{busy ? 'Signing in…' : 'Sign in'}</button>
     </form>
     {message && <p role="alert" className="learner-auth-message">{message}</p>}
+    <p><Link href="/forgot-password">Forgot your password?</Link></p>
     <p><Link href="/learn">Continue learning without signing in →</Link></p>
     <small>Public registration is not enabled yet. Only approved development learner accounts can sign in during the G2 preview.</small>
   </div>
